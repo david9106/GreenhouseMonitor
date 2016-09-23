@@ -21,7 +21,7 @@ void sleep_cpu_sec(uint8_t secs){
  * function based on function made by Don Kinzer (http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1207226548/11#11)
 */
 char * get_string_float(float num, char fstr[4]){
-  fstr = null;
+  fstr = 0x0;
   if(int(num) < 255){    
     fstr[0] = (char) int(num);
     fstr[1] = '.';  
@@ -61,7 +61,7 @@ void loop() {
   sleep_cpu_sec(300); //Sensar cada 5 mins
 
   /* sensar*/
-  unint16_t light_value = LightSensor_Read();
+  uint16_t light_value = LightSensor_Read();
   float heat_value = HTsensor_ReadTemperatureC();
   float rh_value = HTsensor_ReadHumidity();
   
