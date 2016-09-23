@@ -34,25 +34,25 @@ void setup() {
     uint8_t net[3]=NETKEY;    
     delay(3000);
     Serial.begin(38400);
-    Serial.println("UART0: Inicializado");
+    //Serial.println("UART0: Inicializado");
     
     LEDs_Ini();    
-    Serial.println("Leds: Inicializados");
+    //Serial.println("Leds: Inicializados");
     
     LightSensor_Ini(); 
-    Serial.println("Light Sensor: Inicializado");
+    //Serial.println("Light Sensor: Inicializado");
     
     HTsensor_Ini();
-    Serial.println("H&T Sensor: Inicializado");
+    //Serial.println("H&T Sensor: Inicializado");
     
     RadioLT_NetIni( net, LOCAL_ADDR, DEST_ADDR );   
-    Serial.println("Network: Inicializada");
+    //Serial.println("Network: Inicializada");
  
     RTC_Ini();
-    Serial.println("Real Tiempo Clock: Inicializado");
+    //Serial.println("Real Tiempo Clock: Inicializado");
       
     RadioLT_Ini(); 
-    Serial.println("RF module: Inicializado");
+    //Serial.println("RF module: Inicializado");
     
 }
 
