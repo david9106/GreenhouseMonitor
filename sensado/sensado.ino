@@ -16,19 +16,19 @@ void sleep_cpu_sec(uint8_t secs){
  }
 
 /*by Rafael Karosuo
- * ****CONVERTS FLOAT TO STRING WITH 2 DEC VALUES
+ * ****CONVERTS FLOAT TO STRING WITH 2 DEC VALUES, not bigger values than 255
  * fstr -> float string, 4 spaces, {int val, point, dec val, null term}
  * function based on function made by Don Kinzer (http://www.arduino.cc/cgi-bin/yabb2/YaBB.pl?num=1207226548/11#11)
 */
-char * get_string_float(float num, char fstr[4]){
-  fstr = 0x0;
+void get_string_float(float num, char fstr[4]){
   if(int(num) < 255){    
     fstr[0] = (char) int(num);
     fstr[1] = '.';  
     fstr[2] = (num - int(num))*100; //2 dec positions
   }
-    return fstr;
  }
+
+ char 
 
 void setup() {
     uint8_t net[3]=NETKEY;    
