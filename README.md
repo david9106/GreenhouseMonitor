@@ -1,13 +1,14 @@
-# IS-Repo-Equipo2
-##Wireless sensor network applied to greenhouse monitoring via cloud access
-IS Primer Repo
+Prototipo poyecto funcionando
+Funcionando:
 
-hola mundo desde git - David
+*Comunicacion via RF entre lisandras.
 
-hola mundo desde git - Karosuo
+*Comunicacion Serial entre lisandra y rpi.
 
-Hola mudno desde git - osbel
+*Sensado (raw)en lisandra emisor.
 
-HOLA MUNDO DESDE GIT - Erick
+*Llenado de trama (bytes raw)en lisandra emisor.
 
-hola mundo desde git -martin
+*Recepcion de trama (bytes raw) y conversion a uint16_t en lisandra receptor.
+
+*Conversion de valores seriales en unidades de medida en rpi.
