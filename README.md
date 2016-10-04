@@ -10,4 +10,4 @@ Hola mudno desde git - osbel
 
 HOLA MUNDO DESDE GIT - Erick
 
-hola mundo desde git - martin
+Hola mundo desde git - martin
