@@ -20,10 +20,12 @@ class Censado(db.Model):
 	def addTime(self, when)
 		self.when = when
 		
-	def viewDate(self, day, month, year)
+	#Funcion para buscar censados entre fechas	
+	def viewDate(self, day, month, year, day_2, month_2, year_2)
 		query_str = "SELECT * FROM Censado WHERE when >= DATE(-"+str(year)+",-"+str(month)+",-"+str(day)+")"
 		return db.GqlQuery(query_str)
 	
+	#Funcion para buscar censados en horas
 	def viewTime(self, hour, minute, second)
-		query_str = "SELECT * FROM Censado WHERE when >= DATE(-"+str(hour)+",-"+str(minute)+",-"+str(second)+")"
+		query_str = "SELECT * FROM Censado WHERE when >= TIME(-"+str(hour)+",-"+str(minute)+",-"+str(second)+")"
 		return db.GqlQuery(query_str)
