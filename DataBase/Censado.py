@@ -5,7 +5,6 @@ class Censado(db.Model):
 	id = db.StringProperty(required=True)
 	type = db.StringProperty(required=True)
 	value = db.FloatProperty(required=True)
-	#when = db.DateTimeProperty(auto_now_add=True)
 	when = db.DateTimeProperty(required=True)
 	
 	def addID(self, id):
