@@ -23,7 +23,7 @@ class Shout(db.Model):
 	message = db.StringProperty(required=True)
 	when = db.DateTimeProperty(auto_now_add=True)
 	
-def addToDB():
+#def addToDB():
 
 class MainPage(webapp2.RequestHandler):
      def get(self):    
