@@ -6,33 +6,33 @@ class Censado(db.Model):
 	type = db.StringProperty(required=True)
 	value = db.FloatProperty(required=True)
 	when = db.DateTimeProperty(required=True)
-	
-	""" Agregar nuevo id de sensor """
+		
 	def set_ID(self, id):
+	""" Agregar nuevo id de sensor """
 		try:
 			id = str(id)
 			self.id = id
 		except ValueError:
 			print("No es un ID permitido")
 
-	"""Agregar nuevo id de Modulo LiSANDRA """
 	def set_LiSANDRA(self, id_LiSANDRA):
+	"""Agregar nuevo id de Modulo LiSANDRA """
 		try:
 			id_LiSANDRA = int(id_LiSANDRA)
 			self.id_LiSANDRA = id_LiSANDRA
 		except ValueError:
 			print("ID de LiSANDRA no permitido")
 	
-	""" Agregar tipo de la medicion hecha """
 	def set_Type(self, type):
+	""" Agregar tipo de la medicion hecha """		
 		try:
 			type = str(type)
 			self.type = type
 		except ValueError:
 			print("Tipo de censado no permitido")
 
-	""" Agregar el valor de la medicion realizada"""
 	def set_Value(self, value):
+	""" Agregar el valor de la medicion realizada"""		
 		try:
 			value = float(value)
 			self.value = value
@@ -42,13 +42,14 @@ class Censado(db.Model):
 	#Funcion para guardar en Base de Datos	
 	def set_In_DB(self):
 		self.put()
-	""" Agregar Fecha y tiempo en que se realizo la medicion """
+		
 	def set_Time(self, when):
+	""" Agregar Fecha y tiempo en que se realizo la medicion """		
 		self.when = when
 		self.put()
 
-	"""Funcion que muestra todo lo que esta """
 	def All(self):
+	"""Funcion que muestra todo lo que esta """
 		query_str = "SELECT * FROM Eventos"
 		return db.GqlQuery(query_str)
 
