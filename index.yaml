@@ -1,0 +1,10 @@
+indexes:
+-kind: Censado
+ ancestor: no
+ properties:
+ -name: type
+  direction: desc
+ -name: value
+  direction: desc
+ -name: when
+  direction: desc
