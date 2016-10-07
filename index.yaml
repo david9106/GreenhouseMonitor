@@ -1,10 +1,8 @@
 indexes:
--kind: Censado
+-kind: Shout
  ancestor: no
  properties:
- -name: type
-  direction: desc
- -name: value
-  direction: desc
+ -name: message
+  direction: asc
  -name: when
-  direction: desc
+  direction: asc

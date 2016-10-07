@@ -5,7 +5,9 @@
   </head>
   <body>
     <h1>GreenHouse Sensors</h1>
-	
+		{%for shout in shouts %}
+		<div>{{shout.message}}</div>
+		{% endfor %}
 	<form action="" method="post" accept-charset="utf-8">
 		<p><input type = "text" name = "message" value = "" id ="message"></p>
 		<p><input type = "submit" value="Subir!"></p>
