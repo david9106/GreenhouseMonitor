@@ -4,7 +4,7 @@ class Censado(db.Model):
 	id_LiSANDRA = db.StringProperty(required=True)
 	type = db.StringProperty(required=True)
 	value = db.FloatProperty(required=True)
-	when = db.DateTimeProperty(required=True)
+	when = db.DateTimeProperty(auto_now_add=True)
 
 	def set_LiSANDRA(self, id_LiSANDRA):
 	"""Agregar nuevo id de Modulo LiSANDRA """
@@ -34,18 +34,15 @@ class Censado(db.Model):
 	def save_In_DB(self):
 		self.put()
 		
-	def set_Time(self, when):
-	""" Agregar Fecha y tiempo en que se realizo la medicion """		
-		self.when = when
-
 	def get_All(self):
 	"""Funcion que muestra todo lo que esta """
 		query_str = "SELECT * FROM Censado"
 		return db.GqlQuery(query_str)
 
 	#Funcion para buscar censados entre fechas
-	def view_Date(self, type, value, date_1, date_2):
-		#query_str = "SELECT * FROM Censado WHERE when >= DATETIME('-"+date_1+"') AND when <= DATETIME('-"+date_2+"')"
-		query_str = "SELECT :type, :value FROM Censado WHERE when >= DATETIME(:date_1) AND when <= DATETIME(:date_2)"
-		#SELECT * FROM Shout WHERE when >= DATETIME('2013-09-29T09:30:20.00002-08:00') AND when <= DATETIME('2016-09-29T09:30:20.00002-08:00')
-		return db.GqlQuery(query_str, type, value, date_1, date_2)
+	def view_Date(self, date_1, date_2):
+		return db.GqlQuery("SELECT * FROM Censado WHERE when >= DATE(:2) AND when <= DATE(:3)", self, date_1, date_2)
+	
+	#Funcion para buscar censados entre tiempo	
+	def view_Time(self, date_1, time_1, time_2):
+		return(db.GqlQuery("SELECT * FROM Censado WHERE when < DATETIME(':1 :2') AND when > DATETIME(':3 :4')"),date_1, time_1, date_1, time_2)
