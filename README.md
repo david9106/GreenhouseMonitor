@@ -26,3 +26,7 @@ Funciones implementadas:
 *Recepcion de trama (bytes raw) y conversion a uint16_t en lisandra receptor.
 
 *Conversion de valores seriales en unidades de medida en rpi.
+
+*Agregado el modulo .py para enviar json
+
+*Agregado el modulo .py para escribir en archivo (solo para pruebas)
