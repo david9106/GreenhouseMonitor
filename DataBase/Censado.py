@@ -40,9 +40,7 @@ class Censado(db.Model):
 		return db.GqlQuery(query_str)
 
 	#Funcion para buscar censados entre fechas
-	def view_Date(self, date_1, date_2):
-		return db.GqlQuery("SELECT * FROM Censado WHERE when >= DATE(:1) AND when <= DATE(:2)", date_1, date_2)
-	
-	#Funcion para buscar censados entre tiempo	
-	def view_Time(self, date_1, time_1, time_2):
-		return(db.GqlQuery("SELECT * FROM Censado WHERE when < DATETIME(':1 :2') AND when > DATETIME(':3 :4')"),date_1, time_1, date_1, time_2)
+	def view_Date(self, date_1, date_2, time_1, time_2):
+		return db.GqlQuery("SELECT * FROM Censado WHERE when >= DATETIME(':1 :2') AND when < DATETIME(':3 :4'", date_1, date_2, time_1, time_2)
+		#return db.GqlQuery("SELECT * FROM Censado WHERE when >= DATE(:1) AND when <= DATE(:2)", date_1, date_2)
+		#"SELECT * FROM Shout WHERE when > DATETIME('2016-08-06 15:30:03') AND when < DATETIME('2016-10-06 22:00:00'
