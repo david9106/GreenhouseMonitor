@@ -1,8 +1,0 @@
-indexes:
--kind: Shout
- ancestor: no
- properties:
- -name: message
-  direction: asc
- -name: when
-  direction: asc

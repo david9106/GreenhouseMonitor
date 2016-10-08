@@ -4,7 +4,7 @@ class Censado(db.Model):
 	id_LiSANDRA = db.StringProperty(required=True)
 	type = db.StringProperty(required=True)
 	value = db.FloatProperty(required=True)
-	when = db.DateTimeProperty(auto_now_add=True)
+	when = db.DateTimeProperty(auto_nos_add=True)
 
 	def set_LiSANDRA(self, id_LiSANDRA):
 	"""Agregar nuevo id de Modulo LiSANDRA """
@@ -41,7 +41,7 @@ class Censado(db.Model):
 
 	#Funcion para buscar censados entre fechas
 	def view_Date(self, date_1, date_2):
-		return db.GqlQuery("SELECT * FROM Censado WHERE when >= DATE(:2) AND when <= DATE(:3)", date_1, date_2)
+		return db.GqlQuery("SELECT * FROM Censado WHERE when >= DATE(:1) AND when <= DATE(:2)", date_1, date_2)
 	
 	#Funcion para buscar censados entre tiempo	
 	def view_Time(self, date_1, time_1, time_2):
