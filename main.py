@@ -32,7 +32,7 @@ class MainPage(webapp2.RequestHandler):
 		time_1 = '22:00:00'
 		time_2 = '23:00:00'
 		
-		shouts = db.GqlQuery("SELECT * FROM Shout WHERE when < DATETIME('2016-10-06 22:30:03') AND when > DATETIME('2016-09-06 22:30:03')",date_1, time_1, date_1, time_2)#,time_1,time_2 ) #si jala
+		shouts = db.GqlQuery("SELECT * FROM Shout WHERE when < DATETIME('2016-10-06 22:30:03') AND when > DATETIME('2016-09-06 22:30:03')")#,time_1,time_2 ) #si jala
 		values = {
 			'shouts' : shouts
 		}
