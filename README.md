@@ -1,21 +1,8 @@
-# IS-Repo-Equipo2
 ##Wireless sensor network applied to greenhouse monitoring via cloud access
-IS Primer Repo
-
-hola mundo desde git - David
-
-hola mundo desde git - Karosuo
-
-Hola mudno desde git - osbel
-
-HOLA MUNDO DESDE GIT - Erick
-
-Hola mundo desde git - martin
 
 Funciones implementadas:
 
-*Comunicacion via RF entre lisandras.
-
+*Comunicacion via RF entre módulos de sensado LiSANDRA.
 
 *Comunicacion Serial entre lisandra y rpi.
 
@@ -30,3 +17,7 @@ Funciones implementadas:
 *Agregado el modulo .py para enviar json
 
 *Agregado el modulo .py para escribir en archivo (solo para pruebas)
+
+*Receptor de módulos json en el server, por medio de requests POST
+
+*Modelo de BD no relacional para guardar los datos sensados
