@@ -1,0 +1,5 @@
+#chartdiv {
+  width: 90%;
+  height: 500px;
+  margin: auto; /*Auto center horizontally*/
+}
