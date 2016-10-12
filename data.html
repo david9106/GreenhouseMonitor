@@ -2,8 +2,15 @@
 <html>
   <body>
     <h1>GreenHouse Sensors</h1>
-		{%for shout in shouts %}
-		<div>{{shout.message}}</div>
+		{% for sensor in sensors %}
+		<div>{{sensor.id_LiSANDRA}}</div>
+		<div>{{sensor.type}}</div>
+		<div>{{sensor.value}}</div>
+		<p>----------------</p>
 		{% endfor %}
+	<form action="" method="post" accept-charset="utf-8">
+		<p><input type="submit" name="busca" value="ver!" id="busca"></p>
+		</div>
+	</form>
   </body>
 </html>
