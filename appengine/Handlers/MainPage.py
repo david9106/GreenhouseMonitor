@@ -27,4 +27,6 @@ class CSV_provider(webapp2.RequestHandler):
 
 class Graph_display(webapp2.RequestHandler):
 	def get(self):
-		self.response.write('Main graph page responding...')
+		archivo_html = open('Templates/index.html','r')
+		#self.response.write('Main graph page responding...')
+		self.response.write(archivo_html.read())
