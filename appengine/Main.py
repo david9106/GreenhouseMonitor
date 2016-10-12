@@ -3,7 +3,7 @@ from Handlers import Parser,MainPage
 							
 app = webapp2.WSGIApplication([
     ('/set_sensors',Parser.Json_parser),
-    ('/get_csv', MainPage.Graph_display),
+    ('/get_csv', MainPage.CSV_provider),
     ('/', MainPage.Graph_display)
 ], debug=False)
 
