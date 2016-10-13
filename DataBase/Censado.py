@@ -1,4 +1,5 @@
 from google.appengine.ext import db
+import datetime
 
 class Shout(db.Model):
 	message = db.StringProperty(required=True)
@@ -7,14 +8,14 @@ class Shout(db.Model):
 class Censado(db.Model):
 	id_LiSANDRA = db.StringProperty(required=True)
 	type = db.StringProperty(required=True)
-	value = db.StringProperty(required=True)
-	#value = db.FloatProperty(required=True)
+	#value = db.StringProperty(required=True)
+	value = db.FloatProperty(required=True)
 	when = db.DateTimeProperty(auto_now_add=True)
 
 	def set_LiSANDRA(self, id_LiSANDRA):
 	#Agregar nuevo id de Modulo LiSANDRA
 		try:
-			id_LiSANDRA = int(id_LiSANDRA)
+			id_LiSANDRA = str(id_LiSANDRA)
 			self.id_LiSANDRA = id_LiSANDRA
 		except ValueError:
 			print("ID de LiSANDRA no permitido")
@@ -44,8 +45,6 @@ class Censado(db.Model):
 		query_str = "SELECT * FROM Censado"
 		return db.GqlQuery(query_str)
 
-	#Funcion para buscar censados entre fechas
-	def view_Date(self, date_1, date_2, time_1, time_2):
-		return db.GqlQuery("SELECT * FROM Censado WHERE when >= DATETIME(':1 :2') AND when < DATETIME(':3 :4'", date_1, date_2, time_1, time_2)
-		#return db.GqlQuery("SELECT * FROM Censado WHERE when >= DATE(:1) AND when <= DATE(:2)", date_1, date_2)
-		#"SELECT * FROM Shout WHERE when > DATETIME('2016-08-06 15:30:03') AND when < DATETIME('2016-10-06 22:00:00'
+	#Funcion para buscar censados entre fechas y tiempos
+	def view_Date(self, year, month, day, month_2, day_2, hr, min, hr_2, min_2, type):
+		return Censado.all().filter('when >',datetime.datetime(year,month,day)).filter('when <',datetime.datetime(year,month_2,day_2)).filter('type =',type).fetch(None)

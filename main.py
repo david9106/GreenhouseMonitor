@@ -35,9 +35,9 @@ class Json_parser(webapp2.RequestHandler):
 		if self.request.get('busca'):
 			#sensor = Censado.Censado(id_LiSANDRA = jdata['Id'], type = 'Centigrados', value = jdata['temperatura'])
 			#sensor.put()
-			#sensors = db.GqlQuery("SELECT * FROM Censado WHERE when > DATETIME('2016-10-11 01:00:00') AND when < DATETIME('2016-10-12 22:00:00')")
+			sensor = Censado.all().filter('when >',datetime.datetime(2016,10,1)).filter('when <',datetime.datetime(2016,10,10)).filter('type =','Centigrados')
 			sensor = Censado.all().filter('when <',datetime.datetime.now()).filter('type =','Centigrados')
-			sensors = sensor.fetch(10)
+			sensors = sensor.fetch(None)
 			values={'sensors': sensors}
 			self.response.out.write(template.render('data.html',values))
 
