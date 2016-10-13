@@ -1,15 +1,23 @@
 import webapp2
 import json
 import cgi
+import datetime
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from DataBase import Censado
+#from DataBase import Censado
 
 #jsonToPython = json.loads(data)
 #class Shout(db.Model):
 #	message = db.StringProperty(required=True)
 #	when = db.DateTimeProperty(auto_now_add=True)
+class Censado(db.Model):
+	id_LiSANDRA = db.StringProperty(required=True)
+	type = db.StringProperty(required=True)
+	value = db.StringProperty(required=True)
+	#value = db.FloatProperty(required=True)
+	when = db.DateTimeProperty(auto_now_add=True)
+
 class Echo_parser(webapp2.RequestHandler):
 	messg = 0
 	def get(self):
@@ -27,7 +35,9 @@ class Json_parser(webapp2.RequestHandler):
 		if self.request.get('busca'):
 			#sensor = Censado.Censado(id_LiSANDRA = jdata['Id'], type = 'Centigrados', value = jdata['temperatura'])
 			#sensor.put()
-			sensors = db.GqlQuery("SELECT * FROM Censado")
+			#sensors = db.GqlQuery("SELECT * FROM Censado WHERE when > DATETIME('2016-10-11 01:00:00') AND when < DATETIME('2016-10-12 22:00:00')")
+			sensor = Censado.all().filter('when <',datetime.datetime.now()).filter('type =','Centigrados')
+			sensors = sensor.fetch(10)
 			values={'sensors': sensors}
 			self.response.out.write(template.render('data.html',values))
 
