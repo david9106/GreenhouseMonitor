@@ -1,10 +1,8 @@
-# -*- coding: utf-8 -*-
 import webapp2
 from BDHandler import *
 
 class CSV_provider(webapp2.RequestHandler):
 	def get(self):
-		#Algo mas
 		sensor_type = self.request.get("sensor_type")
 		self.response.headers['Content-Type'] = 'text/csv'
 		
@@ -24,9 +22,13 @@ class CSV_provider(webapp2.RequestHandler):
 			csv_string+= ','.join([sensor_entity.type, str(sensor_entity.value), str(sensor_entity.when), str(sensor_entity.id_LiSANDRA)])
 			csv_string+='\n'
 		return csv_string	
+		
+class JSON_like_provider(webapp2.RequestHandler):
+	def get(self):
+		sensor_type = self.request.get("sensor_type")
+		
 
 class Graph_display(webapp2.RequestHandler):
 	def get(self):
 		archivo_html = open('Templates/index.html','r')
-		#self.response.write('Main graph page responding...')
 		self.response.write(archivo_html.read())

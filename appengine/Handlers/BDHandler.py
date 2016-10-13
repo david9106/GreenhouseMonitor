@@ -17,11 +17,15 @@ def alta_sensor(tipo_sensor,medicion,hora_sensado,id_LiSANDRA):
 def get_this_year_measures(tipo_sensor):
 	"""Get all the measures with that type of sensor, of this year"""
 	list_from_database = [] #Simulates the iterator returned by GQLquery
-	for counter in range(0,25):
+	now = datetime.datetime.now() #Get today's full date
+	for counter in range(0,25):		
 		x = Censado.Censado() #Gets an instance of Censado class, to simulate a sensor
+		
+		x.set_Time(now) #One measure per day
+		now += datetime.timedelta(days=1)
 		x.set_Type(tipo_sensor)
 		x.set_Value(round(random.uniform(29,39), 2)) #Simulates 2 decimal random btw 29 to 39
-		x.set_LiSANDRA(str(round(random.randint(1,3), 2)))
+		x.set_LiSANDRA(str(random.randint(1,3)))
 		list_from_database.append(x)
 	return list_from_database
 		

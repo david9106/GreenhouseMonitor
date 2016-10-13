@@ -8,8 +8,11 @@ class Censado(db.Model):
 	type = db.StringProperty()
 	value = db.FloatProperty()
 	id_LiSANDRA = db.StringProperty()
-	when = db.DateTimeProperty(auto_now_add=True)
+	when = db.DateTimeProperty()
 
+	def set_Time(self, new_date):
+		'''Temporal method to add different dates'''
+		self.when = new_date
 
 	def set_LiSANDRA(self, id_LiSANDRA):
 		"""Agregar nuevo id de Modulo LiSANDRA """

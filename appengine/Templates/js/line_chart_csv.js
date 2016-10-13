@@ -1,102 +1,117 @@
 //AmCharts.loadFile( "https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-160/22300.csv", {}, function( response ) {
-AmCharts.loadFile( "http://localhost:8080/get_csv?sensor_type=Temperatura", {}, function( response ) {
+//AmCharts.loadFile( "http://localhost:8080/get_csv?sensor_type=Temperatura", {}, function( response ) {
+/**
+ * Init some variables for demo purposes
+ */
+var day = 0;
+var firstDate = new Date();
+firstDate.setDate( firstDate.getDate() - 500 );
 
+/**
+ * Function that generates random data
+ */
+function generateChartData() {
+  var chartData = [];
+  /*for ( day = 0; day < 50; day++ ) {
+    var newDate = new Date( firstDate );
+    newDate.setDate( newDate.getDate() + day );
 
-  /**
-   * Parse CSV
-   */
-  var data = AmCharts.parseCSV( response, {
-    "useColumnNames": true
-  } );
+    var visits = Math.round( Math.random() * 40 ) - 20;
 
+    chartData.push( {
+      "date": newDate,
+      "visits": visits
+    } );
+  }*/
+  var myBlob;
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', 'http://localhost:8080/get_csv?sensor_type=Temperatura', true);
+	xhr.responseType = 'blob';
+	xhr.onload = function(e) {
+		if (this.status == 200) {
+			myBlob = this.response;
+			//alert(myBlob);
+		// myBlob is now the blob that the object URL pointed to.
+			return myBlobl;
+		}
+	};
+	xhr.send();
+ 
+
+  return chartData;
+}
+
+/**
+ * Create the chart
+ */
 var chart = AmCharts.makeChart( "chartdiv", {
   "type": "serial",
+  "dataLoader":{
+			"url": "http://localhost:8080/get_csv?sensor_type=Temperatura",
+			"format":"csv",
+			"delimiter":",",
+			"useColumnNames": true,
+			"skip":1
+			},
   "theme": "light",
-  "dataDateFormat": "YYYY-MM-DD",
-  "graphs": [ {
-    "id": "g1",
-    "bullet": "round",
-    "bulletBorderAlpha": 1,
-    "bulletColor": "#FFFFFF",
-    "bulletSize": 5,
-    "hideBulletsCount": 50,
-    "lineThickness": 2,
-    "title": "red line",
-    "useLineColorForBulletBorder": true,
-    "valueField": "value"
-  } ],
-  "chartScrollbar": {
-    "graph": "g1",
-    "oppositeAxis": false,
-    "offset": 30,
-    "scrollbarHeight": 80,
-    "backgroundAlpha": 0,
-    "selectedBackgroundAlpha": 0.1,
-    "selectedBackgroundColor": "#888888",
-    "graphFillAlpha": 0,
-    "graphLineAlpha": 0.5,
-    "selectedGraphFillAlpha": 0,
-    "selectedGraphLineAlpha": 1,
-    "autoGridCount": true,
-    "color": "#AAAAAA"
+  "zoomOutButton": {
+    "backgroundColor": '#000000',
+    "backgroundAlpha": 0.15
   },
-  "chartCursor": {
-    "cursorAlpha": 1,
-    "cursorColor": "#258cbb"
-  },
-  "categoryField": "date",
+  "categoryField": "Fecha",
   "categoryAxis": {
     "parseDates": true,
-    "equalSpacing": true,
-    "gridPosition": "middle",
+    "minPeriod": "mm",
     "dashLength": 1,
-    "minorGridEnabled": true
+    "gridAlpha": 0.15,
+    "axisColor": "#DADADA"
   },
-  "zoomOutOnDataUpdate": false,
-  "listeners": [ {
-    "event": "init",
-    "method": function( e ) {
+  "graphs": [ {
+    "id": "g1",
+    "valueField": "Valor",
+    "bullet": "round",
+    "bulletBorderColor": "#FFFFFF",
+    "bulletBorderThickness": 2,
+    "lineThickness": 2,
+    "lineColor": "#b5030d",
+    "negativeLineColor": "#0352b5",
+    "hideBulletsCount": 50
+  } ],
+  "chartCursor": {
+    "cursorPosition": "mouse"
+  },
+  "chartScrollbar": {
+    "graph": "g1",
+    "scrollbarHeight": 40,
+    "color": "#FFFFFF",
+    "autoGridCount": true
+  }
+} )
 
-      /**
-       * Pre-zoom
-       */
-      e.chart.zoomToIndexes( e.chart.dataProvider.length - 40, e.chart.dataProvider.length - 1 );
+chart.categoryAxis.dateFormats = [{
+    period: 'fff',
+    format: 'JJ:NN:SS'
+}, {
+    period: 'ss',
+    format: 'JJ:NN:SS'
+}, {
+    period: 'mm',
+    format: 'JJ:NN'
+}, {
+    period: 'hh',
+    format: 'JJ:NN'
+}, {
+    period: 'DD',
+    format: 'MMM DD'
+}, {
+    period: 'WW',
+    format: 'MMM DD'
+}, {
+    period: 'MM',
+    format: 'MMM YYYY'
+}, {
+    period: 'YYYY',
+    format: 'MMM YYYY'
+}];
 
-      /**
-       * Add click event on the plot area
-       */
-      e.chart.chartDiv.addEventListener( "click", function() {
-
-        // we track cursor's last known position by "changed" event
-        if ( e.chart.lastCursorPosition !== undefined ) {
-          // get date of the last known cursor position
-          var date = e.chart.dataProvider[ e.chart.lastCursorPosition ][ e.chart.categoryField ];
-          
-          // require user to enter annotation text
-          var text = window.prompt("Enter annotation","");
-
-          // create a new guide
-          var guide = new AmCharts.Guide();
-          guide.date = date;
-          guide.lineAlpha = 1;
-          guide.lineColor = "#c44";
-          guide.label = text;
-          guide.position = "top";
-          guide.inside = true;
-          guide.labelRotation = 90;
-          e.chart.categoryAxis.addGuide( guide );
-          e.chart.validateData();
-        }
-      } )
-    }
-  }, {
-    "event": "changed",
-    "method": function( e ) {
-      /**
-       * Log cursor's last known position
-       */
-      e.chart.lastCursorPosition = e.index;
-    }
-  } ]
-  
-  } );
+chart.dataProvider = [{lineColor: "#b7e021"}];
