@@ -114,4 +114,4 @@ chart.categoryAxis.dateFormats = [{
     format: 'MMM YYYY'
 }];
 
-chart.dataProvider = [{lineColor: "#b7e021"}];
+	
