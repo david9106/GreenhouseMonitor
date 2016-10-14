@@ -1,14 +1,13 @@
 from google.appengine.ext import db
+import datetime
 
 class Censado(db.Model):
-	#type = db.StringProperty(required=True)
-	#value = db.FloatProperty(required=True)
-	#id_LiSANDRA = db.StringProperty(required=True)
-	#when = db.DateTimeProperty(auto_now_add=True)
-	type = db.StringProperty()
-	value = db.FloatProperty()
 	id_LiSANDRA = db.StringProperty()
-	when = db.DateTimeProperty()
+	type = db.StringProperty()
+	#value = db.StringProperty()
+	value = db.FloatProperty()
+	when = db.DateTimeProperty(auto_now_add=True)
+
 
 	def set_Time(self, new_date):
 		'''Temporal method to add different dates'''
@@ -34,8 +33,8 @@ class Censado(db.Model):
 		except ValueError:
 			print("Valor del sensor debe ser flotante")
 			
-	#Funcion para guardar en Base de Datos	
 	def save_In_DB(self):
+	"""Funcion para guardar en Base de Datos"""
 		self.put()
 		
 	def get_All(self):
@@ -43,8 +42,6 @@ class Censado(db.Model):
 		query_str = "SELECT * FROM Censado"
 		return db.GqlQuery(query_str)
 
-	#Funcion para buscar censados entre fechas
-	def view_Date(self, date_1, date_2, time_1, time_2):
-		return db.GqlQuery("SELECT * FROM Censado WHERE when >= DATETIME(':1 :2') AND when < DATETIME(':3 :4'", date_1, date_2, time_1, time_2)
-		#return db.GqlQuery("SELECT * FROM Censado WHERE when >= DATE(:1) AND when <= DATE(:2)", date_1, date_2)
-		#"SELECT * FROM Shout WHERE when > DATETIME('2016-08-06 15:30:03') AND when < DATETIME('2016-10-06 22:00:00'
+	def get_Data(self, date_1, date_2, type):
+		"""Funcion para buscar censados entre fechas y tiempos"""
+		return Censado.all().filter('when >',datetime.datetime(date_1.year, date_1.month, date_1.day, date_1.hour, date_1.minutes)).filter('when <',datetime.datetime(date_2.year, date_2.month, date_2.day, date_2.hour, date_2.minutes)).filter('type =',type).fetch(None)
