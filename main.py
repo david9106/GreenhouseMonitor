@@ -35,16 +35,20 @@ class Json_parser(webapp2.RequestHandler):
 		if self.request.get('busca'):
 			#sensor = Censado.Censado(id_LiSANDRA = jdata['Id'], type = 'Centigrados', value = jdata['temperatura'])
 			#sensor.put()
-			sensor = Censado.all().filter('when >',datetime.datetime(2016,10,1)).filter('when <',datetime.datetime(2016,10,10)).filter('type =','Centigrados')
-			sensor = Censado.all().filter('when <',datetime.datetime.now()).filter('type =','Centigrados')
-			sensors = sensor.fetch(None)
+			#sensor = Censado.all().filter('when >',datetime.datetime(2016,10,1)).filter('when <',datetime.datetime(2016,10,10)).filter('type =','Centigrados')
+			#sensor = Censado.all().filter('when <',datetime.datetime.now()).filter('type =','Centigrados')
+			#sensors = sensor.fetch(None)
+			snesors = view_Date(Censado.Censado, 2016, 10, 11, 10 )
 			values={'sensors': sensors}
 			self.response.out.write(template.render('data.html',values))
 
 
 	def get(self):
 		 self.response.out.write(template.render('data.html', {}))
-		
+	
+	def view_Date(self, year, month, day, month_2, day_2, hr, min, hr_2, min_2, type):
+		return self.all().filter('when >',datetime.datetime(year,month,day)).filter('when <',datetime.datetime(year,month_2,day_2)).filter('type =',type).fetch(None)
+	
 
 app = webapp2.WSGIApplication([
     ('/', Json_parser),

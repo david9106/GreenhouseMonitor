@@ -1,10 +1,6 @@
 from google.appengine.ext import db
 import datetime
 
-class Shout(db.Model):
-	message = db.StringProperty(required=True)
-	when = db.DateTimeProperty(auto_now_add=True)
-	
 class Censado(db.Model):
 	id_LiSANDRA = db.StringProperty(required=True)
 	type = db.StringProperty(required=True)
@@ -29,22 +25,22 @@ class Censado(db.Model):
 			print("Tipo de censado no permitido")
 
 	def set_Value(self, value):
-	#Agregar el valor de la medicion realizada
+	"""Agregar el valor de la medicion realizada"""
 		try:
 			value = float(value)
 			self.value = value
 		except ValueError:
 			print("Valor del sensor debe ser flotante")
 			
-	#Funcion para guardar en Base de Datos	
 	def save_In_DB(self):
+	"""Funcion para guardar en Base de Datos"""
 		self.put()
 		
 	def get_All(self):
-	#Funcion que muestra todo lo que esta
+	"""Funcion que muestra todo lo que esta"""
 		query_str = "SELECT * FROM Censado"
 		return db.GqlQuery(query_str)
 
-	#Funcion para buscar censados entre fechas y tiempos
-	def view_Date(self, year, month, day, month_2, day_2, hr, min, hr_2, min_2, type):
-		return Censado.all().filter('when >',datetime.datetime(year,month,day)).filter('when <',datetime.datetime(year,month_2,day_2)).filter('type =',type).fetch(None)
+	def get_Data(self, date_1, date_2, type):
+		"""Funcion para buscar censados entre fechas y tiempos"""
+		return Censado.all().filter('when >',datetime.datetime(date_1.year, date_1.month, date_1.day, date_1.hour, date_1.minutes)).filter('when <',datetime.datetime(date_2.year, date_2.month, date_2.day, date_2.hour, date_2.minutes)).filter('type =',type).fetch(None)
