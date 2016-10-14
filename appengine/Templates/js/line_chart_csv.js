@@ -12,17 +12,7 @@ firstDate.setDate( firstDate.getDate() - 500 );
  */
 function generateChartData() {
   var chartData = [];
-  /*for ( day = 0; day < 50; day++ ) {
-    var newDate = new Date( firstDate );
-    newDate.setDate( newDate.getDate() + day );
-
-    var visits = Math.round( Math.random() * 40 ) - 20;
-
-    chartData.push( {
-      "date": newDate,
-      "visits": visits
-    } );
-  }*/
+ 
   var myBlob;
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', 'http://localhost:8080/get_csv?sensor_type=Temperatura', true);

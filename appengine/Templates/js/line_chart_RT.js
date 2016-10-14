@@ -3,6 +3,8 @@ var chartData = []; //all the data displayed
 var chartCursor; //Visually marks where the mouse is on the graph
 var json_url = 'http://localhost:8080/get_json?sensor_type=Temperatura'; //The URL from the JSON is loaded
 var reload_interval = 10000; //Sets how often must to be reloaded the info from server
+
+
 /**By Mathias
  * at https://mathiasbynens.be/notes/xhr-responsetype-json*/
 var getJSON = function(url, successHandler, errorHandler) {
@@ -33,6 +35,21 @@ function generateChartData() {
 		alert('Something went wrong.');
 	});
 }
+
+//Configure Month names in spanish
+AmCharts.monthNames = [
+  'Enero',
+  'Febrero',
+  'Marzo',
+  'Abril',
+  'Mayo',
+  'Junio',
+  'Julio',
+  'Agosto',
+  'Septiembre',
+  'Octubre',
+  'Noviembre',
+  'Diciembre'];
 
 // create chart
 AmCharts.ready(function() {
@@ -106,6 +123,7 @@ AmCharts.ready(function() {
         // remove datapoint from the beginning
         chart.dataProvider.shift();
 		
+		///Get last sensed value
 		getJSON(json_url, function(data) {
 			chartData.push({
 				date: data[data.length-1].Fecha,
