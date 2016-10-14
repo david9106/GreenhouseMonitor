@@ -1,5 +1,5 @@
 import webapp2
-from BDHandler import *
+from Handlers import BDHandler
 import json
 
 class CSV_provider(webapp2.RequestHandler):

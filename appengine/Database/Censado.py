@@ -34,7 +34,7 @@ class Censado(db.Model):
 			print("Valor del sensor debe ser flotante")
 			
 	def save_In_DB(self):
-	"""Funcion para guardar en Base de Datos"""
+		"""Funcion para guardar en Base de Datos"""
 		self.put()
 		
 	def get_All(self):
