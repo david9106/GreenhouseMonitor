@@ -1,6 +1,8 @@
 from google.appengine.ext import db
 import datetime
 
+from dateutil import parser #Temporal, just for date parsing
+
 class Censado(db.Model):
 	id_LiSANDRA = db.StringProperty()
 	type = db.StringProperty()
@@ -10,28 +12,47 @@ class Censado(db.Model):
 
 
 	def set_Time(self, new_date):
-		'''Temporal method to add different dates'''
-		self.when = new_date
-
+		'''Temporal method to add dates, if it's not datetime, it tries to convert it'''
+		if isinstance(new_date, datetime.datetime):
+			self.when = new_date
+			return True
+		else:
+			try:
+				self.when = datetime.datetime.strptime(new_date, '%Y-%m-%d %H:%M:%S')
+			except ValueError:
+				print("Formato de fecha no valido, debe ser datetime o string")
+				return False
+	
+	
+	
 	def set_LiSANDRA(self, id_LiSANDRA):
 		"""Agregar nuevo id de Modulo LiSANDRA """
-		self.id_LiSANDRA = id_LiSANDRA
+		try:
+			self.id_LiSANDRA = int(id_LiSANDRA)
+			return True
+		except ValueError:
+			print("id_LiSANDRA debe ser ENTERO")
+			return False
 	
 	def set_Type(self, type):
 		""" Agregar tipo de la medicion hecha """		
 		try:
 			type = str(type)
 			self.type = type
+			return True
 		except ValueError:
 			print("Tipo de censado no permitido")
+			return False
 
 	def set_Value(self, value):
 		""" Agregar el valor de la medicion realizada"""		
 		try:
 			value = float(value)
 			self.value = value
+			return True
 		except ValueError:
 			print("Valor del sensor debe ser flotante")
+			return False
 			
 	def save_In_DB(self):
 		"""Funcion para guardar en Base de Datos"""
