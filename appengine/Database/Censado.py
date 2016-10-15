@@ -4,9 +4,9 @@ import datetime
 class Censado(db.Model):
 	id_LiSANDRA = db.StringProperty()
 	type = db.StringProperty()
-	#value = db.StringProperty()
 	value = db.FloatProperty()
-	when = db.DateTimeProperty(auto_now_add=True)
+	#when = db.DateTimeProperty(auto_now_add=True)
+	when = db.DateTimeProperty()
 
 
 	def set_Time(self, new_date):
