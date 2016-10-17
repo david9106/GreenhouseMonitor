@@ -2,13 +2,13 @@ from Database import Limites
 
 def new_Alert(identifier, sensor_type, max_value, min_value)
 	limit = Limites.Alertas()
-	limit.set_Valor_Max(identifier, sensor_type, max_value)
-	limit.set_Valor_min(identifier, sensor_type, min_value)
+	limit.set_Valor_Max(sensor_type, max_value)
+	limit.set_Valor_min(sensor_type, min_value)
 	limit.save_alert()
 	
-def get_Max_Value(identifier):
+def get_Max_Value(sensor_type):
 	"""Funcion que retorna el valor maximo del tipo de censado"""
-	max_of = Limites.Alertas.get_by_key_name(identifier)
+	max_of = Limites.Alertas.get_by_key_name(sensor_type)
 	if max_of:
 		return max_of.max
 	else:
@@ -16,7 +16,7 @@ def get_Max_Value(identifier):
 	
 def get_min_Value(type):
 	"""Funcion que retorna el valor minimo del tipo de censado"""
-	min_of = Limites.Alertas.get_by_key_name(identifier)
+	min_of = Limites.Alertas.get_by_key_name(sensor_type)
 	if min_of:
 		return min_of.min
 	else:
