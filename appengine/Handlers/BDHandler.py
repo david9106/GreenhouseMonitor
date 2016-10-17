@@ -61,3 +61,7 @@ def get_measures_between_dates(tipo_sensor, start_date, end_date):
 	"""Get all the sensor measures between some dates"""
 	#Depends on how the user inputs the dates, probably a jquery calendar, so checking it's output will give the formatting needed
 
+def get_data_between_dates(date_1, date_2, sensor_type):
+	"""Funcion para buscar censados entre fechas y tiempos"""
+	censados = Censado.all().filter('when >',datetime.datetime(date_1.year, date_1.month, date_1.day, date_1.hour, date_1.minutes)).filter('when <',datetime.datetime(date_2.year, date_2.month, date_2.day, date_2.hour, date_2.minutes)).filter('type =',type).fetch(None)
+	return censados
