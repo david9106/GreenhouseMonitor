@@ -33,15 +33,26 @@ void setup() {
 void loop() {
   /*Esperamos a recibir un paquete*/
  if( RadioLT_AvailablePkt() > 0 ){
-		   /*Obtenemos el paquete*/
+     /*Obtenemos el paquete*/
            RadioLT_GetPkt( &mypkt );
+     String str(mypkt.data);
+     if(str.length()<5){
+         Serial.print(mypkt.data);
+         
+         Serial.println();
+         
+     }
+     else{
+		   
 		   /*Se envia al raspberry*/
+           
            enviarSerieRPI(mypkt.data);
 		   /*blink de recibido*/
            LEDs_Ylw_On();
            delay(5);
            LEDs_Ylw_Off();
-       }
+     }
+  }
 
 }
 
