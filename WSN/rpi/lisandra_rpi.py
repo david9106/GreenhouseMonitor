@@ -83,14 +83,25 @@ while True:
                 data = comm.readline()
                 recibido=True
         if recibido:
-                #mostramos el numero de paquete
-                print ("-------------------------------------------")
-                print ("paquete: "+str(cnt))
-                #mostramos la data recibida completa
-                print (data)
-                recibido=False
-				#Llamamos a la funcion encargada de obtener las mediciones en base a lo recibido
-                obtenerMediciones(data)
-                cnt +=1
-                #vaciamos la variable
-                data = ''
+        	    #comprobamos que no sea una alerta de Bateria baja
+	        	if data == "BATL":
+		        		print ("-----------------------ALERTA----------")
+		        		#mostramos la data recibida completa
+				        print (data)
+				        recibido=False
+		                #llamamos la funcion sengMsg del script sms.py
+				        sms.sendMsg()
+				        data = ''
+	            
+	            else:    
+				        #mostramos el numero de paquete
+				        print ("-------------------------------------------")
+				        print ("paquete: "+str(cnt))
+				        #mostramos la data recibida completa
+				        print (data)
+				        recibido=False
+						#Llamamos a la funcion encargada de obtener las mediciones en base a lo recibido
+				        obtenerMediciones(data)
+				        cnt +=1
+				        #vaciamos la variable
+				        data = ''
