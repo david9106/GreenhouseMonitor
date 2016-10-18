@@ -13,7 +13,7 @@ class CSV_provider(webapp2.RequestHandler):
 		
 	def form_csv(self,sensor_type):
 		"""Extract data from objects and format it as CSV string"""
-		this_year_measures = get_this_year_measures(sensor_type)
+		this_year_measures = BDHandler.get_this_year_measures(sensor_type)
 		csv_string = ','.join(['Tipo_sensor','Valor','Fecha','id-LiSANDRA_(Ubicacion)']) #Title headers
 		csv_string+='\n'
 		for sensor_entity in this_year_measures:
@@ -32,7 +32,7 @@ class JSON_provider(webapp2.RequestHandler):
 		
 	def form_json(self, sensor_type):
 		"""Extracts data from objects and forms the json like format string"""
-		this_year_measures = get_this_year_measures(sensor_type)
+		this_year_measures = BDHandler.get_this_year_measures(sensor_type)
 		obj_list = []
 		for sensor_obj in this_year_measures:
 			obj = {}

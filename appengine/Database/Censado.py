@@ -1,14 +1,11 @@
 from google.appengine.ext import db
 import datetime
 
-from dateutil import parser #Temporal, just for date parsing
-
 class Censado(db.Model):
 	id_LiSANDRA = db.StringProperty()
 	type = db.StringProperty()
 	value = db.FloatProperty()
-	#when = db.DateTimeProperty(auto_now_add=True)
-	when = db.DateTimeProperty()
+	when = db.DateTimeProperty(auto_now_add=True)
 
 
 	def set_Time(self, new_date):
@@ -27,12 +24,8 @@ class Censado(db.Model):
 	
 	def set_LiSANDRA(self, id_LiSANDRA):
 		"""Agregar nuevo id de Modulo LiSANDRA """
-		try:
-			self.id_LiSANDRA = int(id_LiSANDRA)
-			return True
-		except ValueError:
-			print("id_LiSANDRA debe ser ENTERO")
-			return False
+		self.id_LiSANDRA = id_LiSANDRA
+		return True
 	
 	def set_Type(self, type):
 		""" Agregar tipo de la medicion hecha """		
@@ -64,5 +57,9 @@ class Censado(db.Model):
 		return db.GqlQuery(query_str)
 
 	def get_Data(self, date_1, date_2, type):
-		"""Funcion para buscar censados entre fechas y tiempos"""
-		return Censado.all().filter('when >',datetime.datetime(date_1.year, date_1.month, date_1.day, date_1.hour, date_1.minutes)).filter('when <',datetime.datetime(date_2.year, date_2.month, date_2.day, date_2.hour, date_2.minutes)).filter('type =',type).fetch(None)
+		"""Funcion para buscar censados entre fechas y tiempos"""			
+		if isinstance(date_1, datetime.datetime) and isinstance(date_2, datetime.datetime):
+			return Censado.all().filter('when >',date_1).filter('when <',date_2).filter('type =',type).fetch(None)
+		else:
+			return None
+		#return Censado.all().filter('when >',datetime.datetime(date_1.year, date_1.month, date_1.day, date_1.hour, date_1.minutes)).filter('when <',datetime.datetime(date_2.year, date_2.month, date_2.day, date_2.hour, date_2.minutes)).filter('type =',type).fetch(None)

@@ -2,17 +2,16 @@
 from Database import Censado 
 
 
-import random #Temporal import, to be able to generate random numbers to simulate measures
+#import random #Temporal import, to be able to generate random numbers to simulate measures
 
-def alta_sensor(tipo_sensor,medicion,hora_sensado,id_LiSANDRA):
+def alta_sensor(tipo_sensor,medicion,id_LiSANDRA):
 	"""Save entire sensor data on DB"""
 	sensor = Censado.Censado()
 	if sensor.set_Type(tipo_sensor):
 		if sensor.set_Value(medicion):
-			if sensor.set_Time(hora_sensado):
-				if sensor.set_LiSANDRA(id_LiSANDRA):
-					sensor.save_In_DB()
-					return True
+			if sensor.set_LiSANDRA(id_LiSANDRA):
+				sensor.save_In_DB()
+				return True
 	return False
 	
 	

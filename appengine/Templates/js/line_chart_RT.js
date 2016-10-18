@@ -1,7 +1,8 @@
 var chart; //The chart object
 var chartData = []; //all the data displayed
 var chartCursor; //Visually marks where the mouse is on the graph
-var json_url = 'http://localhost:8080/get_json?sensor_type=Temperatura'; //The URL from the JSON is loaded
+//var json_url = 'http://localhost:8080/get_json?sensor_type=Temperatura'; //The URL from the JSON is loaded
+var json_url = 'https://sensado-invernadero.appspot.com/get_json?sensor_type=Temperatura'; //The URL from the JSON is loaded
 var reload_interval = 10000; //Sets how often must to be reloaded the info from server
 
 
@@ -120,21 +121,21 @@ AmCharts.ready(function() {
         // and remove the value from the beginning so that
         // we get nice sliding graph feeling
         
-        // remove datapoint from the beginning
-        chart.dataProvider.shift();
+        /// remove datapoint from the beginning
+        //chart.dataProvider.shift();
 		
 		///Get last sensed value
-		getJSON(json_url, function(data) {
+		/*getJSON(json_url, function(data) {
 			chartData.push({
 				date: data[data.length-1].Fecha,
 				sensor_property: data[data.length-1].Valor
 			});
 		}, function(status) {
 			alert('Something went wrong.');
-		});
+		});*/
         
-        //Update graph
-        chart.validateData();
+        ///Update graph
+        //chart.validateData();
     }, reload_interval);
 });
 
