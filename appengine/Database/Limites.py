@@ -5,26 +5,24 @@ class Alertas(db.Model):
 	max = db.FloatProperty()
 	min = db.FloatProperty()
 	
-	def set_Valor_Max(self,valor_Max):
-		"""Funcion que verifica si ya existe una alerta de un valor maximo de un tipo de sensado, si existe la actualiza si no crea una nueva"""
-		sensor_aux = Alertas.get_or_insert(self)
-		if sensor_aux == None:
-			sensor_aux.name_type = self
-			sensor_aux.max = valor_Max
-		else:
-			sensor_aux.name_type = self
-			sensor_aux.max = valor_Max
-
-	def set_Valor_Min(self, valor_min):
-		"""Funcion que verifica si ya existe una alerta de un valor minimo de un tipo de sensado, si existe la actualiza si no crea una nueva"""
-		sensor_aux = Alertas.get_or_insert(self)
-		if sensor_aux == None:
-			sensor_aux.name_type = self
-			sensor_aux.max = valor_min
-		else:
-			sensor_aux.name_type = self
-			sensor_aux.max = valor_min
-
+	def set_type_sensor(self, sensor_type)
+		try:
+			self.type_sensor = str(sensor_type)
+		except ValueError:
+			print("The name of the sensor type must be a string")
+			
+	def set_max(self,max_Value)
+		try:
+			self.max = float(max_Value)
+		except ValueError:
+			print("Max value must be a floting point number")
+	
+	def set_min(self,min_Value)
+		try:
+			self.min = float(min_Value)
+		except ValueError:
+			print("Max value must be a floting point number")
+			
 	def save_alert(self):
 		"""Guardar alerta creada en Base de Datos"""
 		self.put()

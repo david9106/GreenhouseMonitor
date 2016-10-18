@@ -1,10 +1,28 @@
 from Database import Limites
+	
+def set_Max_Alert(sensor_type,valor_Max):
+	"""Funcion que verifica si ya existe una alerta de un valor maximo de un tipo de sensado, si existe la actualiza si no crea una nueva"""
+	sensor_aux = Limites.Alertas.get_or_insert(sensor_type)
+	if sensor_aux == None:
+		sensor_aux.name_type = set_type_sensor(sensor_type)
+		sensor_aux.max = set_max(valor_Max)
+		sensor_aux.save_alert()
+	else:
+		sensor_aux.name_type = set_type_sensor(sensor_type)
+		sensor_aux.max = set_max(valor_Max)
+		sensor_aux.save_alert()
 
-def new_Alert(sensor_type, max_value, min_value)
-	limit = Limites.Alertas()
-	limit.set_Valor_Max(sensor_type, max_value)
-	limit.set_Valor_min(sensor_type, min_value)
-	limit.save_alert()
+def set_Min_Alert(sensor_type, valor_min):
+	"""Funcion que verifica si ya existe una alerta de un valor minimo de un tipo de sensado, si existe la actualiza si no crea una nueva"""
+	sensor_aux = Limites.Alertas.get_or_insert(sensor_type)
+	if sensor_aux == None:
+		sensor_aux.name_type = set_type_sensor(sensor_type)
+		sensor_aux.min = set_min(valor_min)
+		sensor_aux.save_alert()
+	else:
+		sensor_aux.name_type = set_type_sensor(sensor_type)
+		sensor_aux.min = set_min(valor_min)
+		sensor_aux.save_alert()
 	
 def get_Max_Value(sensor_type):
 	"""Funcion que retorna el valor maximo del tipo de censado"""
