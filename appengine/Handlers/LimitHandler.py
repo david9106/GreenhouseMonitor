@@ -1,6 +1,6 @@
 from Database import Limites
 
-def new_Alert(identifier, sensor_type, max_value, min_value)
+def new_Alert(sensor_type, max_value, min_value)
 	limit = Limites.Alertas()
 	limit.set_Valor_Max(sensor_type, max_value)
 	limit.set_Valor_min(sensor_type, min_value)
