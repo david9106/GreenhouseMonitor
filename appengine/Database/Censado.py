@@ -63,7 +63,7 @@ class Censado(db.Model):
 		query_str = Censado.all()
 		return query_str
 
-	def get_Data(date_1, date_2, type):
+	def get_data_between_dates(date_1, date_2, type):
 		"""Funcion para buscar censados entre fechas y tiempos"""
 		censados = Censado.all().filter('when >',datetime.datetime(date_1.year, date_1.month, date_1.day, date_1.hour, date_1.minutes)).filter('when <',datetime.datetime(date_2.year, date_2.month, date_2.day, date_2.hour, date_2.minutes)).filter('type =',type).fetch(None)
 		return censados
