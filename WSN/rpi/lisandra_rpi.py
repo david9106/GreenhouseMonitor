@@ -57,7 +57,7 @@ def ajustarMediciones(temp,hum,luz,co2):
 	fecha = time.strftime('%d %b %y')
 	hora = time.strftime('%H:%M:%S')
 	sensores = {"temperatura":temp,"humedad":hum,"luz":luz,"CO2":co2,"fecha":fecha,"hora":hora} 
-	sendToServer.sendJson(sensores)
+	#sendToServer.sendJson(sensores)
 
 #funcion encargada de obtener las mediciones RAW de la trama recibida
 def obtenerMediciones(data):
@@ -71,37 +71,39 @@ def obtenerMediciones(data):
 	#llamamos a la funcion con los parametros obtenidos arriba
 	print "Mediciones ajustadas:"
 	ajustarMediciones(temp,hum,luz,co2)
-        
+		
 #inicializamos puerto serial
 comm = serial.Serial("/dev/ttyAMA0",38400,timeout=1)
 print "Reading..."
 #Ciclo principal
 while True:
-        #Verificamos si hay datos en el buffer de entrada del serial
-        while comm.inWaiting() >0:
+		#Verificamos si hay datos en el buffer de entrada del serial
+		while comm.inWaiting() >0:
 				#De haberlos se lee hasta que se encuentre un  fin de linea
-                data = comm.readline()
-                recibido=True
-        if recibido:
-        	    #comprobamos que no sea una alerta de Bateria baja
-	        	if data == "BATL":
-		        		print ("-----------------------ALERTA----------")
-		        		#mostramos la data recibida completa
-				        print (data)
-				        recibido=False
-		                #llamamos la funcion sengMsg del script sms.py
-				        sms.sendMsg()
-				        data = ''
-	            
-	            else:    
-				        #mostramos el numero de paquete
-				        print ("-------------------------------------------")
-				        print ("paquete: "+str(cnt))
-				        #mostramos la data recibida completa
-				        print (data)
-				        recibido=False
+				data = comm.readline()
+				recibido=True
+		if recibido:
+   
+				print(data)
+				#comprobamos que no sea una alerta de Bateria baja
+				if data == "BATL":
+						print ("-----------------------ALERTA----------")
+						#mostramos la data recibida completa
+						print (data)
+						recibido=False
+						#llamamos la funcion sengMsg del script sms.py
+						sms.sendMsg()
+						data = ''
+				
+				else:    
+						#mostramos el numero de paquete
+						print ("-------------------------------------------")
+						print ("paquete: "+str(cnt))
+						#mostramos la data recibida completa
+						print (data)
+						recibido=False
 						#Llamamos a la funcion encargada de obtener las mediciones en base a lo recibido
-				        obtenerMediciones(data)
-				        cnt +=1
-				        #vaciamos la variable
-				        data = ''
+						obtenerMediciones(data)
+						cnt +=1
+						#vaciamos la variable
+						data = ''

@@ -35,11 +35,11 @@ void loop() {
  if( RadioLT_AvailablePkt() > 0 ){
      /*Obtenemos el paquete*/
            RadioLT_GetPkt( &mypkt );
+           
      String str(mypkt.data);
      if(str.length()<5){
-         Serial.print(mypkt.data);
-         
-         Serial.println();
+           Serial.print(mypkt.data);
+           Serial.println();
          
      }
      else{
