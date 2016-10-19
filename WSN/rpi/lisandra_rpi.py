@@ -85,9 +85,9 @@ while True:
 				recibido=True
 		if recibido:
    
-				print(len(data))
-				#comprobamos que no sea una alerta de Bateria baja
-				if len(data) < 7:
+			
+				#comprobamos que no sea una alerta de Bateria bajas
+				if  "BATL" in data:
 						print ("-----------------------ALERTA----------")
 						#mostramos la data recibida completa
 						print (data)
@@ -97,7 +97,7 @@ while True:
 						data = ''
 				
 				else:    
-						#mostramos el numero de paquete
+						#mostramos el numero de paquete						
 						print ("-------------------------------------------")
 						print ("paquete: "+str(cnt))
 						#mostramos la data recibida completa
