@@ -5,6 +5,7 @@ import json
 import write
 import time
 import sendToServer
+import sms
 
 #Variable que recibira la trama de datos
 data = ''
@@ -84,9 +85,9 @@ while True:
 				recibido=True
 		if recibido:
    
-				print(data)
+				print(len(data))
 				#comprobamos que no sea una alerta de Bateria baja
-				if data == "BATL":
+				if len(data) < 7:
 						print ("-----------------------ALERTA----------")
 						#mostramos la data recibida completa
 						print (data)
