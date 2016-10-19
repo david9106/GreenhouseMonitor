@@ -38,8 +38,8 @@ void loop() {
            
      String str(mypkt.data);
      if(str.length()<5){
-           Serial.println(mypkt.data);
-           
+           Serial.print(mypkt.data);
+           Serial.println();
          
      }
      else{
