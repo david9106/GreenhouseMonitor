@@ -1,8 +1,8 @@
 var chart; //The chart object
 var chartData = []; //all the data displayed
 var chartCursor; //Visually marks where the mouse is on the graph
-//var json_url = 'http://localhost:8080/get_json?sensor_type=Temperatura'; //The URL from the JSON is loaded
-var json_url = 'https://sensado-invernadero.appspot.com/get_json?sensor_type=Temperatura'; //The URL from the JSON is loaded
+var json_url = 'http://localhost:8080/get_json?sensor_type=Temperatura'; //The URL from the JSON is loaded
+//var json_url = 'https://sensado-invernadero.appspot.com/get_json?sensor_type=Temperatura'; //The URL from the JSON is loaded
 var reload_interval = 10000; //Sets how often must to be reloaded the info from server
 
 
@@ -27,6 +27,8 @@ var getJSON = function(url, successHandler, errorHandler) {
 function generateChartData() {    
     getJSON(json_url, function(data) {
 		for (i in data){
+			alert(data[i].Fecha);
+			alert(data[i].Valor);
 			chartData.push({
 				date: data[i].Fecha,
 				sensor_property: data[i].Valor

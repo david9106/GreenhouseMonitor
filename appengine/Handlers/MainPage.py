@@ -1,6 +1,7 @@
 import webapp2
 from Handlers import BDHandler
 import json
+import cgi
 
 class CSV_provider(webapp2.RequestHandler):
 	def get(self):
@@ -48,3 +49,22 @@ class Graph_display(webapp2.RequestHandler):
 	def get(self):
 		archivo_html = open('Templates/index.html','r')
 		self.response.write(archivo_html.read())
+
+
+class Config_provider(webapp2.RequestHandler):
+	def post(self):
+		try:
+			#Read json object from cgi safe characters cleaned string
+			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
+			
+			#Updates the current configured phone number on DB
+			jdata["Telefono"] = '6641234567'
+			
+			#Answers it to client
+			self.response.write(json.dumps(jdata))
+		except (ValueError, TypeError):
+			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
+			self.response.write("Not a JSON object")
+			
+	def get(self):
+		self.response.write("You shouldn't be here...")
