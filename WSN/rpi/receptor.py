@@ -35,8 +35,11 @@ while True:
                         print (data)
                         recibido=False
                         #llamamos la funcion sengMsg del script sms.py
-                        sms.sendMsg()
-                        data = ''
+                        
+                        json_dict = sendToServer.getconfig("Telefono:0")
+                        data = '' #Vaciar el dato
+                        print(json_dict["Telefono"])
+                        sms.sendMsg(json_dict["Telefono"])
                 
                 else:
                         #data=compara(data)
