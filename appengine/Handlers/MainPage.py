@@ -40,7 +40,7 @@ class JSON_provider(webapp2.RequestHandler):
 			obj['Tipo'] = '%s'%(sensor_obj.type)
 			obj['Valor'] = '%s'%(sensor_obj.value)
 			obj['Ubicacion'] = '%s'%(sensor_obj.id_LiSANDRA)
-			obj['Fecha'] = '%s'%(sensor_obj.when)
+			obj['Fecha'] = '%s'%(sensor_obj.when.strftime('%Y-%m-%d %H:%M:%S')) #Strip the microseconds part
 			obj_list.append(obj)
 		return obj_list
 		
@@ -58,7 +58,7 @@ class Config_provider(webapp2.RequestHandler):
 			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
 			
 			#Updates the current configured phone number on DB
-			jdata["Telefono"] = '6641234567'
+			jdata["Telefono"] = '6645380095'
 			
 			#Answers it to client
 			self.response.write(json.dumps(jdata))

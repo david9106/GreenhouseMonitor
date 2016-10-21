@@ -1,9 +1,9 @@
 var chart; //The chart object
 var chartData = []; //all the data displayed
 var chartCursor; //Visually marks where the mouse is on the graph
-var json_url = 'http://localhost:8080/get_json?sensor_type=Temperatura'; //The URL from the JSON is loaded
-//var json_url = 'https://sensado-invernadero.appspot.com/get_json?sensor_type=Temperatura'; //The URL from the JSON is loaded
-var reload_interval = 10000; //Sets how often must to be reloaded the info from server
+//var json_url = 'http://localhost:8080/get_json?sensor_type=Temperatura'; //The URL from the JSON is loaded
+var json_url = 'https://sensado-invernadero.appspot.com/get_json?sensor_type=Temperatura'; //The URL from the JSON is loaded
+var reload_interval = 30000; //Sets how often must to be reloaded the info from server, (milisecs)
 
 
 /**By Mathias
@@ -26,14 +26,14 @@ var getJSON = function(url, successHandler, errorHandler) {
 // Gets all data untill now on the DB
 function generateChartData() {    
     getJSON(json_url, function(data) {
-		for (i in data){
-			alert(data[i].Fecha);
-			alert(data[i].Valor);
+		var i;
+		for (i=0; i<data.length;i++){			
 			chartData.push({
 				date: data[i].Fecha,
 				sensor_property: data[i].Valor
 			});
-		}		
+		}
+						
 	}, function(status) {
 		alert('Something went wrong.');
 	});
@@ -56,12 +56,15 @@ AmCharts.monthNames = [
 
 // create chart
 AmCharts.ready(function() {
-    // generate some data first
+    
+	// generate some data first
     generateChartData();
 
     // SERIAL CHART    
     chart = new AmCharts.AmSerialChart();
-    chart.pathToImages = "http://www.amcharts.com/lib/images/";
+    
+    //chart.pathToImages = "http://www.amcharts.com/lib/images/";
+    chart.pathToImages = "/Templates/js/amcharts/images/";
     chart.marginTop = 0;
     chart.marginRight = 10;
     chart.autoMarginOffset = 5;
@@ -76,7 +79,7 @@ AmCharts.ready(function() {
     // category
     var categoryAxis = chart.categoryAxis;
     categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
-    categoryAxis.minPeriod = "DD"; // our data is daily, so we set minPeriod to DD
+    categoryAxis.minPeriod = "ss"; // we have sensor data with second accuracy
     categoryAxis.dashLength = 1;
     categoryAxis.gridAlpha = 0.15;
     categoryAxis.axisColor = "#DADADA";
@@ -123,21 +126,29 @@ AmCharts.ready(function() {
         // and remove the value from the beginning so that
         // we get nice sliding graph feeling
         
-        /// remove datapoint from the beginning
+        ///remove datapoint from the beginning
+        ///Was part of the example, but for our graph isn't useful
         //chart.dataProvider.shift();
 		
 		///Get last sensed value
-		/*getJSON(json_url, function(data) {
-			chartData.push({
-				date: data[data.length-1].Fecha,
-				sensor_property: data[data.length-1].Valor
-			});
+		getJSON(json_url, function(data) {
+			var limit = data.length - chartData.length; //Get how many values needs to be updated
+			var i;
+			if(limit != 0){ //Do it only if there's new data
+				for(i=0; i<limit; i++){
+					chartData.push({
+						date: data[chartData.length + i].Fecha,
+						sensor_property: data[chartData.length + i].Valor
+					});
+				}
+			}
+						
 		}, function(status) {
 			alert('Something went wrong.');
-		});*/
-        
+		});
+		        
         ///Update graph
-        //chart.validateData();
+        chart.validateData();
     }, reload_interval);
 });
 

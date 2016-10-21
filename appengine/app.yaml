@@ -11,6 +11,9 @@ handlers:
 
 - url: /Templates/js
   static_dir: Templates/js
+  
+- url: /Templates/js/amcharts/images
+  static_dir: Templates/js/amcharts/images
 
 - url: .*
   script: Main.app

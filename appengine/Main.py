@@ -6,7 +6,7 @@ app = webapp2.WSGIApplication([
     ('/get_csv', MainPage.CSV_provider),
     ('/', MainPage.Graph_display),
     ('/get_json', MainPage.JSON_provider),
-    ('/get_alert_config', MainPage.Config_provider)
+    ('/get_config', MainPage.Config_provider)
 ], debug=False)
 
 
