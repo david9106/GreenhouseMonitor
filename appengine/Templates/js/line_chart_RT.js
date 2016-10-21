@@ -134,7 +134,7 @@ AmCharts.ready(function() {
 		getJSON(json_url, function(data) {
 			var limit = data.length - chartData.length; //Get how many values needs to be updated
 			var i;
-			if(limit != 0){ //Do it only if there's new data
+			if(limit != 0 && data.length > 0){ //Do it only if there's new data
 				for(i=0; i<limit; i++){
 					chartData.push({
 						date: data[chartData.length + i].Fecha,
