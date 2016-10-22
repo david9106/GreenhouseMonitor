@@ -5,7 +5,7 @@ import urllib2
 import ssl
 
 url = "http://192.168.0.106/getjson/catchJson.php"
-url2 = "https://sensado-invernadero.appspot.com/get_alert_config"
+url2 = "https://sensado-invernadero.appspot.com/get_config"
 #url = "https://sensado-invernadero.appspot.com/set_sensors"
 #url = "https://redsensoreslisandra.appspot.com"
 headers = {'Content-type':'application/json'}
