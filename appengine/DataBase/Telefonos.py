@@ -2,8 +2,8 @@ from google.appengine.ext import db
 
 class UserPhone(db.Model):
 	user_id = db.Key()
-	user_name = db.String()
-	user_phone = db.Integer()
+	user_name = db.StringProperty()
+	user_phone = db.IntegerProperty()
 	
 	def set_userID(self, id):
 		try:
