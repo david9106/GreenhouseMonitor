@@ -15,5 +15,11 @@ handlers:
 - url: /Templates/js/amcharts/images
   static_dir: Templates/js/amcharts/images
 
+- url: /Templates/fonts
+  static_dir: Templates/fonts
+
+- url: /Templates/font
+  static_dir: Templates/font
+
 - url: .*
   script: Main.app
