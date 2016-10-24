@@ -1,7 +1,144 @@
-<link rel="stylesheet" type="text/css" href="Templates/css/main.css"/>
-<script src="Templates/js/amcharts/amcharts.js"></script>
-<script src="Templates/js/amcharts/serial.js"></script>
-<script src="Templates/js/amcharts/themes/dark.js"></script>
-<script src="Templates/js/line_chart_RT.js"></script>
-
-<div id="chartdiv"></div>				
+<!DOCTYPE html>
+<html lang="es">
+<html>
+	<head>
+		<title>Example</title><!--Titulo de mi web-->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1,maxium-scale=1,minum-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/estilos.css">
+	<link rel="stylesheet" href="css/fontello.css">
+	<link rel="stylesheet" type="text/css" href="Templates/css/main.css"/>
+	</head>
+	
+	<body>
+       <!--Menu Header-->
+       <div class="container">
+           <header>
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-1">
+                                <span class="sr-only">Menu</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a href="index.html" class="navbar-brand">LiSANDRA</a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbar-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="configuracion.html">Configuración <span class="glyphicon glyphicon-cog"></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+           </header>
+        </div>
+        <!--Datos generales donde se muestra la media de todos los sensores-->
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="center-block" style="width:240px;">Datos Generales:</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                   <div style="position:relative;">
+                        <span class="icon-sun center-block iconglobal" style="color:#f1c40f"></span>
+                        <p class="centrar datoglobal">1700 lx</p>
+                   </div>
+                    
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <span class="icon-temperatire center-block iconglobal" style="color:#e74c3c;"></span>
+                    <p class="centrar datoglobal">24°C</p>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <span class="icon-water center-block iconglobal" style="color:#3498db;"></span>
+                    <p class="centrar datoglobal">83%</p>
+                </div>
+            </div>
+            <br>
+        </div>
+        <!--Muestra de graficos por sensor-->
+        <main style="background:#ecf0f1">
+            
+        <div class="container">
+            <div class="row">
+                 <div class="col-xs-12">
+                    <h2 class="center-block" style="width:250px;">Datos Graficados:</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <h4 style="text-align:center">Iluminación:</h4>
+                    <div class="btn-group btn-group-justified">
+                        <a class="btn btn-group active" href="">Todo</a>
+                        <a class="btn btn-group" href="">Sensor 1</a>
+                        <a class="btn btn-group" href="">Sensor 2</a>
+                        <a class="btn btn-group" href="">Sensor 3</a>
+                    </div>
+                    <img src="https://upload.wikimedia.org/wikipedia/es/timeline/d241cb3b16d736cebc867dc86b45f5c9.png" class="img-responsive center-block">
+                </div>
+                <!--<div class="col-sm-12 col-md-4">
+                    <h4 style="text-align:center">Temperatura:</h4>
+                    <div class="btn-group btn-group-justified">
+                        <a class="btn btn-group active" href="">Todo</a>
+                        <a class="btn btn-group" href="">Sensor 1</a>
+                        <a class="btn btn-group" href="">Sensor 2</a>
+                        <a class="btn btn-group" href="">Sensor 3</a>
+                    </div>
+                    <img src="https://upload.wikimedia.org/wikipedia/es/timeline/d241cb3b16d736cebc867dc86b45f5c9.png" class="img-responsive center-block">
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <h4 style="text-align:center">Humedad:</h4>
+                    <div class="btn-group btn-group-justified">
+                        <a class="btn btn-group active" href="">Todo</a>
+                        <a class="btn btn-group" href="">Sensor 1</a>
+                        <a class="btn btn-group" href="">Sensor 2</a>
+                        <a class="btn btn-group" href="">Sensor 3</a>
+                    </div>
+                    <img src="https://upload.wikimedia.org/wikipedia/es/timeline/d241cb3b16d736cebc867dc86b45f5c9.png" class="img-responsive center-block">
+                </div>-->
+            </div>
+        </div>
+        <br>
+        </main>
+        <!--Muestra si los dispositivos tienen bateria-->
+        <div class="container">
+            <div class="row">
+                 <div class="col-xs-12">
+                    <h2 class="center-block" style="width:240px; text-align:center;">Energía:</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <h4 style="text-align:center">LiSANDRA 1:</h4>
+                    <span class="icon-flash center-block iconglobal full"></span>
+                    <p class="fullp" style="text-align:center"></p>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <h4 style="text-align:center">LiSANDRA 2:</h4>
+                    <span class="icon-flash center-block iconglobal full"></span>
+                    <p class="fullp" style="text-align:center"></p>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <h4 style="text-align:center">LiSANDRA 3:</h4>
+                    <span class="icon-flash center-block iconglobal empty"></span>
+                    <p class="emptyp" style="text-align:center"></p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" style="text-align:center;">
+          <div class="panel-body">UABC LiSANDRA 2016</div>
+          <div class="panel-footer">LiSANDRA Project</div>
+        </div>
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	    <script src="js/bootstrap.min.js"></script>
+	    <script src="Templates/js/amcharts/amcharts.js"></script>
+        <script src="Templates/js/amcharts/serial.js"></script>
+        <script src="Templates/js/amcharts/themes/dark.js"></script>
+        <script src="Templates/js/line_chart_RT.js"></script>
+	</body>
+</html>
