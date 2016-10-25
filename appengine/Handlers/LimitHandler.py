@@ -1,7 +1,10 @@
 from Database import Limites
 	
 def set_Max_Alert(sensor_type,valor_Max):
-	"""Funcion que verifica si ya existe una alerta de un valor maximo de un tipo de sensado, si existe la actualiza si no crea una nueva"""
+	"""This function verify if are a max alert of a sensor type on datastore, if it exist update
+	the old one if not the function create's a new one as arguments it receive's the
+	sensor_type: The type of the sensor alert
+	valor_Max: The max limit of the sensor type alert"""
 	sensor_aux = Limites.Alertas.get_or_insert(sensor_type)
 	if sensor_aux == None:
 		sensor_aux.set_type_sensor(sensor_type)

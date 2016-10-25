@@ -2,18 +2,27 @@ from google.appengine.ext import db
 import datetime
 
 class Censado(db.Model):
+	"""The Censado class is a db model that have the value's of a sensor type
+	and identify what type of sensor is
+	it have's the next attribute's:
+	id_LiSANDRA: it have the id of the LiSANDRA module allocated on the green house
+	type: it have's the type of the sensor value
+	value: is the value of the sensing parameter
+	when: have's the date and time when the sensor detect's something"""
 	id_LiSANDRA = db.StringProperty()
 	type = db.StringProperty()
 	value = db.FloatProperty()
 	when = db.DateTimeProperty(auto_now_add=True)
 
 	def set_LiSANDRA(self, id_LiSANDRA):
-		"""Agregar nuevo id de Modulo LiSANDRA """
+		"""This function add's the id of the LiSANDRA module to the Censado module, it have 
+		id_LiSANDRA as an argument"""
 		self.id_LiSANDRA = id_LiSANDRA
 		return True
 	
 	def set_Type(self, type):
-		""" Agregar tipo de la medicion hecha """		
+		""" This function add's wich type of sensing is the new Censado model
+		it receive the type as argument"""		
 		try:
 			type = str(type)
 			self.type = type
@@ -23,7 +32,8 @@ class Censado(db.Model):
 			return False
 
 	def set_Value(self, value):
-		""" Agregar el valor de la medicion realizada"""		
+		"""Funciton used to set the value of the sensing to store
+		the value is passed as argument"""		
 		try:
 			value = float(value)
 			self.value = value
@@ -33,16 +43,16 @@ class Censado(db.Model):
 			return False
 			
 	def save_In_DB(self):
-		"""Funcion para guardar en Base de Datos"""
+		"""Function used to store the new Censado model to the datastore"""
 		self.put()
 		
 	def get_All(self):
-		"""Funcion que muestra todo lo que esta """
+		"""This function get's all the sensing type's with value's"""
 		query_str = "SELECT * FROM Censado"
 		return db.GqlQuery(query_str)
 
 	def get_Data(self, date_1, date_2, type):
-		"""Funcion para buscar censados entre fechas y tiempos"""			
+		"""This function get's the sensing data between two dates"""			
 		if isinstance(date_1, datetime.datetime) and isinstance(date_2, datetime.datetime):
 			return Censado.all().filter('when >',date_1).filter('when <',date_2).filter('type =',type).fetch(None)
 		else:
