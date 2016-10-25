@@ -1,4 +1,4 @@
-from DataBase import Limites
+from Database import Limites
 	
 def set_Max_Alert(sensor_type,valor_Max):
 	"""Funcion que verifica si ya existe una alerta de un valor maximo de un tipo de sensado, si existe la actualiza si no crea una nueva"""

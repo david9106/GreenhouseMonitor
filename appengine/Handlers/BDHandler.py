@@ -1,5 +1,5 @@
 ﻿import datetime
-from DataBase import Censado 
+from Database import Censado 
 
 
 #import random #Temporal import, to be able to generate random numbers to simulate measures
