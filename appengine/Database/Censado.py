@@ -7,21 +7,6 @@ class Censado(db.Model):
 	value = db.FloatProperty()
 	when = db.DateTimeProperty(auto_now_add=True)
 
-
-	def set_Time(self, new_date):
-		'''Temporal method to add dates, if it's not datetime, it tries to convert it'''
-		if isinstance(new_date, datetime.datetime):
-			self.when = new_date
-			return True
-		else:
-			try:
-				self.when = datetime.datetime.strptime(new_date, '%Y-%m-%d %H:%M:%S')
-			except ValueError:
-				print("Formato de fecha no valido, debe ser datetime o string")
-				return False
-	
-	
-	
 	def set_LiSANDRA(self, id_LiSANDRA):
 		"""Agregar nuevo id de Modulo LiSANDRA """
 		self.id_LiSANDRA = id_LiSANDRA
