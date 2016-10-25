@@ -1,5 +1,5 @@
-# Monitoring System for Geen House - Server Module
-This module uses Google app engine and webapp2 framework, it's necessary deploy this app to the cloud to use the application.
+# Green House Monitoring System - Server Module
+This module uses Google app engine and webapp2 framework, it's necessary to deploy this app to the cloud to use the application.
 
 This part have the handlers for the database and the json parser funtions to print what data is entering to the database also
 this part have the templates for the web site of the application.
@@ -12,14 +12,14 @@ These instructions will get a copy of the project up and deployed on a live syst
 ##Prerequisites
 You need to have a Google account to deploy the app on Google Cloud Platform
 
-To make this application work you need create a new Cloud Platform Console project or use one project ID of an existing project form the Google Cloud Platform Console: https://console.cloud.google.com/iam-admin/projects?_ga=1.45758564.1991591100.1474994604
+To make this application work you need create a new Cloud Platform Console project or use one project ID of an existing project form the [Google Cloud Platform Console](https://console.cloud.google.com/iam-admin/projects?_ga=1.45758564.1991591100.1474994604)
 
-Next you need to download and install the Google Cloud SDK from https://cloud.google.com/sdk/docs/quickstart-windows then start the SDK shell and initilize the SDK, these instruction can be found in the previous url.
+Next you need to download and install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/quickstart-windows) then start the SDK shell and initilize it, these instruction can be found in the previous url.
 
 ## Deployment
 Clone this application to your local machine.
 
-Then you need to deploy the application using the SDK shell, first you have to move to the repository location:
+Then you have to deploy the application using the SDK shell, first you have to move to the repository location:
 
 ```
 cd IS-Repo-Equipo2/appengine
@@ -47,7 +47,7 @@ The SDK would ask if you want to deploy the application to the Google Cloud Plat
 * [Google App Engine](https://cloud.google.com/appengine/docs)
 * [Python 2.7](https://www.python.org/download/releases/2.7/)
 * [Twilio](https://www.twilio.com/) - voice & video messaging
-* [Amcharts](https://www.amcharts.com/)-JavaScript Charts & Maps
+* [Amcharts](https://www.amcharts.com/) - JavaScript Charts & Maps
 	
 ##Authors
  - G. Karosuo
@@ -55,8 +55,4 @@ The SDK would ask if you want to deploy the application to the Google Cloud Plat
  - Gutierrez David F.
  - Gutierrez Martin
  - Blanco Erick V.
- 
-##License
-
-##Acnowledgments
 
