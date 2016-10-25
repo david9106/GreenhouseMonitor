@@ -51,6 +51,7 @@ The SDK would ask if you want to deploy the application to the Google Cloud Plat
  - Gutierrez David F.
  - Gutierrez Martin
  - Blanco Erick V.
+ 
 ##License
 
 ##Acnowledgments
