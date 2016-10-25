@@ -1,10 +1,10 @@
-# IS-Repo-Equipo2
+# Monitoring System for Geen House - Server Module
 This module uses Google app engine and webapp2 framework, it's necessary deploy this app to the cloud to use the application.
-# Monitoring System for Geen House
-This part have the handlers for the database and the json parser funtions to print what data is entering to the database also
-this part have the templates for the web site of the application
 
-The final user is going to be able to interact with the database of the application to see all the measures on line graphic's in a web page. The user also can be able to interact with the application to modify if he need to change the maximun and minimun measure's rate for the sms alert system
+This part have the handlers for the database and the json parser funtions to print what data is entering to the database also
+this part have the templates for the web site of the application.
+
+The final user is going to be able to interact with the database of the application to see all the measures on line graphic's in a web page. The user also can be able to interact with the application to modify if he need to change the maximun and minimun measure's rate for the sms alert system.
 
 #Getting Started
 These instructions will get a copy of the project up and deployed on a live system (in this case Google Cloud Platform).
@@ -44,10 +44,10 @@ The SDK would ask if you want to deploy the application to the Google Cloud Plat
 - new_Alert: Used to save a new measure alert to the system
 
 ## Built With
-	- [Google App Engine](https://cloud.google.com/appengine/docs)
-	- [Python 2.7](https://www.python.org/download/releases/2.7/)
-	- [Twilio](https://www.twilio.com/)-voice & video messaging
-	- [Amcharts](https://www.amcharts.com/)-JavaScript Charts & Maps
+* [Google App Engine](https://cloud.google.com/appengine/docs)
+* [Python 2.7](https://www.python.org/download/releases/2.7/)
+* [Twilio](https://www.twilio.com/) - voice & video messaging
+* [Amcharts](https://www.amcharts.com/)-JavaScript Charts & Maps
 	
 ##Authors
  - G. Karosuo
