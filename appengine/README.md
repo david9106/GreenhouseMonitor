@@ -44,7 +44,11 @@ The SDK would ask if you want to deploy the application to the Google Cloud Plat
 - new_Alert: Used to save a new measure alert to the system
 
 ## Built With
-
+	- [Google App Engine](https://cloud.google.com/appengine/docs)
+	- [Python 2.7](https://www.python.org/download/releases/2.7/)
+	- [Twilio](https://www.twilio.com/)-voice & video messaging
+	- [Amcharts](https://www.amcharts.com/)-JavaScript Charts & Maps
+	
 ##Authors
  - G. Karosuo
  - Islas Alejandro
