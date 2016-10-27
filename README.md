@@ -17,8 +17,8 @@ It is also responsible for handling battery alerts and shipments to
 server.
 
 Contents:
-* lisandra_receiver: Module for receiving information on measurements made by the sensors
-* lisandra_transmitter: Module responsible for sending information on measurements made by the sensors
+* [lisandra_receiver](https://github.com/david9106/IS-Repo-Equipo2/tree/martin_branch/WSN/lisandra_receiver): Module for receiving information on measurements made by the sensors
+* [lisandra_transmitter](https://github.com/david9106/IS-Repo-Equipo2/tree/martin_branch/WSN/lisandra_transmitter): Module responsible for sending information on measurements made by the sensors
 * [rpi](https://github.com/david9106/IS-Repo-Equipo2/tree/master/WSN/rpi): Module responsible for alerts,processing and sending measurements data to the server
 
 ##Appengine
