@@ -1,10 +1,22 @@
 from google.appengine.ext import db
 
-class Alertas(db.Model):
+class SensorLimits(db.Model):
 	type_sensor = db.Key()
 	max = db.FloatProperty()
 	min = db.FloatProperty()
+	disable_alerts = db.BooleanProperty()
 	
+	def __init__(self):
+		self.disable_alerts = True
+		self.max = 0.0
+		self.min= 0.0
+		
+	def set_disable_alerts(self, new_status):
+		if isinstance(new_status, bool):
+			self.disable_alerts = new_status
+		else:
+			print("The new disable_alerts value isn't boolean")
+
 	def set_type_sensor(self, sensor_type):
 		try:
 			self.type_sensor = str(sensor_type)
@@ -27,3 +39,11 @@ class Alertas(db.Model):
 		"""Guardar alerta creada en Base de Datos"""
 		self.put()
 		
+	def get_max(self):
+		return self.max
+		
+	def get_min(self):
+		return self.min
+
+	def get_disable_alerts_status(self):
+		return self.disable_alerts

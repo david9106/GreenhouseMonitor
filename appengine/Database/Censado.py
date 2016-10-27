@@ -2,6 +2,14 @@ from google.appengine.ext import db
 import datetime
 
 class Censado(db.Model):
+	"""Saves the Sensor values of each LiSANDRA module installed on the greenhouse
+		id_LiSANDRA = ID from the module received
+		type = Sensor kind, default values ["Temperatura","Humedad","CO2","Iluminacion"]
+		value = Sensor measure
+		when = Moment when it's saved on the DB, it's supposed to be close to the moment when it was measured
+		
+		Censado is a db.Model subclass
+	"""
 	id_LiSANDRA = db.StringProperty()
 	type = db.StringProperty()
 	value = db.FloatProperty()
