@@ -32,7 +32,7 @@ class Censado(db.Model):
 			return False
 
 	def set_Value(self, value):
-		"""Funciton used to set the value of the sensing to store
+		"""Funciton used to set the value of the sensing to store it in datastore,
 		the value is passed as argument"""		
 		try:
 			value = float(value)
@@ -47,12 +47,13 @@ class Censado(db.Model):
 		self.put()
 		
 	def get_All(self):
-		"""This function get's all the sensing type's with value's"""
+		"""This function get's all the sensing type's with value's in datastore and return's all the data in a iterating list"""
 		query_str = "SELECT * FROM Censado"
 		return db.GqlQuery(query_str)
 
 	def get_Data(self, date_1, date_2, type):
-		"""This function get's the sensing data between two dates"""			
+		"""This function get's the sensing data between two date's if are present in datastore, if there are data the function return's it in a iterating list
+		if not the function return False. As arguments the function receive two dates  and the type of the sensor to verify"""			
 		if isinstance(date_1, datetime.datetime) and isinstance(date_2, datetime.datetime):
 			return Censado.all().filter('when >',date_1).filter('when <',date_2).filter('type =',type).fetch(None)
 		else:
