@@ -12,6 +12,12 @@ class JSON_parser(webapp2.RequestHandler):
 		try:		
 			#Receive the object and decodes it
 			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
+			
+			#ajust values from data
+			jdata['Tipo']=str(data['Tipo'])
+			jdata['Valor']=float(data['Valor'])
+			jdata['Ubicacion']=int(data['Ubicacion'])
+			
 			Alertas.compararLimites(jdata)
 			#Saves it on the database
 			if not BDHandler.alta_sensor(jdata["Tipo"].encode('utf-8'),jdata["Valor"].encode('utf-8'), jdata["Ubicacion"].encode('utf-8')): ##Just for tests, real timestamp is given by DB
