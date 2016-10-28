@@ -9,6 +9,11 @@ unit =""
 
 #function receives a dictionary
 def compararLimites(data):
+	#ajust values from data
+	data['Tipo']=str(data['Tipo'])
+	data['Valor']=float(data['Valor'])
+	data['Ubicacion']=int(data['Ubicacion'])
+	
 	#get a phone list from bd
 	phoneList=PhoneHandler.get_allPhones()
 	#get max and min values from a type of sensor from bd
