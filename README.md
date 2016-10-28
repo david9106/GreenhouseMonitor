@@ -1,4 +1,4 @@
-#Wireless sensor network applied to greenhouse monitoring via cloud access
+#Wireless sensor network applied to greenhouse monitoring via cloud access.
 
 The overall objective of the project (Wireless sensor network applied to
 access via cloud monitoring greenhouse) is monitoring a
