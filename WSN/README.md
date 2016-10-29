@@ -45,8 +45,11 @@ Delete "console=serial0,115200" and reboot RPI
 
 You must also install [request library](http://docs.python-requests.org/en/master/) :
 
-$ pip install requests
+$ sudo pip install requests
 
+and [twilio library](https://www.twilio.com/docs/libraries/python)
+
+$ sudo pip install twilio
 
 To program the Lisandra Microcontrollers you need arduino arduino-1.6.11 on your computer
 and modify the next:
