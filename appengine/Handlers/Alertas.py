@@ -15,7 +15,7 @@ def compararLimites(data):
 	data['Valor']=float(data['Valor'])
 	data['Ubicacion']=int(data['Ubicacion'])
 	
-	#Verify if limits and phone alerts are enabled
+	#Verify if limits and phone alerts are enabled or not
 	if LimitHandler.isDisabled() == False and PhoneHandler.isDisabled() == False:
 		#get a phone list from bd
 		phoneList=PhoneHandler.get_allPhones()
