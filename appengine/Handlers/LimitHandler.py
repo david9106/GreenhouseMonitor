@@ -48,3 +48,7 @@ def get_All_Alerts():
 	"""Funcion que retorna todas las alertas en Base de Datos"""
 	alerts = Limites.Alertas.all()
 	return alerts
+
+"""Funcion para simular si estan habilitadas o deshabilitadas las alertas"""
+def isDisabled():
+	return False

@@ -21,3 +21,7 @@ def get_phoneNumber(id):
 def get_allPhones():
 	phones = Telefonos.UserPhone.all()
 	return phones
+
+"""Funcion para simular si estan habilitadas o deshabilitadas las alertas"""
+def isDisabled():
+	return False
