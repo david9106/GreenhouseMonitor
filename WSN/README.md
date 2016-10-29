@@ -100,7 +100,9 @@ Lisandra
 -	decodeData: This function decode raw data received from Lisandra transmitter
 -	sendData: This function sends decoded data to RPI serial ports
 -	llenaTrama: Build a packet with raw data form sensors
+
 Raspberry Pi
+
 -	receptor: This module receive data from serial ports
 -	parser: This module converts raw data to list of sensors
 -   conversor: This module adjust the values to real measure form each sensor
