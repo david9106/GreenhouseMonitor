@@ -45,12 +45,6 @@ class JSON_provider(webapp2.RequestHandler):
 		return obj_list
 		
 
-class Graph_display(webapp2.RequestHandler):
-	def get(self):
-		archivo_html = open('Templates/index.html','r')
-		self.response.write(archivo_html.read())
-
-
 class Config_provider(webapp2.RequestHandler):
 	def post(self):
 		try:

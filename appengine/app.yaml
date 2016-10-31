@@ -3,23 +3,8 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /Templates/css
-  static_dir: Templates/css
-
-- url: /Templates/imgs
-  static_dir: Templates/imgs
-
-- url: /Templates/js
-  static_dir: Templates/js
-  
-- url: /Templates/js/amcharts/images
-  static_dir: Templates/js/amcharts/images
-
-- url: /Templates/fonts
-  static_dir: Templates/fonts
-
-- url: /Templates/font
-  static_dir: Templates/font
+- url: /Templates
+  static_dir: Templates
 
 - url: .*
   script: Main.app
