@@ -46,10 +46,6 @@ class Censado(db.Model):
 		"""Function used to store the new Censado model to the datastore"""
 		self.put()
 		
-	def get_All(self):
-		"""This function get's all the sensing type's with value's"""
-		query_str = "SELECT * FROM Censado"
-		return db.GqlQuery(query_str)
 
 	def get_Data(self, date_1, date_2, type):
 		"""This function get's the sensing data between two dates"""			

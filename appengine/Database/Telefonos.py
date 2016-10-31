@@ -9,11 +9,11 @@ class UserPhone(db.Model):
 	user_name = db.StringProperty()
 	user_phone = db.IntegerProperty()
 	
-	def set_userID(self, id):
+	def set_userID(self, usr_id):
 	"""This function help us to set the user id on the UserPhone class model
 	the function receive the id of the user as argument"""
 		try:
-			self.user_id = str(id)
+			self.user_id = str(usr_id)
 		except ValueError:
 			print("ID no permitido")
 	
@@ -32,6 +32,10 @@ class UserPhone(db.Model):
 			self.user_phone = int(phone)
 		except ValueError:
 			print("El telefono debe de estar conformado por numeros enteros")
+	
+	def get_userPhone(self):
+		"""Returns the entittie's phone"""
+		return self.user_phone
 	
 	def save_phone(self):
 	"""This function save's or update in datastore the created user phone"""
