@@ -51,3 +51,7 @@ def get_min_Value(sensor_type):
 		return min_of.get_min()
 	else:
 		return False
+
+def isDisabled():
+"""Funcion para simular si estan habilitadas o deshabilitadas las alertas"""
+	return False

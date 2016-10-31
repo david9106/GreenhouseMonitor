@@ -7,8 +7,8 @@ def send_json_request(server_url, json_dict):
 	"""send a json object by post request to a url and expects a json response"""
 	req = urllib2.Request(server_url)
 	req.add_header('Content-Type','application/json')
-	context = ssl._create_unverified_context()
-	response = urllib2.urlopen(req, json.dumps(json_dict),context=context)
+	#context = ssl._create_unverified_context()
+	response = urllib2.urlopen(req, json.dumps(json_dict))
 	return json.load(response)
 
 def on_exit():
