@@ -4,23 +4,16 @@ class UserPhone(db.Model):
 	"""Class UserPhone has the next attributes
 	user_id: it have's the identification of the user phone number
 	user_name: it contains the name of the user
-	user_phone: this attribute have's the phone number of the user"""
+	user_phone: this attribute have's the phone number of the user
+	"""
 	user_id = db.Key()
 	user_name = db.StringProperty()
 	user_phone = db.IntegerProperty()
+	phone_enable = db.BooleanProperty()
 	
-<<<<<<< HEAD
-	def set_userID(self, usr_id):
-	"""This function help us to set the user id on the UserPhone class model
-	the function receive the id of the user as argument"""
-||||||| merged common ancestors
 	def set_userID(self, id):
 	"""This function help us to set the user id on the UserPhone class model
 	the function receive the id of the user as argument"""
-=======
-	def set_userID(self, id):
-		"""This function help us to set the user id on the UserPhone class model the function receive the id of the user as argument"""
->>>>>>> martin_branch
 		try:
 			self.user_id = str(usr_id)
 		except ValueError:
@@ -41,19 +34,22 @@ class UserPhone(db.Model):
 			self.user_phone = int(phone)
 		except ValueError:
 			print("El telefono debe de estar conformado por numeros enteros")
+
+	def enable_alerts(self,enabling_prop):
+		"""Function used to eneble or disable the receiving permition of messages from the app to the user phone"""
+		try:
+			self.phone_enable = bool(enabling_prop)
+		except ValueError:
+			print("No boolean property received")
 	
 	def get_userPhone(self):
 		"""Returns the entittie's phone"""
 		return self.user_phone
 	
 	def save_phone(self):
-<<<<<<< HEAD
 	"""This function save's or update in datastore the created user phone"""
 		self.put()
-||||||| merged common ancestors
-	"""This function save's or update in datastore the created user phone"""
-		self.put()
-=======
-		"""This function save's or update in datastore the created user phone"""
-		self.put()
->>>>>>> martin_branch
+
+	def isDisable():
+	"""Check if alerts are disable for this phone"""
+	return False
