@@ -23,7 +23,7 @@ def set_Max_Alert(sensor_type,valor_Max):
 	sensor_type='Temperature'
 	max = 24.3
 	"""
-	sensor_aux = Limites.Alertas.get_or_insert(sensor_type)
+	sensor_aux = Limites.SensorLimits.get_or_insert(sensor_type)
 	if sensor_aux == None:
 		sensor_aux.set_type_sensor(sensor_type)
 	sensor_aux.set_max(valor_Max)
@@ -40,7 +40,7 @@ def set_Min_Alert(sensor_type, valor_min):
 	sensor_type='Temperature'
 	min = 10.3
 	"""
-	sensor_aux = Limites.Alertas.get_or_insert(sensor_type)
+	sensor_aux = Limites.SensorLimits.get_or_insert(sensor_type)
 	if sensor_aux == None:
 		sensor_aux.set_type_sensor(sensor_type)
 	sensor_aux.set_min(valor_min)
@@ -50,7 +50,7 @@ def set_Min_Alert(sensor_type, valor_min):
 def get_Max_Value(sensor_type):
 	"""This functon get's the max limit value of a type of sensor and return's it, this function receive as argument the type of the sensor to verify
 	if there's no limit value of that sensor the function return false"""
-	max_of = Limites.Alertas.get_by_key_name(sensor_type)
+	max_of = Limites.SensorLimits.get_by_key_name(sensor_type)
 	if max_of:
 		return max_of.get_max()
 	else:
@@ -60,7 +60,7 @@ def get_min_Value(sensor_type):
 """This functon get's the min limit value of a type of sensor and return's it, this function receive as argument the type of the sensor to verify
 	if there's no limit value of that sensor the function return false
 """
-	min_of = Limites.Alertas.get_by_key_name(sensor_type)
+	min_of = Limites.SensorLimits.get_by_key_name(sensor_type)
 	if min_of:
 		return min_of.get_min()
 	else:
