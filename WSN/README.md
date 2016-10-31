@@ -18,39 +18,43 @@ A computer with windows and Raspberry Pi 2 Model B
 
 First needs install python on your rpi (if it is already installed 
 you can skip this step):
-
+```
 $ sudo apt-get install python3 
+```
 or 
+```
 $sudo apt-get install python
-
+```
 
 You also need to install [pySerial](https://pythonhosted.org/pyserial/) on your Raspberry Pi running the next command:
-
+```
 $ sudo apt-get install python-serial
+```
 or
+```
 $ sudo apt-get install python3-serial
-
+```
 then execute de following commands:
-
+```
 $ sudo nano /boot/config.txt
-
+```
 Add at bottom the next line:
 
 "enable_uart=1" without quotation marks
-
+```
 $ sudo nano /boot/cmdline.txt
-
+```
 Delete "console=serial0,115200" and reboot RPI
 
 
 You must also install [request library](http://docs.python-requests.org/en/master/) :
-
+```
 $ sudo pip install requests
-
+```
 and [twilio library](https://www.twilio.com/docs/libraries/python)
-
+```
 $ sudo pip install twilio
-
+```
 To program the Lisandra Microcontrollers you need arduino arduino-1.6.11 on your computer
 and modify the next:
 
