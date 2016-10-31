@@ -1,6 +1,6 @@
 from google.appengine.ext import db
 
-class Alertas(db.Model):
+class SensorLimits(db.Model):
 	"""This class have's the limit's for the alert to configure on the server
 	these are the attributes:
 	type_sensor: it describes the sensor typo of the value
