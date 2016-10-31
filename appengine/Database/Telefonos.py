@@ -6,8 +6,8 @@ class UserPhone(db.Model):
 	user_name: it contains the name of the user
 	user_phone: this attribute have's the phone number of the user"""
 	user_id = db.Key()
-	user_name = db.StringProperty()
 	user_phone = db.IntegerProperty()
+	phone_enable = db.BooleanProperty()
 	
 	def set_userID(self, id):
 	"""This function help us to set the user id on the UserPhone class model
@@ -16,15 +16,7 @@ class UserPhone(db.Model):
 			self.user_id = str(id)
 		except ValueError:
 			print("ID no permitido")
-	
-	def set_userName(self, name):
-	"""This function put the name of the user phone
-	the function receive the name of the user as argument"""
-		try:
-			self.user_name = str(name)
-		except ValueError:
-			print("Nombre no permitido")
-		
+
 	def set_userPhone(self, phone):
 	"""This function put's the phone number on the user phone model
 	the function reveive the phone number of the user as argument"""
@@ -33,6 +25,13 @@ class UserPhone(db.Model):
 		except ValueError:
 			print("El telefono debe de estar conformado por numeros enteros")
 	
+	def set_enabling(self,enabling_prop):
+		"""Function used to eneble or disable the receiving permition of messages from the app to the user phone"""
+		try:
+			self.phone_enable = bool(enabling_prop)
+		except ValueError:
+			print("No boolean property received")
+
 	def save_phone(self):
 	"""This function save's or update in datastore the created user phone"""
 		self.put()
