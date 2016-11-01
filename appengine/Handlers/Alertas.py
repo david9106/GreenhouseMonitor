@@ -1,7 +1,7 @@
 import LimitHandler
 from Handlers import PhoneHandler
 import json
-from google.appengine.ext import webapp2
+import webapp2
 import sms
 
 

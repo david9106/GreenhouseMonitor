@@ -1,4 +1,4 @@
-from google.appengine.ext import webapp2
+import webapp2
 from Handlers import BDHandler
 import json
 import cgi
