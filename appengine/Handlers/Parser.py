@@ -1,4 +1,4 @@
-import webapp2
+from google.appengine.ext import webapp2
 import json
 import cgi		
 from Handlers import BDHandler #All the methods to access the DB
