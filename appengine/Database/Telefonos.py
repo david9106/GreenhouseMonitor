@@ -11,8 +11,8 @@ class UserPhone(db.Model):
 	phone_enable = db.BooleanProperty()
 	
 	def set_userID(self, id):
-	"""This function help us to set the user id on the UserPhone class model
-	the function receive the id of the user as argument"""
+		"""This function help us to set the user id on the UserPhone class model
+		the function receive the id of the user as argument"""
 		try:
 			self.user_id = str(usr_id)
 		except ValueError:
@@ -38,9 +38,9 @@ class UserPhone(db.Model):
 		return self.user_phone
 	
 	def save_phone(self):
-	"""This function save's or update in datastore the created user phone"""
+		"""This function save's or update in datastore the created user phone"""
 		self.put()
 
 	def isDisable():
-	"""Check if alerts are disable for this phone"""
-	return False
+		"""Check if alerts are disable for this phone"""
+		return False

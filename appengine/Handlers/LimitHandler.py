@@ -1,10 +1,10 @@
 from Database import Limites
 
 def disable_alerts(sensor_type):
-	"""Deshabilita la opación de envío de alertas para ese tipo de sensor, si los valores sobrepasan los límites será ignorado por el sistema
-		Params:
-			sensor_type: String que determina el tipo de sensor, por defecto ["Temperatura", "Humedad", "CO2","Iluminacion"]
-			Podrían agregarse más tipos de sensores
+	"""Deshabilita la opacion de envio de alertas para ese tipo de sensor, si los valores sobrepasan los limites sera ignorado por el sistema
+	Params:
+	sensor_type: String que determina el tipo de sensor, por defecto ["Temperatura", "Humedad", "CO2","Iluminacion"]
+	Podrian agregarse mas tipos de sensores
 	"""
 	sensor_aux = Limites.SensorLimits.get_or_insert(sensor_type) #Get's the db instance of that sensor type
 	if sensor_aux == None: #If it doesn't exist, creates one
@@ -57,9 +57,9 @@ def get_Max_Value(sensor_type):
 		return False
 	
 def get_min_Value(sensor_type):
-"""This functon get's the min limit value of a type of sensor and return's it, this function receive as argument the type of the sensor to verify
+	"""This functon get's the min limit value of a type of sensor and return's it, this function receive as argument the type of the sensor to verify
 	if there's no limit value of that sensor the function return false
-"""
+	"""
 	min_of = Limites.SensorLimits.get_by_key_name(sensor_type)
 	if min_of:
 		return min_of.get_min()
@@ -67,5 +67,5 @@ def get_min_Value(sensor_type):
 		return False
 
 def isDisabled():
-"""Funcion para simular si estan habilitadas o deshabilitadas las alertas"""
+	"""Funcion para simular si estan habilitadas o deshabilitadas las alertas"""
 	return False

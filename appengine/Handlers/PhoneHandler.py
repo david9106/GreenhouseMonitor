@@ -33,5 +33,5 @@ def get_allPhones():
 	return phones
 
 def isDisabled():
-"""Funcion para simular si estan habilitadas o deshabilitadas las alertas"""
+	"""Funcion para simular si estan habilitadas o deshabilitadas las alertas"""
 	return False
