@@ -8,7 +8,6 @@ app = webapp2.WSGIApplication([
     ('/get_config', MainPage.Config_provider)
 ], debug=False)
 
-
 def main():
 	app.run()
 	
