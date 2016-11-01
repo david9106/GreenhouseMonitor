@@ -1,5 +1,5 @@
 import webapp2
-from Handlers import BDHandler
+from Handlers import BDHandler, PhoneHandler
 import json
 import cgi
 
@@ -64,4 +64,6 @@ class Config_provider(webapp2.RequestHandler):
 
 class Phone_Config(webapp2.RequestHandler):
 	def post(self):
+		phone = PhoneHandler.set_new_user(self.request.get('phone_0'))
+		
 		
