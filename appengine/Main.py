@@ -9,7 +9,6 @@ app = webapp2.WSGIApplication([
 	('/phone_config',MainPage.Phone_Config)
 ], debug=False)
 
-
 def main():
 	app.run()
 	
