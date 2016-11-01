@@ -44,7 +44,6 @@ class JSON_provider(webapp2.RequestHandler):
 			obj_list.append(obj)
 		return obj_list
 		
-
 class Config_provider(webapp2.RequestHandler):
 	def post(self):
 		try:
@@ -62,3 +61,7 @@ class Config_provider(webapp2.RequestHandler):
 			
 	def get(self):
 		self.response.write("You shouldn't be here...")
+
+class Phone_Config(webapp2.RequestHandler):
+	def post(self):
+		
