@@ -58,7 +58,7 @@ class Config_provider(webapp2.RequestHandler):
 				sms.sendMsg(str(ite.user_phone),"BATERIA BAJA LiSANDRA:"+json_dict["Ubicacion"])
 		
 		#Answers it to client
-		self.response.write(json.dumps(jdata))
+			self.response.write(json.dumps(jdata))
 		#self.response.write(json.dumps(phoneList))
 		except (ValueError, TypeError):
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
