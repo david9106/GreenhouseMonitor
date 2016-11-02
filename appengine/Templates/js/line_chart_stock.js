@@ -117,18 +117,6 @@ var chart = AmCharts.makeChart( "chartdiv", {
       "periodValueTextRegular": "[[value.close]]",
       "valueTextComparing": "[[value]]"
     }
-  }, {
-    "title": "Volume",
-    "percentHeight": 30,
-    "stockGraphs": [ {
-      "valueField": "volume",
-      "type": "column",
-      "showBalloon": false,
-      "fillAlphas": 1
-    } ],
-    "stockLegend": {
-      "periodValueTextRegular": "[[value]]"
-    }
   } ],
 
   "chartScrollbarSettings": {
