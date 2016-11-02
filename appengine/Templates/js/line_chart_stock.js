@@ -51,7 +51,7 @@ function generateChartData() {
 
 var chart = AmCharts.makeChart( "chartdiv", {
   "type": "stock",
-  "theme": "light",
+  "theme": "ligth",
   "dataSets": [ {
       "title": "first data set",
       "fieldMappings": [ {
@@ -73,7 +73,8 @@ var chart = AmCharts.makeChart( "chartdiv", {
         "toField": "volume"
       } ],
       "dataProvider": chartData2,
-      "categoryField": "date"
+      "categoryField": "date",
+		"compared": true
     }, {
       "title": "third data set",
       "fieldMappings": [ {
@@ -112,8 +113,9 @@ var chart = AmCharts.makeChart( "chartdiv", {
       "compareGraphBalloonText": "[[title]]:<b>[[value]]</b>"
     } ],
     "stockLegend": {
-      "periodValueTextComparing": "[[percents.value.close]]%",
-      "periodValueTextRegular": "[[value.close]]"
+      "periodValueTextComparing": "[[value.close]]",
+      "periodValueTextRegular": "[[value.close]]",
+      "valueTextComparing": "[[value]]"
     }
   }, {
     "title": "Volume",
@@ -125,7 +127,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
       "fillAlphas": 1
     } ],
     "stockLegend": {
-      "periodValueTextRegular": "[[value.close]]"
+      "periodValueTextRegular": "[[value]]"
     }
   } ],
 
@@ -140,6 +142,10 @@ var chart = AmCharts.makeChart( "chartdiv", {
     "valueLineBalloonEnabled": true,
     "valueLineEnabled": true,
     "valueLineAlpha": 0.5
+  },
+
+  "panelsSettings": {
+    "recalculateToPercents": "never"
   },
 
   "periodSelector": {
