@@ -38,9 +38,9 @@ while True:
                         alertaID=parser.parseID(data)
                         json_dict = sendToServer.getconfig(alertaID)
                         print (alertaID)
-                        data = '' #Vaciar el dato
-                        print(json_dict["Telefono"])
-                        sms.sendMsg(json_dict["Telefono"])
+                        #data = '' #Vaciar el dato
+                        #print(json_dict["Telefono"])
+                        #sms.sendMsg(json_dict["Telefono"])
                 
                 else:
                         #data=compara(data)

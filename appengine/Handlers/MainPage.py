@@ -2,7 +2,7 @@ import webapp2
 from Handlers import BDHandler,PhoneHandler
 import json
 import cgi
-
+import sms
 class CSV_provider(webapp2.RequestHandler):
 	def get(self):
 		sensor_type = self.request.get("sensor_type") #Retrieves the "sensor_type" parameter, from get request
@@ -49,13 +49,14 @@ class Config_provider(webapp2.RequestHandler):
 		try:
 			#Read json object from cgi safe characters cleaned string
 			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
-			
+			#phoneList = []
 			#Updates the current configured phone number on DB
-			#jdata["Telefono"] = '6645380095'
-			phones = PhoneHandler.get_allPhones()
+			jdata["Telefono"] = 'hola'
+			phones = PhoneHandler.get_allEnable_Phones()
 			for ite in phones:
-				#guardar en un diccionario
-			#Answers it to client
+				sms.sendMsg(str(ite.user_phone),"BATERIA BAJA LiSANDRA:"+json_dict["Ubicacion"])
+		
+		#Answers it to client
 			self.response.write(json.dumps(jdata))
 		except (ValueError, TypeError):
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
