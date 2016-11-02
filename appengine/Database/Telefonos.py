@@ -10,7 +10,7 @@ class UserPhone(db.Model):
 	user_phone = db.IntegerProperty()
 	phone_enable = db.BooleanProperty()
 	
-	def set_userID(self, id):
+	def set_userID(self, usr_id):
 		"""This function help us to set the user id on the UserPhone class model
 		the function receive the id of the user as argument"""
 		try:
