@@ -7,7 +7,7 @@ class UserPhone(db.Model):
 	user_phone: this attribute have's the phone number of the user
 	"""
 	user_id = db.Key()
-	user_phone = db.IntegerProperty()
+	user_phone = db.StringProperty()
 	phone_enable = db.BooleanProperty()
 	
 	def set_userID(self, usr_id):
@@ -22,9 +22,9 @@ class UserPhone(db.Model):
 		"""This function put's the phone number on the user phone model
 		the function reveive the phone number of the user as argument"""
 		try:
-			self.user_phone = int(phone)
+			self.user_phone = str(phone)
 		except ValueError:
-			print("El telefono debe de estar conformado por numeros enteros")
+			print("El telefono debe de estar conformado por numeros")
 
 	def enable_alerts(self,enabling_prop):
 		"""Function used to eneble or disable the receiving permition of messages from the app to the user phone"""
