@@ -48,15 +48,16 @@ class Config_provider(webapp2.RequestHandler):
 	def post(self):
 		try:
 			#Read json object from cgi safe characters cleaned string
-			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
-			
+			#jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
+			phoneList = []
 			#Updates the current configured phone number on DB
 			#jdata["Telefono"] = '6645380095'
-			phones = PhoneHandler.get_allPhones()
+			phones = PhoneHandler.get_allEnable_Phones()
 			for ite in phones:
-				#guardar en un diccionario
-			#Answers it to client
-			self.response.write(json.dumps(jdata))
+				phoneList.append(ite.user_phone) #acomodando arreglo de telefonos
+		#Answers it to client
+		#self.response.write(json.dumps(jdata))
+		self.response.write(json.dumps(phoneList))
 		except (ValueError, TypeError):
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
 			self.response.write("Not a JSON object")
