@@ -46,10 +46,10 @@ def send_json_request(server_url, json_dict):
 def getconfig(comand): 
 #Checks if at least 2 params
 
-  json_dict = {} #Initialize dictionary	
+  json_dict = comand #Initialize dictionary	
   #Iterates over the argument pairs, 2nd param is first value pair
-  idN,valueN = comand.split(":") #Get the pair components
-  json_dict["{0}".format(idN)]="{0}".format(valueN) #Save the components in dict
+  #idN,valueN = comand.split(":") #Get the pair components
+  #json_dict["{0}".format(idN)]="{0}".format(valueN) #Save the components in dict
   #sendJson(json_dict,url2)		
   json_response = send_json_request(url2, json_dict) #Send request 1st param is url
   return json_response

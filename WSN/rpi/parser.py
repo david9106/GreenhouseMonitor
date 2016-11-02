@@ -13,3 +13,16 @@ def obtenerMediciones(serial):
                 new_sensor['Ubicacion']=int(sensor[counter][2])
                 list_sensor.append(dict(new_sensor))
         return list_sensor
+
+def parseID(serial):
+        
+        new_idBattery={}
+        
+
+        data=serial.split(',')
+        
+        
+        new_idBattery['Telefono']=0
+        new_idBattery['id']=int(data[1])
+                
+        return  new_idBattery
