@@ -22,7 +22,7 @@ def parseID(serial):
         data=serial.split(',')
         
         
-        new_idBattery['Telefono']=0
+        new_idBattery['Tipo'] = data[0]
         new_idBattery['Ubicacion']=int(data[1])
                 
         return  new_idBattery

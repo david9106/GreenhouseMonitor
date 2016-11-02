@@ -50,12 +50,15 @@ class Config_provider(webapp2.RequestHandler):
 		try:
 			#Read json object from cgi safe characters cleaned string		
 			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
-			jdata["Telefono"] = 'hola'
-			phones = Telefonos.UserPhone.all().filter('phone_enable',True)
-			for ite in phones:
-				sms.sendMsg(ite.user_phone,"BATERIA BAJA LiSANDRA:"+jdata["Ubicacion"])
-			
-			self.response.write(json.dumps(jdata))
+			if "BateriaBaja" in jdata["Tipo"] 
+				#jdata["Telefono"] = 'hola'
+				phones = Telefonos.UserPhone.all().filter('phone_enable',True)
+				for ite in phones:
+					sms.sendMsg(ite.user_phone,"BATERIA BAJA LiSANDRA:"+jdata["Ubicacion"])
+				
+				self.response.write(json.dumps(jdata))
+			else
+				self.response.write(json.dumps(jdata))	
 		except (ValueError, TypeError):
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
 			self.response.write("Not a JSON object")
