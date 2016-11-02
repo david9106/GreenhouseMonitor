@@ -51,8 +51,10 @@ class Config_provider(webapp2.RequestHandler):
 			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
 			
 			#Updates the current configured phone number on DB
-			jdata["Telefono"] = '6645380095'
-			
+			#jdata["Telefono"] = '6645380095'
+			phones = PhoneHandler.get_allPhones()
+			for ite in phones:
+				#guardar en un diccionario
 			#Answers it to client
 			self.response.write(json.dumps(jdata))
 		except (ValueError, TypeError):
@@ -66,6 +68,6 @@ class Phone_Config(webapp2.RequestHandler):
 	def post(self):
 		for ite in range(0, 10):
 			phone = PhoneHandler.set_new_userPhone(str(ite),self.request.get('check_phone_'+str(ite)),self.request.get('phone_'+str(ite)))
-			#ite++
+			
 		#self.redirect('/save_config')
 

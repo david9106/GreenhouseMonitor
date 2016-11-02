@@ -28,8 +28,8 @@ def get_phoneNumber(usr_id):
 	else:
 		return False
 
-def get_allPhones():
-	phones = Telefonos.UserPhone.all()
+def get_allEnable_Phones():
+	phones = Telefonos.UserPhone.all().filter('phone_enable =', true)
 	return phones
 
 def isDisabled():
