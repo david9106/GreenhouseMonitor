@@ -1,3 +1,5 @@
+var property_symbol = "°C";
+
 var chartData1 = [];
 var chartData2 = [];
 var chartData3 = [];
@@ -101,13 +103,14 @@ var chart = AmCharts.makeChart( "chartdiv", {
   ],
 
   "panels": [ {
-    "showCategoryAxis": false,
+    "showCategoryAxis": true,
     "title": "Value",
     "percentHeight": 70,
     "stockGraphs": [ {
       "id": "g1",
       "valueField": "value",
       "comparable": true,
+      "showBalloon": true,
       "compareField": "value",
       "balloonText": "[[title]]:<b>[[value]]</b>",
       "compareGraphBalloonText": "[[title]]:<b>[[value]]</b>"
@@ -162,5 +165,9 @@ var chart = AmCharts.makeChart( "chartdiv", {
 
   "export": {
     "enabled": true
+  },
+    "valueAxesSettings": {
+    "unit": property_symbol,
+    "unitPosition": "right"
   }
 } );
