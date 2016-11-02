@@ -2,13 +2,15 @@
 <html lang="es">
 <html>
 	<head>
-		<title>Example</title><!--Titulo de mi web-->
+		<title>Greenhouse Monitoring | LiSANDRA WSN</title><!--Titulo de mi web-->
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1,maxium-scale=1,minum-scale=1">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/estilos.css">
 	<link rel="stylesheet" href="css/fontello.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css"/>
+	<link rel="stylesheet" type="text/css" href="css/main.css"/>	
+	<link rel="stylesheet" type="text/css" href="js/amcharts/plugins/export/export.css" media="all"/>		
 	</head>
 	
 	<body>
@@ -136,12 +138,13 @@
           <div class="panel-body">UABC LiSANDRA 2016</div>
           <div class="panel-footer">LiSANDRA Project</div>
         </div>        
-	    <!--<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>-->
-	    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>	    
+	    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script><!--Must be at the top, since bootstrap use it-->
 	    <script src="js/bootstrap.min.js"></script>
 	    <script src="js/amcharts/amcharts.js"></script>
         <script src="js/amcharts/serial.js"></script>
-        <script src="js/amcharts/themes/dark.js"></script>
-        <script src="js/line_chart.js"></script>
+        <script src="js/amcharts/amstock.js"></script>
+        <script src="js/amcharts/plugins/export/export.min.js"></script>        
+        <script src="js/amcharts/themes/light.js"></script>
+        <script src="js/line_chart_stock.js"></script>
 	</body>
 </html>
