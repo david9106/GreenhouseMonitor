@@ -23,6 +23,6 @@ def parseID(serial):
         
         
         new_idBattery['Telefono']=0
-        new_idBattery['id']=int(data[1])
+        new_idBattery['Ubicacion']=int(data[1])
                 
         return  new_idBattery
