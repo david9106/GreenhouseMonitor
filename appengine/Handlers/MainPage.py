@@ -65,5 +65,5 @@ class Config_provider(webapp2.RequestHandler):
 class Phone_Config(webapp2.RequestHandler):
 	def post(self):
 		#phone = PhoneHandler.set_new_userPhone('1',self.request.get('check_phone_0'),self.request.get('phone_0'))
-		self.response.write(self.request.get('phone_0'))
+		self.response.write(self.request.get("phone_0"))
 	
