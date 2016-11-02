@@ -2,7 +2,7 @@ import webapp2
 from Handlers import BDHandler,PhoneHandler
 import json
 import cgi
-
+import sms
 class CSV_provider(webapp2.RequestHandler):
 	def get(self):
 		sensor_type = self.request.get("sensor_type") #Retrieves the "sensor_type" parameter, from get request
@@ -51,7 +51,7 @@ class Config_provider(webapp2.RequestHandler):
 			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
 			#phoneList = []
 			#Updates the current configured phone number on DB
-			#jdata["Telefono"] = '6645380095'
+			jdata["Telefono"] = 'hola'
 			phones = PhoneHandler.get_allEnable_Phones()
 			for ite in phones:
 				#phoneList.append(ite.user_phone) #acomodando arreglo de telefonos
