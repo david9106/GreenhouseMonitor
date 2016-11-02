@@ -2,4 +2,9 @@
   width: 90%;
   height: 500px;
   margin: auto; /*Auto center horizontally*/
+  box-sizing: content-box;  
+}
+
+.amcharts-compare-item-div{
+	box-sizing: content-box;  
 }
