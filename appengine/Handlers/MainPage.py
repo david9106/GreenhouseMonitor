@@ -1,5 +1,6 @@
 import webapp2
 from Handlers import BDHandler,PhoneHandler
+from Database import Telefonos
 import json
 import cgi
 import sms
@@ -47,16 +48,13 @@ class JSON_provider(webapp2.RequestHandler):
 class Config_provider(webapp2.RequestHandler):
 	def post(self):
 		try:
-			#Read json object from cgi safe characters cleaned string
+			#Read json object from cgi safe characters cleaned string		
 			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
-			#phoneList = []
-			#Updates the current configured phone number on DB
 			jdata["Telefono"] = 'hola'
-			phones = PhoneHandler.get_allEnable_Phones()
+			phones = Telefonos.UserPhone.all().filter('phone_enable',True)
 			for ite in phones:
-				sms.sendMsg(str(ite.user_phone),"BATERIA BAJA LiSANDRA:"+json_dict["Ubicacion"])
-		
-		#Answers it to client
+				sms.sendMsg(ite.user_phone,"BATERIA BAJA LiSANDRA:"+jdata["Ubicacion"])
+			
 			self.response.write(json.dumps(jdata))
 		except (ValueError, TypeError):
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
