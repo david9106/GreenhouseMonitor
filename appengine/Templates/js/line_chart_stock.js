@@ -1,3 +1,5 @@
+var property_symbol = "°C";
+
 var chartData1 = [];
 var chartData2 = [];
 var chartData3 = [];
@@ -51,7 +53,7 @@ function generateChartData() {
 
 var chart = AmCharts.makeChart( "chartdiv", {
   "type": "stock",
-  "theme": "light",
+  "theme": "ligth",
   "dataSets": [ {
       "title": "first data set",
       "fieldMappings": [ {
@@ -73,7 +75,8 @@ var chart = AmCharts.makeChart( "chartdiv", {
         "toField": "volume"
       } ],
       "dataProvider": chartData2,
-      "categoryField": "date"
+      "categoryField": "date",
+		"compared": true
     }, {
       "title": "third data set",
       "fieldMappings": [ {
@@ -100,32 +103,22 @@ var chart = AmCharts.makeChart( "chartdiv", {
   ],
 
   "panels": [ {
-    "showCategoryAxis": false,
+    "showCategoryAxis": true,
     "title": "Value",
     "percentHeight": 70,
     "stockGraphs": [ {
       "id": "g1",
       "valueField": "value",
       "comparable": true,
+      "showBalloon": true,
       "compareField": "value",
       "balloonText": "[[title]]:<b>[[value]]</b>",
       "compareGraphBalloonText": "[[title]]:<b>[[value]]</b>"
     } ],
     "stockLegend": {
-      "periodValueTextComparing": "[[percents.value.close]]%",
-      "periodValueTextRegular": "[[value.close]]"
-    }
-  }, {
-    "title": "Volume",
-    "percentHeight": 30,
-    "stockGraphs": [ {
-      "valueField": "volume",
-      "type": "column",
-      "showBalloon": false,
-      "fillAlphas": 1
-    } ],
-    "stockLegend": {
-      "periodValueTextRegular": "[[value.close]]"
+      "periodValueTextComparing": "[[value.close]]",
+      "periodValueTextRegular": "[[value.close]]",
+      "valueTextComparing": "[[value]]"
     }
   } ],
 
@@ -140,6 +133,10 @@ var chart = AmCharts.makeChart( "chartdiv", {
     "valueLineBalloonEnabled": true,
     "valueLineEnabled": true,
     "valueLineAlpha": 0.5
+  },
+
+  "panelsSettings": {
+    "recalculateToPercents": "never"
   },
 
   "periodSelector": {
@@ -168,5 +165,9 @@ var chart = AmCharts.makeChart( "chartdiv", {
 
   "export": {
     "enabled": true
+  },
+    "valueAxesSettings": {
+    "unit": property_symbol,
+    "unitPosition": "right"
   }
 } );
