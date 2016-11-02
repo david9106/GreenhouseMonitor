@@ -54,12 +54,10 @@ class Config_provider(webapp2.RequestHandler):
 			jdata["Telefono"] = 'hola'
 			phones = PhoneHandler.get_allEnable_Phones()
 			for ite in phones:
-				#phoneList.append(ite.user_phone) #acomodando arreglo de telefonos
 				sms.sendMsg(str(ite.user_phone),"BATERIA BAJA LiSANDRA:"+json_dict["Ubicacion"])
 		
 		#Answers it to client
 			self.response.write(json.dumps(jdata))
-		#self.response.write(json.dumps(phoneList))
 		except (ValueError, TypeError):
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
 			self.response.write("Not a JSON object")
