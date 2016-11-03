@@ -10,13 +10,8 @@ class SensorLimits(db.Model):
 	max = db.FloatProperty()
 	min = db.FloatProperty()
 	disable_alerts = db.BooleanProperty()
-	
-	def __init__(self):
-		self.disable_alerts = True
-		self.max = 0.0
-		self.min= 0.0
 		
-	def set_disable_alerts(self, new_status):
+	def enabling_limits(self, new_status):
 		if isinstance(new_status, bool):
 			self.disable_alerts = new_status
 		else:

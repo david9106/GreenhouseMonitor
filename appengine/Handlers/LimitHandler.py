@@ -12,7 +12,7 @@ def disable_alerts(sensor_type):
 	sensor_aux.set_disable_alerts(False)
 	sensor_aux.save_alert()
 	
-def set_Max_Alert(sensor_type,valor_Max):
+def set_Max_Alert(sensor_type,valor_Max,enabling):
 	"""This function verify if there are a max limit alert of a sensor type on datastore, if it exist the function update
 	the old one if not the function create's a new one, as arguments it receive's the
 	sensor_type: The type of the sensor alert
@@ -27,9 +27,10 @@ def set_Max_Alert(sensor_type,valor_Max):
 	if sensor_aux == None:
 		sensor_aux.set_type_sensor(sensor_type)
 	sensor_aux.set_max(valor_Max)
+	sensor_aux.enabling_limits(enabling)
 	sensor_aux.save_alert()
 
-def set_Min_Alert(sensor_type, valor_min):
+def set_Min_Alert(sensor_type, valor_min, enabling):
 	"""This function verify if there are a min alert limit of a sensor type on datastore, if it exist the function update
 	the old one if not the function create's a new one, as arguments it receive's the
 	sensor_type: The type of the sensor alert
@@ -44,6 +45,7 @@ def set_Min_Alert(sensor_type, valor_min):
 	if sensor_aux == None:
 		sensor_aux.set_type_sensor(sensor_type)
 	sensor_aux.set_min(valor_min)
+	sensor_aux.enabling_limits(enabling)
 	sensor_aux.save_alert()
 	
 	
