@@ -29,7 +29,7 @@ while True:
                 data = comm.readline()
                 recibido=True
         if recibido:
-                if  "BATL" in data:
+                if  "BateriaBaja" in data:
                         print ("-----------------------ALERTA----------")
                         #mostramos la data recibida completa
                         print (data)
