@@ -39,13 +39,20 @@ void loop() {
            RadioLT_GetPkt( &mypkt );
            
      String str(mypkt.data);
-     if(str.length()<5){
+     if(str == "BATL"){
           
            Serial.print("BateriaBaja");
            Serial.print(',');
            Serial.print(mypkt.src);
            Serial.println();
          
+     }
+     else if(str == "BATOK"){
+           Serial.print("BateriaOK");
+           Serial.print(',');
+           Serial.print(mypkt.src);
+           Serial.println();
+      
      }
      else{
 		     
