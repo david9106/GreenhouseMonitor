@@ -41,7 +41,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h2 class="center-block" style="width:240px;">Límites actuales:</h2>
+                    <h2 class="center-block" style="width:240px;">{{ title }}</h2>
                 </div>
             </div>
             <div class="row">
@@ -118,20 +118,24 @@
                 <div class="col-sm-12 col-md-4">
                     <h4 style="text-align:center">LiSANDRA 1:</h4>
                     <span class="icon-flash center-block iconglobal full"></span>
-                    <p class="fullp" style="text-align:center"></p>
+                    <p class="fullp" id="status" style="text-align:center"></p>
+                    <h6 class="update_button">Cambio Realizado</h6>
                 </div>
                 <div class="col-sm-12 col-md-4">
                     <h4 style="text-align:center">LiSANDRA 2:</h4>
                     <span class="icon-flash center-block iconglobal full"></span>
-                    <p class="fullp" style="text-align:center"></p>
+                    <p class="fullp" id="status" style="text-align:center"></p>
+                    <h6 class="update_button">Cambio Realizado</h6>
                 </div>
                 <div class="col-sm-12 col-md-4">
                     <h4 style="text-align:center">LiSANDRA 3:</h4>
                     <span class="icon-flash center-block iconglobal empty"></span>
-                    <p class="emptyp" style="text-align:center"></p>
+                    <p class="emptyp" id="status" style="text-align:center"></p>
+                    <h6 class="update_button">Cambio Realizado</h6>
                 </div>
             </div>
         </div>
+        <br>
         <div class="panel panel-default" style="text-align:center;">
           <div class="panel-body">UABC LiSANDRA 2016</div>
           <div class="panel-footer">LiSANDRA Project</div>
@@ -144,5 +148,16 @@
         <script src="js/amcharts/plugins/export/export.min.js"></script>        
         <script src="js/amcharts/themes/light.js"></script>
         <script src="js/line_chart_stock.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                /*Funcion general para cambiar la clases de los botones a estado OK*/
+                $('.update_button').on('click',function(){
+                    $(this).prev().removeClass("emptyp").addClass("fullp");
+                    $(this).prev().prev().removeClass("empty").addClass("full");
+                })
+                
+                
+            });
+        </script>
 	</body>
 </html>

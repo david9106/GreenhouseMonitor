@@ -4,6 +4,8 @@ from Database import Telefonos
 import json
 import cgi
 import sms
+import jinja2
+
 class CSV_provider(webapp2.RequestHandler):
 	def get(self):
 		sensor_type = self.request.get("sensor_type") #Retrieves the "sensor_type" parameter, from get request
@@ -73,3 +75,9 @@ class Phone_Config(webapp2.RequestHandler):
 			
 		#self.redirect('/save_config')
 
+class MainPageHandler(webapp2.RequestHandler):
+    def get(self):
+        self.templateValues = {}
+        self.templateValues['title'] = 'Limites Actuales'
+        template = jinja_environment.get_template("index.html")
+        self.response.out.write(template.render(self.templateValues))

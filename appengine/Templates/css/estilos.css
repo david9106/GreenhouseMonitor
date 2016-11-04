@@ -51,3 +51,21 @@
     text-align: center;
     content: "Batería: Necesita cambio";
 }
+
+.update_button {
+    text-align: center;
+    background: #2ecc71;
+    width: 150px;
+    margin: auto;
+    padding: 1em 0em;
+    border-radius: 1em;
+    cursor: pointer;
+    color: aliceblue;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.update_button:hover {
+    background: #27ae60;
+}
