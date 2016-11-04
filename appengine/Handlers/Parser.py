@@ -13,14 +13,11 @@ class JSON_parser(webapp2.RequestHandler):
 			#Receive the object and decodes it
 			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
 			
-			#ajust values from data
-			""""jdata['Tipo']=str(jdata['Tipo'])
-			jdata['Valor']=float(jdata['Valor'])
-			jdata['Ubicacion']=int(jdata['Ubicacion'])"""
+			
 			
 			Alertas.compararLimites(jdata)
 			#Saves it on the database
-			if not BDHandler.alta_sensor(jdata["Tipo"].encode('utf-8'),jdata["Valor"].encode('utf-8'), jdata["Ubicacion"].encode('utf-8')): ##Just for tests, real timestamp is given by DB
+			if not BDHandler.alta_sensor(str(jdata["Tipo"]),float(jdata["Valor"]), str(jdata["Ubicacion"])): ##Just for tests, real timestamp is given by DB
 				print("Error saving on DB")
 		
 			#Comparar si el valor esta fuera de los limites
