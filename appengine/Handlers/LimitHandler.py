@@ -52,7 +52,7 @@ def get_Max_Value(sensor_type):
 	if there's no limit value of that sensor the function return false"""
 	max_of = Limites.SensorLimits.get_by_key_name(sensor_type)
 	if max_of:
-		return max_of.get_max()
+		return max_of.max
 	else:
 		return False
 	
@@ -62,7 +62,7 @@ def get_min_Value(sensor_type):
 	"""
 	min_of = Limites.SensorLimits.get_by_key_name(sensor_type)
 	if min_of:
-		return min_of.get_min()
+		return min_of.min
 	else:
 		return False
 

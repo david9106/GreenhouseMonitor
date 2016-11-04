@@ -29,6 +29,7 @@ while True:
                 data = comm.readline()
                 recibido=True
         if recibido:
+                
                 if  "BateriaBaja" in data:
                         print ("-----------------------ALERTA----------")
                         #mostramos la data recibida completa
@@ -36,12 +37,23 @@ while True:
                         recibido=False
                         #llamamos la funcion sengMsg del script sms.py
                         alertaID=parser.parseID(data)
-                        json_dict = sendToServer.getconfig(alertaID)
                         print (alertaID)
-                        #data = '' #Vaciar el dato
+                        json_dict = sendToServer.getconfig(alertaID)
+                        
+                        data = '' #Vaciar el dato
                         #print(json_dict["Telefono"])
-                        #sms.sendMsg(json_dict["Telefono"])
-                
+                        #sms.sendMsg("6645380095")
+                elif "BateriaOK" in data:
+                        print ("-----------------------OK----------")
+                        #mostramos la data recibida completa
+                        print (data)
+                        recibido=False
+                        #llamamos la funcion sengMsg del script sms.py
+                        alertaID=parser.parseID(data)
+                        print (alertaID)
+                        json_dict = sendToServer.getconfig(alertaID)
+                        print(json_dict)
+                        data = '' #Vaciar el dato
                 else:
                         #data=compara(data)
                         #mostramos el numero de paquete

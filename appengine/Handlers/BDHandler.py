@@ -60,7 +60,7 @@ def get_this_week_measures(tipo_sensor):
 	return Censado.Censado().get_Data(now, end_day, tipo_sensor) #Gets the week btw today and 7 days ago
 
 	
-def get_this_week_measures(tipo_sensor):
+def get_this_month_measures(tipo_sensor):
 	"""Get all the sensor measures of the month, today - 28 days"""
 	now = datetime.datetime.now()#Get today's full date
 	end_day = now - datetime.timedelta(days=28) #the day aprox a month ago

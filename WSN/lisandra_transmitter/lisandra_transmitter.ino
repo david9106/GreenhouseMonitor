@@ -16,6 +16,7 @@ uint16_t SleepCnt=0;
 uint8_t i=0;
 RadioLT_DataPkt_t mypkt;
 bool setAlarm = false;
+bool batOK=true;
 
 void setup() {
  uint8_t net[3]=NETKEY;    
@@ -37,6 +38,7 @@ void setup() {
 void loop() { 
   
   if(readVcc() >= 500){
+  //if(cont24h==)
     char msg[9]={"BATL"};//mensaje de Bateria baja   
      Serial.print( msg );
      Serial.println();
@@ -65,7 +67,38 @@ void loop() {
            LEDs_Red_Off();
         }while( SleepCnt<1);
         
-  
+      batOK=true;
+  }
+  else if((readVcc() <= 410) && batOK){
+    char msg[9]={"BATOK"};//mensaje de Bateria baja 
+    //Serial.print(readVcc());  
+     Serial.print( msg );
+     Serial.println();
+     LEDs_Ylw_On();
+     delay(5);
+     LEDs_Ylw_Off();
+      /*enviar*/
+         RadioLT_Send( msg ); 
+      /*Obtener tiempo*/
+         RTC_GetTimeStr(tiempo);
+       /*Mostrar tiempo por serial*/
+         Serial.println(tiempo);
+       /*Vaciar el buffer Serial*/
+         Serial.flush();
+    
+       /*Ciclo para mantener dormido al micro durante 5min*/
+      do{
+    
+        
+           RTC_SleepCPU();
+           SleepCnt++;
+         /*blink solo para saber si esta trabajando no se usara y no es nesesario es de prueba solamente*/
+           LEDs_Red_On();
+         /*Importante el delay si es neseario, para que el micro tenga tiempo suficiente de despertar y volverse a dormir*/
+           delay(5);
+           LEDs_Red_Off();
+        }while( SleepCnt<1);
+   batOK=false;
   }
   
     	SleepCnt=0;

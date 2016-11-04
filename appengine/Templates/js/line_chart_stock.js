@@ -1,5 +1,7 @@
 var property_symbol = "°C";
 
+var chartDataArray = [];
+
 var chartData1 = [];
 var chartData2 = [];
 var chartData3 = [];

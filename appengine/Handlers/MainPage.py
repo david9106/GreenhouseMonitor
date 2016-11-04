@@ -1,5 +1,5 @@
 import webapp2
-from Handlers import BDHandler,PhoneHandler
+from Handlers import BDHandler,PhoneHandler,LimitHandler
 from Database import Telefonos
 import json
 import cgi
@@ -50,17 +50,29 @@ class JSON_provider(webapp2.RequestHandler):
 class Config_provider(webapp2.RequestHandler):
 	def post(self):
 		try:
-			#Read json object from cgi safe characters cleaned string		
-			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
+			#Read json object from cgi safe characters cleaned string
+			jdata=json.JSONDecoder().decode(cgi.escape(self.request.body))
 			if "BateriaBaja" in jdata["Tipo"]:
-				#jdata["Telefono"] = 'hola'
-				phones = Telefonos.UserPhone.all().filter('phone_enable',True)
+				phones = PhoneHandler.get_allEnable_Phones()
 				for ite in phones:
-					sms.sendMsg(ite.user_phone,"BATERIA BAJA LiSANDRA:"+jdata["Ubicacion"])
-				
+					sms.sendMsg(ite.user_phone,"BATERIA BAJA LiSANDRA:"+str(jdata["Ubicacion"]))			
 				self.response.write(json.dumps(jdata))
-			else:
-				self.response.write(json.dumps(jdata))	
+			elif "BateriaOK" in jdata["Tipo"]:
+				#Guardar en DB el estado de la Lisandra
+				jdata["Tipo"] = "Bateria RECIBIDA"
+			elif "Telefonos" in jdata["Tipo"]:
+				pass
+			elif "Limites" in jdata["Tipo"]:
+				jdata["MaxHumedad"] = LimitHandler.get_Max_Value("Humedad")
+				jdata["MinHumedad"] = LimitHandler.get_min_Value("Humedad")
+				
+				jdata["MaxTemperatura"] = LimitHandler.get_Max_Value("Temperatura")
+				jdata["MinTemperatura"] = LimitHandler.get_min_Value("Temperatura")
+				
+				jdata["MaxIluminacion"] = LimitHandler.get_Max_Value("Iluminacion")
+				jdata["MinIluminacion"] = LimitHandler.get_min_Value("Iluminacion")
+
+			self.response.write(json.dumps(jdata)) ##Just to check what was received	
 		except (ValueError, TypeError):
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
 			self.response.write("Not a JSON object")
@@ -68,16 +80,30 @@ class Config_provider(webapp2.RequestHandler):
 	def get(self):
 		self.response.write("You shouldn't be here...")
 
-class Phone_Config(webapp2.RequestHandler):
+class Data_Config(webapp2.RequestHandler):
 	def post(self):
 		for ite in range(0, 10):
 			phone = PhoneHandler.set_new_userPhone(str(ite),self.request.get('check_phone_'+str(ite)),self.request.get('phone_'+str(ite)))
-			
-		#self.redirect('/save_config')
+		
 
+<<<<<<< HEAD
 class MainPageHandler(webapp2.RequestHandler):
     def get(self):
         self.templateValues = {}
         self.templateValues['title'] = 'Limites Actuales'
         template = jinja_environment.get_template("index.html")
         self.response.out.write(template.render(self.templateValues))
+||||||| merged common ancestors
+=======
+		light = LimitHandler.set_Max_Alert("Luz",self.request.get('light_max'))
+		light_2 = LimitHandler.set_Min_Alert('Luz',self.request.get('light_min'))
+		
+		temp = LimitHandler.set_Max_Alert('Temperatura',self.request.get('temp_max'))
+		temp_2 = LimitHandler.set_Min_Alert('Temperatura',self.request.get('temp_min'))
+		
+		hum = LimitHandler.set_Max_Alert('Humedad',self.request.get('hum_max'))
+		hum_2 = LimitHandler.set_Min_Alert('Humedad',self.request.get('hum_min'))
+		
+		self.redirect('/Templates/configuracion.html')
+		
+>>>>>>> d81be87a71dc20b462fefa24580ff953fa85e099

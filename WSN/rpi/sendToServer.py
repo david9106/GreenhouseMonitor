@@ -4,15 +4,15 @@ import time
 import urllib2
 import ssl
 
-url = "http://192.168.0.106/getjson/catchJson.php"
-url2 = "https://sensado-invernadero.appspot.com/get_config"
-#url = "https://sensado-invernadero.appspot.com/set_sensors"
-#url = "https://redsensoreslisandra.appspot.com"
+#url = "http://192.168.0.106/getjson/catchJson.php"
+#url2 = "https://sensado-invernadero.appspot.com/get_config"
+url1 = "http://redsensoreslisandra.appspot.com/set_sensors"
+url2 = "http://redsensoreslisandra.appspot.com/get_config"
 headers = {'Content-type':'application/json'}
 
 def send(lista_sensores):
         for sensor in lista_sensores:
-                sendJson(sensor,url)
+                sendJson(sensor)
                 time.sleep(1)
                 
 def sendJson(sensor):
@@ -20,7 +20,7 @@ def sendJson(sensor):
         try:
                 #Se envia la informacion de los sensores al servidor
                 print("json: "+j)
-                response = requests.post(url,j,timeout=1)
+                response = requests.post(url1,j,timeout=1)
                 print("Server response code: "+str(response.status_code))                
                 if response.status_code == 200:
                         print ("Enviado ...")
@@ -32,7 +32,7 @@ def sendJson(sensor):
                 print("Demasiadas redirecciones ...")
         except requests.exceptions.RequestException as e:
                 print(e)
-                sys.exit(1)
+                
                 
 def send_json_request(server_url, json_dict):
       	"""send a json object by post request to a url and expects a json response"""
@@ -44,7 +44,7 @@ def send_json_request(server_url, json_dict):
         return json.load(response) 
        
 def getconfig(comand): 
-#Checks if at least 2 params
+  #Checks if at least 2 params
 
   json_dict = comand #Initialize dictionary	
   #Iterates over the argument pairs, 2nd param is first value pair
