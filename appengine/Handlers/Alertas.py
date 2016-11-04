@@ -18,7 +18,7 @@ def compararLimites(data):
 	#Verify if limits and phone alerts are enabled or not
 	if LimitHandler.isDisabled() == False and PhoneHandler.isDisabled() == False:
 		#get a phone list from bd
-		phoneList=PhoneHandler.get_allPhones()
+		phoneList=PhoneHandler.get_allEnable_Phones()
 		#get max and min values from a type of sensor from bd
 		limitMax=LimitHandler.get_Max_Value(data['Tipo'])
 		limitMin=LimitHandler.get_min_Value(data['Tipo'])

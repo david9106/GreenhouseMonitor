@@ -14,9 +14,9 @@ class JSON_parser(webapp2.RequestHandler):
 			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
 			
 			#ajust values from data
-			jdata['Tipo']=str(data['Tipo'])
-			jdata['Valor']=float(data['Valor'])
-			jdata['Ubicacion']=int(data['Ubicacion'])
+			""""jdata['Tipo']=str(jdata['Tipo'])
+			jdata['Valor']=float(jdata['Valor'])
+			jdata['Ubicacion']=int(jdata['Ubicacion'])"""
 			
 			Alertas.compararLimites(jdata)
 			#Saves it on the database
