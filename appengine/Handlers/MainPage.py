@@ -49,12 +49,11 @@ class Config_provider(webapp2.RequestHandler):
 	def post(self):
 		try:
 			#Read json object from cgi safe characters cleaned string
-			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
+			jdata=json.JSONDecoder().decode(cgi.escape(self.request.body))
 			if "BateriaBaja" in jdata["Tipo"]:
-				#jdata["Telefono"] = 'hola'
-				phones = Telefonos.UserPhone.all().filter('phone_enable =',True)
+				phones = PhoneHandler.get_allEnable_Phones()
 				for ite in phones:
-					sms.sendMsg(ite.user_phone,"BATERIA BAJA LiSANDRA:"+jdata["Ubicacion"])
+					sms.sendMsg(ite.user_phone,"BATERIA BAJA LiSANDRA:"+str(jdata["Ubicacion"]))
 				
 				self.response.write(json.dumps(jdata))
 			elif "BateriaOK" in jdata["Tipo"]:
@@ -76,14 +75,14 @@ class Data_Config(webapp2.RequestHandler):
 			phone = PhoneHandler.set_new_userPhone(str(ite),self.request.get('check_phone_'+str(ite)),self.request.get('phone_'+str(ite)))
 		
 
-		light = LimitHandler.set_Max_Alert("Luz",self.request.get('light_max'),True)
-		light_2 = LimitHandler.set_Min_Alert('Luz',self.request.get('light_min'),True)
+		light = LimitHandler.set_Max_Alert("Luz",self.request.get('light_max'))
+		light_2 = LimitHandler.set_Min_Alert('Luz',self.request.get('light_min'))
 		
-		temp = LimitHandler.set_Max_Alert('Temperatura',self.request.get('temp_max'), True)
-		temp_2 = LimitHandler.set_Min_Alert('Temperatura',self.request.get('temp_min'), True)
+		temp = LimitHandler.set_Max_Alert('Temperatura',self.request.get('temp_max'))
+		temp_2 = LimitHandler.set_Min_Alert('Temperatura',self.request.get('temp_min'))
 		
-		hum = LimitHandler.set_Max_Alert('Humedad',self.request.get('hum_max'), True)
-		hum_2 = LimitHandler.set_Min_Alert('Humedad',self.request.get('hum_min'),True)
+		hum = LimitHandler.set_Max_Alert('Humedad',self.request.get('hum_max'))
+		hum_2 = LimitHandler.set_Min_Alert('Humedad',self.request.get('hum_min'))
 		
 		self.redirect('/Templates/configuracion.html')
 		
