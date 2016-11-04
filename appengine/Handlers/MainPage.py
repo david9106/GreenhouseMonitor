@@ -55,12 +55,15 @@ class Config_provider(webapp2.RequestHandler):
 				phones = Telefonos.UserPhone.all().filter('phone_enable =',True)
 				for ite in phones:
 					sms.sendMsg(ite.user_phone,"BATERIA BAJA LiSANDRA:"+jdata["Ubicacion"])
-
-				self.response.write(json.dumps(jdata))
-			else:
-				self.response.write(json.dumps(jdata))	
 				
-		except(ValueError, TypeError):
+				self.response.write(json.dumps(jdata))
+			elif "BateriaOK" in jdata["Tipo"]:
+				#Guardar en DB el estado de la Lisandra
+				jdata["Tipo"] = "Bateria RECIBIDA"
+				self.response.write(json.dumps(jdata)) 
+			else:
+				self.response.write(json.dumps(jdata)) ##Just to check what was received	
+		except (ValueError, TypeError):
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
 			self.response.write("Not a JSON object")
 			
@@ -71,15 +74,16 @@ class Data_Config(webapp2.RequestHandler):
 	def post(self):
 		for ite in range(0, 10):
 			phone = PhoneHandler.set_new_userPhone(str(ite),self.request.get('check_phone_'+str(ite)),self.request.get('phone_'+str(ite)))
+		
 
-		light = LimitHandler.set_Max_Alert("Luz",24.4,True)
-		light_2 = LimitHandler.set_Min_Alert('Luz',float(self.request.get('light_min')),True)
+		light = LimitHandler.set_Max_Alert("Luz",self.request.get('light_max'),True)
+		light_2 = LimitHandler.set_Min_Alert('Luz',self.request.get('light_min'),True)
 		
-		temp = LimitHandler.set_Max_Alert('Temperatura',float(self.request.get('temp_max')), True)
-		temp_2 = LimitHandler.set_Min_Alert('Temperatura',float(self.request.get('temp_min')), True)
+		temp = LimitHandler.set_Max_Alert('Temperatura',self.request.get('temp_max'), True)
+		temp_2 = LimitHandler.set_Min_Alert('Temperatura',self.request.get('temp_min'), True)
 		
-		hum = LimitHandler.set_Max_Alert('Humedad',float(self.request.get('hum_max')), True)
-		hum_2 = LimitHandler.set_Min_Alert('Humedad',float(self.request.get('hum_min')),True)
+		hum = LimitHandler.set_Max_Alert('Humedad',self.request.get('hum_max'), True)
+		hum_2 = LimitHandler.set_Min_Alert('Humedad',self.request.get('hum_min'),True)
 		
 		self.redirect('/Templates/configuracion.html')
 		
