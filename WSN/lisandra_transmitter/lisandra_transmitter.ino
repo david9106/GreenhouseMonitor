@@ -69,8 +69,9 @@ void loop() {
         
       batOK=true;
   }
-  else if((readVcc() >= 500) && batOK){
-    char msg[9]={"BATOK"};//mensaje de Bateria baja   
+  else if((readVcc() <= 410) && batOK){
+    char msg[9]={"BATOK"};//mensaje de Bateria baja 
+    //Serial.print(readVcc());  
      Serial.print( msg );
      Serial.println();
      LEDs_Ylw_On();
