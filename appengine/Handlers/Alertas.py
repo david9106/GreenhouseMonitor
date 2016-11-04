@@ -28,9 +28,12 @@ def compararLimites(data):
 		unit = "luxes"
 	if data['Tipo'] == 'co2':
 		unit = "ppm"
+	logging.info("Telefonos: ")
+	for phone in phoneList:
+		logging.info(phone.user_phone)
 	logging.info("diccionario:")
 	logging.info(data)
-	logging.info("Limites: "limitMax+" ,"+limitMin)
+	logging.info("Limites: "+str(limitMax)+" , "+str(limitMin))
 
 	#compare whether the values are not within the established limits
 
