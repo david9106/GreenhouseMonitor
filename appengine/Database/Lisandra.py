@@ -8,12 +8,12 @@ class LisandraState(db.Model):
 		Battery (OK | LOW) -> Indicates the last battery level registered for that module
 		Timestamp of the last state update -> Indicates the moment when the status was registered
 	"""
-	id_LiSANDRA = db.StringProperty()
+	id_LiSANDRA = db.Key()
 	batt_status = db.StringProperty()
 	time_stamp = db.DateTimeProperty()
 	
 	def set_id(self,new_id):
-		self.id_LiSANDRA = str(new_id);
+		self.id_LiSANDRA = str(new_id)
 		
 	def set_batt_status(self, batt_status):
 		self.batt_status = batt_status
@@ -29,7 +29,18 @@ class LisandraState(db.Model):
 		
 	def get_batt_status(self):
 		return self.batt_status
+		
+	def save_state(self):
+		"""
+			If there's already a LisandraState object fullfilled
+		"""
+		self.put()
 	
 	def get_number_of_lisandras(self):
-		
+		"""
+			Returns the number of all lisandras registered
+			It has a count limit of 60 lisandras
+			and if the datastore doesn't respond in 5 seconds it throw's timeout error
+		"""
+		return LisandraState.all().count(deadline=5, limit=60)
 		
