@@ -13,19 +13,13 @@ class JSON_parser(webapp2.RequestHandler):
 			#Receive the object and decodes it
 			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
 			
-			
-			
+			#Compares if new measure goes above/below the limits to send an sms message
 			Alertas.compararLimites(jdata)
+			
 			#Saves it on the database
 			if not BDHandler.alta_sensor(str(jdata["Tipo"]),float(jdata["Valor"]), str(jdata["Ubicacion"])): ##Just for tests, real timestamp is given by DB
 				print("Error saving on DB")
-		
-			#Comparar si el valor esta fuera de los limites
-			
-			#if not Alertas.compararLimites(jdata["Tipo"],jdata["Valor"]):
-			#Alertas.enviar_mensaje(jdata["Tipo"],jdata["Valor"])
-				
-			self.response.write(json.dumps(jdata))
+	
 		except (ValueError, TypeError):			
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
 			self.response.write("Not a JSON object")

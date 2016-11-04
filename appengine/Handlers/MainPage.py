@@ -55,14 +55,22 @@ class Config_provider(webapp2.RequestHandler):
 				phones = Telefonos.UserPhone.all().filter('phone_enable =',True)
 				for ite in phones:
 					sms.sendMsg(ite.user_phone,"BATERIA BAJA LiSANDRA:"+jdata["Ubicacion"])
-				
-				self.response.write(json.dumps(jdata))
 			elif "BateriaOK" in jdata["Tipo"]:
 				#Guardar en DB el estado de la Lisandra
 				jdata["Tipo"] = "Bateria RECIBIDA"
-				self.response.write(json.dumps(jdata)) 
-			else:
-				self.response.write(json.dumps(jdata)) ##Just to check what was received	
+			elif "Telefonos" in jdata["Tipo"]:
+				pass
+			elif "Limites" in jdata["Tipo"]:
+				jdata["MaxHumedad"] = LimitHandler.get_Max_Value("Humedad")
+				jdata["MinHumedad"] = LimitHandler.get_min_Value("Humedad")
+				
+				jdata["MaxTemperatura"] = LimitHandler.get_Max_Value("Temperatura")
+				jdata["MinTemperatura"] = LimitHandler.get_min_Value("Temperatura")
+				
+				jdata["MaxIluminacion"] = LimitHandler.get_Max_Value("Iluminacion")
+				jdata["MinIluminacion"] = LimitHandler.get_min_Value("Iluminacion")
+
+			self.response.write(json.dumps(jdata)) ##Just to check what was received	
 		except (ValueError, TypeError):
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
 			self.response.write("Not a JSON object")
