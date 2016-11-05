@@ -11,10 +11,10 @@ generateChartData();
 
 function generateChartData() {
   var firstDate = new Date();
-  firstDate.setDate( firstDate.getDate() - 500 );
+  firstDate.setDate( firstDate.getDate() - 10000 );
   firstDate.setHours( 0, 0, 0, 0 );
 
-  for ( var i = 0; i < 500; i++ ) {
+  for ( var i = 0; i < 10000; i++ ) {
     var newDate = new Date( firstDate );
     newDate.setDate( newDate.getDate() + i );
 
@@ -57,7 +57,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
   "type": "stock",
   "theme": "ligth",
   "dataSets": [ {
-      "title": "first data set",
+      "title": "Sensor1",
       "fieldMappings": [ {
         "fromField": "value",
         "toField": "value"
@@ -68,7 +68,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
       "dataProvider": chartData1,
       "categoryField": "date"
     }, {
-      "title": "second data set",
+      "title": "Sensor2",
       "fieldMappings": [ {
         "fromField": "value",
         "toField": "value"
@@ -80,7 +80,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
       "categoryField": "date",
 		"compared": true
     }, {
-      "title": "third data set",
+      "title": "Sensor3",
       "fieldMappings": [ {
         "fromField": "value",
         "toField": "value"
@@ -91,7 +91,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
       "dataProvider": chartData3,
       "categoryField": "date"
     }, {
-      "title": "fourth data set",
+      "title": "Sensor4",
       "fieldMappings": [ {
         "fromField": "value",
         "toField": "value"
@@ -145,7 +145,6 @@ var chart = AmCharts.makeChart( "chartdiv", {
     "position": "left",
     "periods": [ {
       "period": "MM",
-      "selected": true,
       "count": 1,
       "label": "1 month"
     }, {
@@ -157,6 +156,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
       "label": "YTD"
     }, {
       "period": "MAX",
+      "selected": true,
       "label": "MAX"
     } ]
   },
@@ -173,3 +173,6 @@ var chart = AmCharts.makeChart( "chartdiv", {
     "unitPosition": "right"
   }
 } );
+
+chart.periodValue = "Average"
+chart.categoryAxesSettings.groupToPeriods = ["mm", "10mm", "30mm", "hh", "DD", "WW", "MM", "YYYY"];
