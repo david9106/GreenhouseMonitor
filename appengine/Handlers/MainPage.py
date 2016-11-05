@@ -54,7 +54,7 @@ class Config_provider(webapp2.RequestHandler):
 				phones = PhoneHandler.get_allEnable_Phones()
 				for ite in phones:
 					sms.sendMsg(ite.user_phone,"BATERIA BAJA LiSANDRA:"+str(jdata["Ubicacion"]))			
-				self.response.write(json.dumps(jdata))
+				#self.response.write(json.dumps(jdata))
 			elif "BateriaOK" in jdata["Tipo"]:
 				#Guardar en DB el estado de la Lisandra
 				jdata["Tipo"] = "Bateria RECIBIDA"
