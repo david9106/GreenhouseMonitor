@@ -85,16 +85,6 @@ class Data_Config(webapp2.RequestHandler):
 		for ite in range(0, 10):
 			phone = PhoneHandler.set_new_userPhone(str(ite),self.request.get('check_phone_'+str(ite)),self.request.get('phone_'+str(ite)))
 		
-
-<<<<<<< HEAD
-class MainPageHandler(webapp2.RequestHandler):
-    def get(self):
-        self.templateValues = {}
-        self.templateValues['title'] = 'Limites Actuales'
-        template = jinja_environment.get_template("index.html")
-        self.response.out.write(template.render(self.templateValues))
-||||||| merged common ancestors
-=======
 		light = LimitHandler.set_Max_Alert("Luz",self.request.get('light_max'))
 		light_2 = LimitHandler.set_Min_Alert('Luz',self.request.get('light_min'))
 		
@@ -105,5 +95,11 @@ class MainPageHandler(webapp2.RequestHandler):
 		hum_2 = LimitHandler.set_Min_Alert('Humedad',self.request.get('hum_min'))
 		
 		self.redirect('/Templates/configuracion.html')
-		
->>>>>>> d81be87a71dc20b462fefa24580ff953fa85e099
+
+class MainPageHandler(webapp2.RequestHandler):
+    def get(self):
+        self.templateValues = {}
+        self.templateValues['title'] = 'Limites Actuales'
+        template = jinja_environment.get_template("index.html")
+        self.response.out.write(template.render(self.templateValues))
+
