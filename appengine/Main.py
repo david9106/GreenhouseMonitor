@@ -6,8 +6,7 @@ app = webapp2.WSGIApplication([
     ('/get_csv', MainPage.CSV_provider),
     ('/get_json', MainPage.JSON_provider),
     ('/get_config', MainPage.Config_provider),
-    ('/print_html',MainPage.MainPageHandler),
-	('/save_config',MainPage.Data_Config)
+	('/save_config',MainPage.Data_Config),
 ], debug=False)
 
 def main():

@@ -119,19 +119,19 @@ void sendToRpi(uint16_t srcId,uint16_t temp,uint16_t hum,uint16_t luz,uint16_t c
   //Se envia los datos a la raspberry como valores enteros y no como bytes
       //ademas se incluye una coma entre cada valor para poder trabajarlos en la rpi
             
-            Serial.print("temperatura");
+            Serial.print("Temperatura");
             Serial.print(',');
             Serial.print(temp);
             Serial.print(',');
             Serial.print(srcId);
             Serial.print('/');
-            Serial.print("humedad");
+            Serial.print("Humedad");
             Serial.print(',');
             Serial.print(hum);
             Serial.print(',');
             Serial.print(srcId);
             Serial.print('/');
-            Serial.print("luz");
+            Serial.print("Luz");
             Serial.print(',');
             Serial.print(luz);
             Serial.print(',');

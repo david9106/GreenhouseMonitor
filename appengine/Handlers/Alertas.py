@@ -1,4 +1,4 @@
-
+import logging
 import LimitHandler
 from Handlers import PhoneHandler
 import json
@@ -28,21 +28,26 @@ def compararLimites(data):
 		unit = "luxes"
 	if data['Tipo'] == 'co2':
 		unit = "ppm"
-	
-	
+	logging.info("Telefonos: ")
+	for phone in phoneList:
+		logging.info(phone.user_phone)
+	logging.info("diccionario:")
+	logging.info(data)
+	logging.info("Limites- Tipo:"+str(type(limitMax))+" "+str(limitMax)+" ,Tipo: "+str(type(limitMin))+" "+str(limitMin))
+
 	#compare whether the values are not within the established limits
 
-	if data['Valor'] > limitMax and limitMax != None:
+	if data['Valor'] > limitMax and limitMax != None and limitMax != False:
 		#build a message
-		info= "La "+data["Tipo"] +" sobrepaso el limite establecido de "+ str(limitMax)+" "+unit+" Valor actual: "+str(data['Valor'])
+		info= "La "+data["Tipo"] +" sobrepaso del limite establecido de "+ str(limitMax)+" "+unit+" Valor actual: "+str(data['Valor'])
 		#send message to every phone on phone list
 		for phone in phoneList:
 			sms.sendMsg(str(phone.user_phone),info)
 
 
-	if data['Valor'] < limitMin and limitMin != None:
+	if data['Valor'] < limitMin and limitMin != None and limitMin != False:
 		#build a message
-		info= "La "+data["Tipo"] +" esta por debajo el limite establecido de"+ str(limitMin)+" "+unit+" Valor actual: "+str(data['Valor'])
+		info= "La "+data["Tipo"] +" esta por debajo del limite establecido de"+ str(limitMin)+" "+unit+" Valor actual: "+str(data['Valor'])
 		#send message to every phone on phone list
 		for phone in phoneList:
 			sms.sendMsg(str(phone.user_phone),info)
