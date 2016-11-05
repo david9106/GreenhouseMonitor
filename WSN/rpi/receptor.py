@@ -67,7 +67,7 @@ while True:
                         #Llamamos a la funcion encargada de convertir la data a las mediciones correctas
                         conversor.ajustarMediciones(lista_sensores)
                         #Llamamos a la funcion encargada de enviar la informacion al servidor
-                        #sendToServer.send(lista_sensores)
+                        sendToServer.send(lista_sensores)
                         cnt +=1
                         #vaciamos la variable
                         data = ''
