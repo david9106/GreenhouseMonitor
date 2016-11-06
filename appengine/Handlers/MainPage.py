@@ -4,6 +4,9 @@ from Database import Telefonos
 import json
 import cgi
 import sms
+import datetime #To hold the first value of the last_db_access var
+
+last_db_access = datetime.datetime(month=1, year=1, day=1) #0001-01-01 00:00:00
 
 class CSV_provider(webapp2.RequestHandler):
 	def get(self):

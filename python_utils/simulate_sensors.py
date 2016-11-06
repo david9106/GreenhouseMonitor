@@ -6,7 +6,7 @@
 #
 #	by Rafael Karosuo, rafaelkarosuo@gmail.com
 
-import json
+#import json
 import send_json #send_json_to_server function
 from time import sleep
 import random
@@ -24,7 +24,6 @@ if len(sys.argv) == 3: #Checks if at least 2 params
 				#Depending on sensor type, put limits and generate random measure
 				
 				if json_dict["Tipo"] == "C02":
-					print("C02")
 					json_dict["Valor"] = str(round(random.randint(350,450) + random.random(),2)) #Randomly generates a measure, bt 350-450 ppm with 2 decimals
 					
 				elif json_dict["Tipo"] == "Temperatura":
@@ -39,14 +38,13 @@ if len(sys.argv) == 3: #Checks if at least 2 params
 					json_dict["Valor"] = str(round(random.randint(1000,10000) + random.random(),2)) #Randomly generates a measure, bt 1000-10000 luxes with 2 decimals
 					
 				json_dict["Ubicacion"] = str(random.choice(id_lisandras))
-				
 				json_response = send_json.send_json_request(sys.argv[1],json_dict) #Uses the url, 1st param
 				
 				print(json_response) #Prints what server answered
 				sleep(float(sys.argv[2])) #Uses the 2nd param, the resend time interval
 						
 			except ValueError as e:
-				print("time_interval must be integer - {0}".format(e))
+				print("({!s})Error>>{!s}".format(sys.argv[0],e))
 	except KeyboardInterrupt:
 		print("Ending simulation...\nClosing program...")
 else:
