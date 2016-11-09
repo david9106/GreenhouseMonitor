@@ -11,15 +11,16 @@ generateChartData();
 
 function generateChartData() {
   var firstDate = new Date();
-  firstDate.setDate( firstDate.getDate() - 10000 );
+  //firstDate.setDate( firstDate.getDate() - 10000 );
   firstDate.setHours( 0, 0, 0, 0 );
 
-  for ( var i = 0; i < 10000; i++ ) {
+  for ( var i = 0; i < 1000; i++ ) {
     var newDate = new Date( firstDate );
-    newDate.setDate( newDate.getDate() + i );
-
-    var a1 = Math.round( Math.random() * ( 40 + i ) ) + 100 + i;
-    var b1 = Math.round( Math.random() * ( 1000 + i ) ) + 500 + i * 2;
+    //newDate.setDate( newDate.getDate() + i );
+    newDate.setHours( newDate.getHours() + i );
+    
+    /*var a1 = Math.round( Math.random() * ( 40 + i ) ) + 100 + i;
+    var b1 = Math.round( Math.random() * ( 1000 + i ) ) + 500 + i * 2;*/
 
     var a2 = Math.round( Math.random() * ( 100 + i ) ) + 200 + i;
     var b2 = Math.round( Math.random() * ( 1000 + i ) ) + 600 + i * 2;
@@ -29,6 +30,17 @@ function generateChartData() {
 
     var a4 = Math.round( Math.random() * ( 100 + i ) ) + 200 + i;
     var b4 = Math.round( Math.random() * ( 100 + i ) ) + 600 + i;
+    
+    var a1;
+    var b1;
+    
+    if (i%2 == 0){
+		a1 = i;
+	}else
+	{
+		a1 = i*2;
+	}
+
 
     chartData1.push( {
       "date": newDate,
@@ -174,5 +186,9 @@ var chart = AmCharts.makeChart( "chartdiv", {
   }
 } );
 
-chart.periodValue = "Average"
-chart.categoryAxesSettings.groupToPeriods = ["mm", "10mm", "30mm", "hh", "DD", "WW", "MM", "YYYY"];
+//var new_catAxis = new AmCharts.CategoryAxesSettings();
+//chart.categoryAxesSettings = new_catAxis;
+//chart.periodValue = "High"
+chart.categoryAxesSettings.parseDates = true;
+chart.categoryAxesSettings.groupToPeriods = ["2hh", "DD"];
+chart.categoryAxesSettings.minPeriod = "hh";
