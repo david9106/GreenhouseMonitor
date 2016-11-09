@@ -1,5 +1,17 @@
-#funcion encargada de obtener las mediciones RAW de la trama recibida
-def obtenerMediciones(serial):
+## @package parser
+#This module parse the serial data to a list of dictionary or to a normal dictionary.
+
+
+##@brief This funtion parse the serial data to a list of dictionary. 
+#
+# saving the sensor type,value and location in each dictionary.
+#
+# @param serial Serial data.
+
+        
+def parseSensorData(serial):
+       
+        
 	sensor=[]
 	new_sensor={}
 	list_sensor=[]
@@ -15,8 +27,15 @@ def obtenerMediciones(serial):
                 return list_sensor
         except ValueError as e:
                 print(">>error:{%s}".format(e))
-
+##@brief This funtion parse the serial data to a dictionary 
+#
+# saving the sensor type,value and location in each dictionary.
+#
+# @param serial Serial data.
 def parseID(serial):
+
+        
+
         
         new_idBattery={}
         
