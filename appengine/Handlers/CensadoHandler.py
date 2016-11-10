@@ -33,12 +33,18 @@ def get_available_sensors():
 	
 def get_year_measures(tipo_sensor, a_year):	
 	"""Get all the measures of a certain sensor type from the specified year
-		a_year -> 
+		a_year -> means the year where I want the measures
+		tipo_sensor -> means the kind of sensor that I need
 	"""
+	low_date_str = '{:0>4}-01-01 00:00:00'.format(a_year) #Start of the year
+	high_date_str = '{:0>4}-12-31 23:59:59'.format(a_year) #End of the year
+	low_date = datetime.datetime.strptime(low_date_str, '%Y-%m-%d %H:%M:%S') #Converts string to datetime
+	high_date = datetime.datetime.strptime(high_date_str, '%Y-%m-%d %H:%M:%S') 
+	return Censado.Censado().get_Data(low_date, high_date, tipo_sensor)
+	
 	
 def get_this_year_measures(tipo_sensor):
 	"""Get all the measures with that type of sensor, of this year"""
-	list_from_database = [] #Simulates the iterator returned by GQLquery
 	now = datetime.datetime.now() #Get today's full date
 	year = now.year
 	low_date_str = '{:0>4}-01-01 00:00:00'.format(year) #Start of the year
@@ -48,16 +54,6 @@ def get_this_year_measures(tipo_sensor):
 	high_date = datetime.datetime.strptime(high_date_str, '%Y-%m-%d %H:%M:%S') 
 	
 	return Censado.Censado().get_Data(low_date, high_date, tipo_sensor)
-	
-	#for counter in range(0,25):		
-		#x = Censado.Censado() #Gets an instance of Censado class		
-		#x.set_Time(now) #One measure per day
-		#now += datetime.timedelta(days=1)
-		#x.set_Type(tipo_sensor)
-		#x.set_Value(round(random.uniform(29,39), 2)) #Simulates 2 decimal random btw 29 to 39
-		#x.set_LiSANDRA(str(random.randint(1,3)))
-		#list_from_database.append(x)
-	#return list_from_database
 		
 	
 def get_today_measures(tipo_sensor):
