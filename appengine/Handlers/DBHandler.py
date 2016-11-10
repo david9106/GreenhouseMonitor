@@ -14,6 +14,11 @@ def alta_sensor(tipo_sensor,medicion,id_LiSANDRA):
 				return True
 	return False
 	
+def get_available_sensors():
+	"""Interface to the get_Sensor_Types function on database
+		Retrieves the available sensor types on DB
+	"""
+	return Censado.Censado().get_Sensor_Tyes()
 	
 def get_this_year_measures(tipo_sensor):
 	"""Get all the measures with that type of sensor, of this year"""
