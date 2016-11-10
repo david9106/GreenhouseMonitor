@@ -6,7 +6,7 @@ from Handlers import LimitHandler
 from Handlers import Alertas
 from Handlers import PhoneHandler
 
-class JSON_parser(webapp2.RequestHandler):
+class JSON_sensor_parser(webapp2.RequestHandler):
 	'''Receive the sensor JSON objects from gateway, parses them, call the comparator module and DB module'''
 	def post(self):		
 		try:		
@@ -20,7 +20,8 @@ class JSON_parser(webapp2.RequestHandler):
 			#Compares if new measure goes above/below the limits to send an sms message
 			Alertas.compararLimites(jdata)
 	
-		except (ValueError, TypeError):			
+		except (ValueError, TypeError,KeyError):
+			'''KeyError goes in case that the json ID doesn't exists, mainly ["Tipo"] but can be others'''			
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
 			self.response.write("Not a JSON object")
 

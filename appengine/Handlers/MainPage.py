@@ -53,9 +53,13 @@ class JSON_provider(webapp2.RequestHandler):
 			#Receive the object and decodes it
 			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
 			if "GetSensorTypes" in jdata["Tipo"]: #!Asks for the available sensor types on database
-				self.response.write(json.dumps())
+				sensor_types = CensadoHandler.get_available_sensors()
+				sensor_list = []
+				for sensor in sensor_types:
+					sensor_list.append(sensor)
+				self.response.write(json.dumps(sensor_list))
 			elif "GetSensorYearMeasures" in jdata["Tipo"]:
-				this_year_measures = CensadoHandler.get_this_year_measures(sensor_type)
+				this_year_measures = CensadoHandler.get_this_year_measures(jdata[""])
 				obj_list = []
 				for sensor_obj in this_year_measures:
 					obj = {}
@@ -65,7 +69,8 @@ class JSON_provider(webapp2.RequestHandler):
 					obj['Fecha'] = '%s'%(sensor_obj.when.strftime('%Y-%m-%d %H:%M:%S')) #Strip the microseconds part
 					obj_list.append(obj)
 				
-		except (ValueError, TypeError):
+		except (KeyError):
+			'''KeyError goes in case that the json ID doesn't exists, mainly ["Tipo"] but can be others'''
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
 			self.response.write("Not a JSON object")
 			
@@ -102,7 +107,8 @@ class Config_provider(webapp2.RequestHandler):
 				jdata["MinIluminacion"] = LimitHandler.get_min_Value("Iluminacion")
 
 			self.response.write(json.dumps(jdata)) ##Just to check what was received	
-		except (ValueError, TypeError):
+		except (ValueError, TypeError, KeyError):
+			'''KeyError goes in case that the json ID doesn't exists, mainly ["Tipo"] but can be others'''
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
 			self.response.write("Not a JSON object")
 			
