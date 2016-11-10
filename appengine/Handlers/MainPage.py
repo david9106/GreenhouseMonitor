@@ -115,6 +115,8 @@ class Config_provider(webapp2.RequestHandler):
 	def get(self):
 		self.response.write("You shouldn't be here...")
 
+##@class Data_Config
+#@details This class react's to a URL stablished in app engine, it saves or updates all the user phone numbers and saves or updates all the stablished limits in datastore
 class Data_Config(webapp2.RequestHandler):
 	def post(self):
 		for ite in range(0, 10):
