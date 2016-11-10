@@ -9,6 +9,14 @@ import datetime #To hold the first value of the last_db_access var
 last_db_access = datetime.datetime(month=1, year=1, day=1) #0001-01-01 00:00:00
 
 class CSV_provider(webapp2.RequestHandler):
+	"""
+		Retrieves current year measuress from DB of specified sensor type and gives it to client in a CSV file
+		
+		Uses a GET parameter sensor_type to know which sensor type to fetch from DB and only gets current year measures
+		No parameters
+		It inherits from webapp2.RequestHandler
+		In this case is used only it's "get" method which responds to a GET request
+	"""
 	def get(self):
 		sensor_type = self.request.get("sensor_type") #Retrieves the "sensor_type" parameter, from get request
 		self.response.headers['Content-Type'] = 'text/csv' #Defines kind of data sent
@@ -29,12 +37,33 @@ class CSV_provider(webapp2.RequestHandler):
 		
 		
 class JSON_provider(webapp2.RequestHandler):
+	"""
+		Retrieves data form DB and gives it to user in JSON format
+		
+		Uses the same command format of the ConfigProvider class.
+		A json request with a "Tipo" member that indicates the command and the command arbitrary named, but using CamelCase practice
+		No parameters
+		It inherits from webapp2.RequestHandler
+	"""
 	def post(self):
+		"""
+			Responds to a POST request that is redirected by URL to this class
+		"""
 		try:
 			#Receive the object and decodes it
 			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
-			if "SensorTypes" in jdata["Tipo"]: #!Asks for the available sensor types on database
+			if "GetSensorTypes" in jdata["Tipo"]: #!Asks for the available sensor types on database
 				self.response.write(json.dumps())
+			elif "GetSensorYearMeasures" in jdata["Tipo"]:
+				this_year_measures = CensadoHandler.get_this_year_measures(sensor_type)
+				obj_list = []
+				for sensor_obj in this_year_measures:
+					obj = {}
+					obj['Tipo'] = '%s'%(sensor_obj.type)
+					obj['Valor'] = '%s'%(sensor_obj.value)
+					obj['Ubicacion'] = '%s'%(sensor_obj.id_LiSANDRA)
+					obj['Fecha'] = '%s'%(sensor_obj.when.strftime('%Y-%m-%d %H:%M:%S')) #Strip the microseconds part
+					obj_list.append(obj)
 				
 		except (ValueError, TypeError):
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
@@ -46,20 +75,7 @@ class JSON_provider(webapp2.RequestHandler):
 		#content_disp_str = "attachment; filename="+sensor_type+"_values.json" #Forms the file
 		#self.response.headers['Content-Disposition'] = str(content_disp_str)
 		self.response.write(json.dumps(self.form_json(sensor_type)))
-		
-	def form_json(self, sensor_type):
-		"""Extracts data from objects and forms the json like format string"""
-		this_year_measures = CensadoHandler.get_this_year_measures(sensor_type)
-		obj_list = []
-		for sensor_obj in this_year_measures:
-			obj = {}
-			obj['Tipo'] = '%s'%(sensor_obj.type)
-			obj['Valor'] = '%s'%(sensor_obj.value)
-			obj['Ubicacion'] = '%s'%(sensor_obj.id_LiSANDRA)
-			obj['Fecha'] = '%s'%(sensor_obj.when.strftime('%Y-%m-%d %H:%M:%S')) #Strip the microseconds part
-			obj_list.append(obj)
-		return obj_list
-		
+			
 class Config_provider(webapp2.RequestHandler):
 	def post(self):
 		try:
