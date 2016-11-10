@@ -1,46 +1,50 @@
 from google.appengine.ext import db
 
+##@class SensorLimits
+#@brief This class haves the limit's for the alert to configure on the server
+#@details With this entity the user would be able to store limit values for the sensed data in the greenhouse
+#@param type_sensor: it describes the sensor typo of the value
+#@param	max: this attribute have the maximun limit value
+#@param	min: this attribute hace the minumun limit value
 class SensorLimits(db.Model):
-	"""This class have's the limit's for the alert to configure on the server
-	these are the attributes:
-	type_sensor: it describes the sensor typo of the value
-	max: this attribute have the maximun limit value
-	min: this attribute hace the minumun limit value"""
 	type_sensor = db.Key()
 	max = db.FloatProperty()
 	min = db.FloatProperty()
 	disable_alerts = db.BooleanProperty()
-		
+	
+	##@brief The funtion of this is to enable or diable the receive of alerts from the server
+	#@param new_status: Has a boolean that says if the alert is goin to be enable or disable 
 	def enabling_limits(self, new_status):
 		if isinstance(new_status, bool):
 			self.disable_alerts = new_status
 		else:
 			print("The new disable_alerts value isn't boolean")
-
+	
+	##@brief This function is used to set the sensor type of the limit alert
+	#@param sensor_type: This parameter haves the type of sensed data that is going to have the limit alert
 	def set_type_sensor(self, sensor_type):
-		"""This function is used to set the sensor type of the limit alert, it receive the sensor type as argument"""
 		try:
 			self.type_sensor = str(sensor_type)
 		except ValueError:
 			print("The name of the sensor type must be a string")
-			
+
+	##@brief This function is used to set the max value of the limit alert 		
+	#@param max_Value: Haves a floting point number with the maximun limit value of the alert
 	def set_max(self,max_Value):
-		"""This function is used to set the mas value of the limit alert
-		the max_Value variable is passed as argument"""
 		try:
 			self.max = float(max_Value)
 		except ValueError:
 			print("Max value must be a floting point number")
 	
+	##@brief This function set the minimun limit value of a sensor type alert
+	#@param min_Value: Haves a floting point number with the minimun limit value of the alert
 	def set_min(self,min_Value):
-		"""This function set the minimun limit value of a sensor type alert
-		the minimun value is passed as an argument"""
 		try:
 			self.min = float(min_Value)
 		except ValueError:
 			print("Max value must be a floting point number")
-			
+	
+	##@brief This function save's or update the created alert
 	def save_alert(self):
-		"""This function save's or update the created alert"""
 		self.put()
 		

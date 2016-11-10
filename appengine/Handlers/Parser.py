@@ -6,8 +6,9 @@ from Handlers import LimitHandler
 from Handlers import Alertas
 from Handlers import PhoneHandler
 
+##@brief Receive the sensor JSON objects from gateway, parses them, call the comparator module and DB module
+#@details This Function receive a JSON object and parse ir, then verify if the sensed data type excist in datastore, if not creates a new one entity in datastore if not updates the excisting one, then compares the receive data with the excisting limits in datastore
 class JSON_parser(webapp2.RequestHandler):
-	'''Receive the sensor JSON objects from gateway, parses them, call the comparator module and DB module'''
 	def post(self):		
 		try:		
 			#Receive the object and decodes it
