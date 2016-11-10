@@ -1,4 +1,15 @@
-﻿import datetime
+﻿"""@package docstring
+CensadoHandler is the interface to DB
+
+In order to be able to change of DB engine in the future if it's needed, this interface was implemented.
+So all the system uses these functions to acces DB instead of direct interaction with entity, which let to change the DB engine
+and all the changes will be need only within the functions of this module
+
+Above rules apply to all the modules in the Handlers directory.
+This particular file only takes care of the sensor measure DB part interface
+
+"""
+import datetime
 from Database import Censado 
 
 
@@ -18,7 +29,12 @@ def get_available_sensors():
 	"""Interface to the get_Sensor_Types function on database
 		Retrieves the available sensor types on DB
 	"""
-	return Censado.Censado().get_Sensor_Tyes()
+	return Censado.Censado().get_Sensor_Types()
+	
+def get_year_measures(tipo_sensor, a_year):	
+	"""Get all the measures of a certain sensor type from the specified year
+		a_year -> 
+	"""
 	
 def get_this_year_measures(tipo_sensor):
 	"""Get all the measures with that type of sensor, of this year"""

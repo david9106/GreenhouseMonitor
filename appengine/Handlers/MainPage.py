@@ -1,5 +1,5 @@
 import webapp2
-from Handlers import DBHandler,PhoneHandler,LimitHandler
+from Handlers import CensadoHandler,PhoneHandler,LimitHandler
 from Database import Telefonos
 import json
 import cgi
@@ -19,7 +19,7 @@ class CSV_provider(webapp2.RequestHandler):
 		
 	def form_csv(self,sensor_type):
 		"""Extract data from objects and format it as CSV string"""
-		this_year_measures = DBHandler.get_this_year_measures(sensor_type)
+		this_year_measures = CensadoHandler.get_this_year_measures(sensor_type)
 		csv_string = ','.join(['Tipo_sensor','Valor','Fecha','id-LiSANDRA_(Ubicacion)']) #Title headers
 		csv_string+='\n'
 		for sensor_entity in this_year_measures:
@@ -34,6 +34,7 @@ class JSON_provider(webapp2.RequestHandler):
 			#Receive the object and decodes it
 			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
 			if "SensorTypes" in jdata["Tipo"]: #!Asks for the available sensor types on database
+				self.response.write(json.dumps())
 				
 		except (ValueError, TypeError):
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
@@ -48,7 +49,7 @@ class JSON_provider(webapp2.RequestHandler):
 		
 	def form_json(self, sensor_type):
 		"""Extracts data from objects and forms the json like format string"""
-		this_year_measures = DBHandler.get_this_year_measures(sensor_type)
+		this_year_measures = CensadoHandler.get_this_year_measures(sensor_type)
 		obj_list = []
 		for sensor_obj in this_year_measures:
 			obj = {}
