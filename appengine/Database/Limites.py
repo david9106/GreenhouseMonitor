@@ -3,13 +3,14 @@ from google.appengine.ext import db
 ##@class SensorLimits
 #@brief This class haves the limit's for the alert to configure on the server
 #@details With this entity the user would be able to store limit values for the sensed data in the greenhouse
-#@param type_sensor: it describes the sensor typo of the value
-#@param	max: this attribute have the maximun limit value
-#@param	min: this attribute hace the minumun limit value
 class SensorLimits(db.Model):
+	##@brief It describes the sensor typo of the value
 	type_sensor = db.Key()
+	##@brief This attribute have the maximun limit value
 	max = db.FloatProperty()
+	##@brief	This attribute hace the minumun limit value
 	min = db.FloatProperty()
+	##@brief A boolean property that advice if the limit value alert is enable
 	disable_alerts = db.BooleanProperty()
 	
 	##@brief The funtion of this is to enable or diable the receive of alerts from the server

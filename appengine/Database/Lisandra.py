@@ -3,12 +3,12 @@ from google.appengine.ext import db
 
 ##@class LisandraState
 #@brief Defines the state of each LiSANDRA module
-#@param id_LiSANDRA: Indicates the LiSANDRAs ID, which could be related to a place in the greenhouse
-#@param batt_status: Indicates the last battery level registered for that module
-#@param time_stamp: Indicates the moment when the status was registered
 class LisandraState(db.Model):
+	##@brief Indicates the LiSANDRAs ID, which could be related to a place in the greenhouse
 	id_LiSANDRA = db.Key()
+	##@brief Indicates the last battery level registered for that module
 	batt_status = db.StringProperty()
+	##@brief Indicates the moment when the status was registered
 	time_stamp = db.DateTimeProperty()
 	
 	##@brief Used to set the identificator of the LiSANDRA module to register 

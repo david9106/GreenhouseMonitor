@@ -4,14 +4,14 @@ import datetime
 ##@class Censado
 #@brief A entity that haves all the properties of a sensing value from the sensor
 #@details The Censado class is a db model that have the value's of a sensor type and identify what type of sensor is
-#@param id_LiSANDRA: It have the id of the LiSANDRA module allocated on the green house
-#@param type: It have's the type of the sensor value
-#@param value: Is the value of the sensing parameter
-#@param when: have's the date and time when the sensor detect's something
 class Censado(db.Model):
+	##@brief It have the id of the LiSANDRA module allocated on the green house
 	id_LiSANDRA = db.StringProperty()
+	##@brief It have's the type of the sensor value
 	type = db.StringProperty()
+	##@brief value: Is the value of the sensing parameter
 	value = db.FloatProperty()
+	##@brief when: have's the date and time when the sensor detect's something
 	when = db.DateTimeProperty(auto_now_add=True)
 	
 	##@brief This metod set the id of the LiSANDRA module in the entity

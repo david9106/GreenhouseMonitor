@@ -2,12 +2,12 @@ from google.appengine.ext import db
 
 ##@class UserPhone
 #@brief An entity that haves all the properties needed to register user phone number
-#@param user_id: it have's the identification of the user phone number
-#@param user_name: it contains the name of the user
-#@param user_phone: this attribute have's the phone number of the user
 class UserPhone(db.Model):
+	##@brief It have's the identification of the user phone number
 	user_id = db.Key()
+	##@brief It contains the name of the user
 	user_phone = db.StringProperty()
+	##@brief This attribute have's the phone number of the user
 	phone_enable = db.BooleanProperty()
 	
 	##@brief This function help us to set the user id on the UserPhone class model
