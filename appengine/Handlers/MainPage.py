@@ -29,6 +29,16 @@ class CSV_provider(webapp2.RequestHandler):
 		
 		
 class JSON_provider(webapp2.RequestHandler):
+	def post(self):
+		try:
+			#Receive the object and decodes it
+			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
+			if "SensorTypes" in jdata["Tipo"]: #!Asks for the available sensor types on database
+				
+		except (ValueError, TypeError):
+			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
+			self.response.write("Not a JSON object")
+			
 	def get(self):
 		sensor_type = self.request.get("sensor_type")		
 		#self.response.headers['Content-Type'] = 'text/json'

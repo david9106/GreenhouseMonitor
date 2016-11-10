@@ -56,3 +56,13 @@ class Censado(db.Model):
 		else:
 			return None
 		#return Censado.all().filter('when >',datetime.datetime(date_1.year, date_1.month, date_1.day, date_1.hour, date_1.minutes)).filter('when <',datetime.datetime(date_2.year, date_2.month, date_2.day, date_2.hour, date_2.minutes)).filter('type =',type).fetch(None)
+
+	def get_Sensor_Tyes(self):
+		"""
+		Return a list of the available sensor types on the database
+		Ex. if currently exists "Temperatura" and "Humedad", the function will return a listing both
+		"""
+		query_str = "SELECT DISTINCT type from Censado"
+		return db.GqlQuery(query_str)
+		
+	
