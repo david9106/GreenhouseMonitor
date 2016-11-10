@@ -1,15 +1,13 @@
-## @package parser
-#This module parse the serial data to a list of dictionary or to a normal dictionary.
+## @file parser.py
+# @brief This module parse the serial data to a list of dictionary or to a normal dictionary.
 
 
-##@brief This funtion parse the serial data to a list of dictionary. 
+##@brief This function parse the serial data to a list of dictionary. 
 #
 # saving the sensor type,value and location in each dictionary.
 #
-# @param serial Serial data.
-
-        
-def parseSensorData(serial):
+# @param serial Serial data.       
+def parserSensorData(serial):
        
         
 	sensor=[]
@@ -27,7 +25,7 @@ def parseSensorData(serial):
                 return list_sensor
         except ValueError as e:
                 print(">>error:{%s}".format(e))
-##@brief This funtion parse the serial data to a dictionary 
+##@brief This function parse the serial data to a dictionary 
 #
 # saving the sensor type,value and location in each dictionary.
 #
