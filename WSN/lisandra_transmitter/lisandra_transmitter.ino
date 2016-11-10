@@ -181,7 +181,7 @@ void printFrame(uint8_t *frame){
 *
 * @return None.
 *
-*/ 
+*/
 void battery_check(char *battery_state){
   uint16_t adc=readVcc();
   Serial.println();
