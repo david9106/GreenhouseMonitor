@@ -51,3 +51,8 @@ class SensorLimits(db.Model):
 	def save_alert(self):
 		self.put()
 		
+	##@brief ALERT!! Deletes all the SensorLimits database
+	#@details Must be used with extreme precausion since there's no roll back
+	def DeleteAll(self):
+		query_str = "SELECT * FROM SensorLimits"
+		db.delete(db.GqlQuery(query_str))

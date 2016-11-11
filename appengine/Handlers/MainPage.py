@@ -2,12 +2,12 @@
 #@brief This file handles all the main functions of the application
 import webapp2
 from Handlers import CensadoHandler,PhoneHandler,LimitHandler
-from Database import Telefonos
+from Database import Telefonos,Limites
 import json
 import cgi
 import sms
 import datetime #To hold the first value of the last_db_access var
-
+import re #Regular expressions
 ##@brief Temporal variable, it holds the last DB access, currently not in use
 last_db_access = datetime.datetime(month=1, year=1, day=1) #0001-01-01 00:00:00
 
@@ -96,6 +96,14 @@ class JSON_provider(webapp2.RequestHandler):
 				obj_list.append(obj)
 		return obj_list
 			
+##@class Config_provider
+#@brief Command interface to get configuration info from the server
+#@details It has the following commands:
+#'BateriaBaja' records a low batt state of some LiSANDRA module
+#'BateriaOK' records a change of battery of some LiSANDRA module
+#'Telefonos' asks for the list of saved phones
+#'Limites' asks for the current sensor limits alert triggers
+#@author Rafael Karosuo
 class Config_provider(webapp2.RequestHandler):
 	def post(self):
 		try:
@@ -103,15 +111,28 @@ class Config_provider(webapp2.RequestHandler):
 			jdata=json.JSONDecoder().decode(cgi.escape(self.request.body))
 			if "BateriaBaja" in jdata["Tipo"]:
 				phones = PhoneHandler.get_allEnable_Phones()
-				for ite in phones:
-					sms.sendMsg(ite.user_phone,"BATERIA BAJA LiSANDRA:"+str(jdata["Ubicacion"]))			
+				if hasattr(phones,'__iter__'): #if it's more than one phone
+					for ite in phones:
+						sms.sendMsg(ite.user_phone,"BATERIA BAJA LiSANDRA:"+str(jdata["Ubicacion"]))			
+				else:
+					sms.sendMsg(phones.user_phone,"BATERIA BAJA LiSANDRA:"+str(jdata["Ubicacion"]))			
 				#self.response.write(json.dumps(jdata))
 			elif "BateriaOK" in jdata["Tipo"]:
 				#Guardar en DB el estado de la Lisandra
 				jdata["Tipo"] = "Bateria RECIBIDA"
 			elif "Telefonos" in jdata["Tipo"]:
-				pass
+				#~ Telefonos.UserPhone().DeleteAll()
+				phones = PhoneHandler.get_all_Phones() #Fetches all the phones				
+				if not hasattr(phones,'__iter__'): #If it's more than one
+					jdata["phone_0"] = str(phones.get_userPhone())					
+				else:
+					index = 0 #Phone index
+					for phone in phones:
+						jdata["phone_{!s}".format(index)] = phone.get_userPhone()
+						index = index +1
+			
 			elif "Limites" in jdata["Tipo"]:
+				#~ Limites.SensorLimits().DeleteAll()
 				jdata["MaxHumedad"] = LimitHandler.get_Max_Value("Humedad")
 				jdata["MinHumedad"] = LimitHandler.get_min_Value("Humedad")
 				
@@ -122,8 +143,9 @@ class Config_provider(webapp2.RequestHandler):
 				jdata["MinIluminacion"] = LimitHandler.get_min_Value("Iluminacion")
 
 			self.response.write(json.dumps(jdata)) ##Just to check what was received	
-		except (ValueError, TypeError, KeyError):
+		except (ValueError, TypeError, KeyError) as e:
 			'''KeyError goes in case that the json ID doesn't exists, mainly ["Tipo"] but can be others'''
+			print("Error: {!s}".format(e))
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
 			self.response.write("Not a JSON object")
 			
@@ -134,18 +156,37 @@ class Config_provider(webapp2.RequestHandler):
 #@details This class react's to a URL stablished in app engine, it saves or updates all the user phone numbers and saves or updates all the stablished limits in datastore
 class Data_Config(webapp2.RequestHandler):
 	def post(self):
-		for ite in range(0, 10):
-			phone = PhoneHandler.set_new_userPhone(str(ite),self.request.get('check_phone_'+str(ite)),self.request.get('phone_'+str(ite)))
-		
+		for index in range(0,10):
+			current_phone = self.request.get('phone_{!s}'.format(index))
+			if re.match('^\d{10}$',current_phone,re.I) != None: #Check for 10 digit regex as a cell phone number, no case sensitive
+				PhoneHandler.set_new_userPhone(str(index),self.request.get('check_phone_'+str(index)),str(current_phone))
 
-		light = LimitHandler.set_Max_Alert("Luz",self.request.get('light_max'))
-		light_2 = LimitHandler.set_Min_Alert('Luz',self.request.get('light_min'))
+		if re.match('^[0-9]+(\.([0-9]+))*$',self.request.get('light_min')) != None: #Compares with a floating point simple regex
+			LimitHandler.set_Max_Alert("Iluminacion",self.request.get('light_max'))
 		
-		temp = LimitHandler.set_Max_Alert('Temperatura',self.request.get('temp_max'))
-		temp_2 = LimitHandler.set_Min_Alert('Temperatura',self.request.get('temp_min'))
+		if re.match('^[0-9]+(\.([0-9]+))*$',self.request.get('light_min')) != None: #Compares with a floating point simple regex
+			LimitHandler.set_Min_Alert('Iluminacion',self.request.get('light_min'))
+
+		if re.match('^[0-9]+(\.([0-9]+))*$',self.request.get('light_min')) != None: #Compares with a floating point simple regex
+			LimitHandler.set_Max_Alert('Temperatura',self.request.get('temp_max'))
 		
-		hum = LimitHandler.set_Max_Alert('Humedad',self.request.get('hum_max'))
-		hum_2 = LimitHandler.set_Min_Alert('Humedad',self.request.get('hum_min'))
+		if re.match('^[0-9]+(\.([0-9]+))*$',self.request.get('light_min')) != None: #Compares with a floating point simple regex
+			LimitHandler.set_Min_Alert('Temperatura',self.request.get('temp_min'))
+		
+		try:
+			max_hum = float(self.request.get('hum_max'))
+			if max_hum >= 0.0 and max_hum <= 100.0:
+				LimitHandler.set_Max_Alert('Humedad',"{!s}".format(max_hum))
+		except ValueError as e:
+			print("Error: {!s}".format(e))
+			
+		try:
+			min_hum = float(self.request.get('hum_min'))
+			if min_hum >= 0.0 and min_hum <= 100.0:
+				LimitHandler.set_Min_Alert('Humedad',min_hum)
+		except ValueError as e:
+			print("Error: {!s}".format(e))
+		
 		
 		self.redirect('/Templates/configuracion.html')
 		

@@ -7,7 +7,7 @@ from google.appengine.ext import db
 class UserPhone(db.Model):
 	##@brief It have's the identification of the user phone number
 	user_id = db.Key()
-	##@brief It contains the name of the user
+	##@brief It contains the phone number
 	user_phone = db.StringProperty()
 	##@brief This attribute have's the phone number of the user
 	phone_enable = db.BooleanProperty()
@@ -48,3 +48,9 @@ class UserPhone(db.Model):
 	##@brief Check if alerts are disable for this phone
 	def isDisable():
 		return False
+		
+	##@brief ALERT!! Deletes all the UserPhone database
+	#@details Must be used with extreme precausion since there's no roll back
+	def DeleteAll(self):
+		query_str = "SELECT * FROM UserPhone"
+		db.delete(db.GqlQuery(query_str))
