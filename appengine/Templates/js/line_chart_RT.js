@@ -35,7 +35,7 @@ function generateChartData() {
 		}
 						
 	}, function(status) {
-		alert('Something went wrong.');
+		alert('Something went wrong, error: status'.replace("status",status));
 	});
 }
 

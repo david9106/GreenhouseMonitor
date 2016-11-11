@@ -175,14 +175,14 @@ class Data_Config(webapp2.RequestHandler):
 		
 		try:
 			max_hum = float(self.request.get('hum_max'))
-			if max_hum >= 0.0 and max_hum <= 100.0:
+			if max_hum >= 0.0 and max_hum <= 100.0: #Only saves it if it's within range
 				LimitHandler.set_Max_Alert('Humedad',"{!s}".format(max_hum))
 		except ValueError as e:
 			print("Error: {!s}".format(e))
 			
 		try:
 			min_hum = float(self.request.get('hum_min'))
-			if min_hum >= 0.0 and min_hum <= 100.0:
+			if min_hum >= 0.0 and min_hum <= 100.0: #Only saves it if it's within range
 				LimitHandler.set_Min_Alert('Humedad',min_hum)
 		except ValueError as e:
 			print("Error: {!s}".format(e))
