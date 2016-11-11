@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.12"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>GreenHouse Monitoring System: MainPage.py File Reference</title>
+<title>GreenHouse Monitoring System: sms.py File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -65,43 +65,37 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">MainPage.py File Reference</div>  </div>
+<div class="title">sms.py File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This file handles all the main functions of the application.  
+<p>This module is used to send the messages to user.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_handlers_1_1_main_page_1_1_c_s_v__provider.html">Handlers.MainPage.CSV_provider</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves current year measuress from DB of specified sensor type and gives it to client in a CSV file.  <a href="class_handlers_1_1_main_page_1_1_c_s_v__provider.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_handlers_1_1_main_page_1_1_j_s_o_n__provider.html">Handlers.MainPage.JSON_provider</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves data form DB and gives it to user in JSON format.  <a href="class_handlers_1_1_main_page_1_1_j_s_o_n__provider.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_handlers_1_1_main_page_1_1_config__provider.html">Handlers.MainPage.Config_provider</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_handlers_1_1_main_page_1_1_data___config.html">Handlers.MainPage.Data_Config</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:namespace_handlers_1_1_main_page"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_handlers_1_1_main_page.html">Handlers.MainPage</a></td></tr>
+<tr class="memitem:namespace_handlers_1_1sms"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_handlers_1_1sms.html">Handlers.sms</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aafb58e61254da93d0a5b4725eb962e9b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_handlers_1_1sms.html#aafb58e61254da93d0a5b4725eb962e9b">Handlers.sms.sendMsg</a> (telefono, info)</td></tr>
+<tr class="memdesc:aafb58e61254da93d0a5b4725eb962e9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to send a message to user.  <a href="namespace_handlers_1_1sms.html#aafb58e61254da93d0a5b4725eb962e9b">More...</a><br /></td></tr>
+<tr class="separator:aafb58e61254da93d0a5b4725eb962e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ad837a2d8c18e37481b4a3eb12f1fda06"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_handlers_1_1_main_page.html#ad837a2d8c18e37481b4a3eb12f1fda06">Handlers.MainPage.last_db_access</a> = datetime.datetime(month=1, year=1, day=1)</td></tr>
-<tr class="memdesc:ad837a2d8c18e37481b4a3eb12f1fda06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temporal variable, it holds the last DB access, currently not in use.  <a href="namespace_handlers_1_1_main_page.html#ad837a2d8c18e37481b4a3eb12f1fda06">More...</a><br /></td></tr>
-<tr class="separator:ad837a2d8c18e37481b4a3eb12f1fda06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbda5af2276db32cc7134d7ea2bd9b05"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_handlers_1_1sms.html#acbda5af2276db32cc7134d7ea2bd9b05">Handlers.sms.account_sid</a> = &quot;AC0b80488af39dcd381ac952934507ef69&quot;</td></tr>
+<tr class="separator:acbda5af2276db32cc7134d7ea2bd9b05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b09a36435d46c511616bbb543f2a829"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_handlers_1_1sms.html#a9b09a36435d46c511616bbb543f2a829">Handlers.sms.auth_token</a> = &quot;617ce805fc5a06c6aabc9e3aaf3549bf&quot;</td></tr>
+<tr class="separator:a9b09a36435d46c511616bbb543f2a829"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This file handles all the main functions of the application. </p>
+<div class="textblock"><p>This module is used to send the messages to user. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

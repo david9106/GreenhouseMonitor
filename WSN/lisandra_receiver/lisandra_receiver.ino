@@ -1,7 +1,5 @@
-/**@file lisandra_receiver.c
+/**@file lisandra_receiver.ino
 *@brief Module used to receive frames from transmitter and transfer to gateway by serial port.
-*@author Gutierrez Martin,Blanco Erick V.,Gutierrez David F.,Islas Alejandro,G. Karosuo.
-*@date 11 Nov 2016
 */
 
 #include "LiSANDRA.h"

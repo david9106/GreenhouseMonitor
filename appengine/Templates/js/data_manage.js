@@ -1,7 +1,7 @@
-///@file data_manage.js
- ///@brief Local data manage functions	
- ///@details Describes all the functions needed to fetch data from server to browser and save in LocalStorate.
- ///@author Rafael Karosuo
+///\file data_manage.js
+///\brief Local data manage functions	
+///\details Describes all the functions needed to fetch data from server to browser and save in LocalStorate.
+///\author Rafael Karosuo
 
 function getJSON(url, successHandler, errorHandler) {
 	///\brief get JSON object/list from url

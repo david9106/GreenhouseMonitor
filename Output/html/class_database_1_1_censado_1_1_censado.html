@@ -101,8 +101,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8e5874312a2f15e44e627afbcf3ef2db"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database_1_1_censado_1_1_censado.html#a8e5874312a2f15e44e627afbcf3ef2db">get_Data</a> (self, date_1, date_2, <a class="el" href="class_database_1_1_censado_1_1_censado.html#a2d529bcef972d7fa39414e7219a59aff">type</a>)</td></tr>
 <tr class="memdesc:a8e5874312a2f15e44e627afbcf3ef2db"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function get's the sensing data between two date's.  <a href="#a8e5874312a2f15e44e627afbcf3ef2db">More...</a><br /></td></tr>
 <tr class="separator:a8e5874312a2f15e44e627afbcf3ef2db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e0393d716ac8d1b3997a46b62f212f7"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database_1_1_censado_1_1_censado.html#a5e0393d716ac8d1b3997a46b62f212f7">get_Sensor_Tyes</a> (self)</td></tr>
-<tr class="separator:a5e0393d716ac8d1b3997a46b62f212f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace9c08d1dac65d2a2d82092d44a3816e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database_1_1_censado_1_1_censado.html#ace9c08d1dac65d2a2d82092d44a3816e">get_Sensor_Types</a> (self)</td></tr>
+<tr class="memdesc:ace9c08d1dac65d2a2d82092d44a3816e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a list of the available sensor types on the database.  <a href="#ace9c08d1dac65d2a2d82092d44a3816e">More...</a><br /></td></tr>
+<tr class="separator:ace9c08d1dac65d2a2d82092d44a3816e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0950c68430cd25a0de20bb9aa53dcfda"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database_1_1_censado_1_1_censado.html#a0950c68430cd25a0de20bb9aa53dcfda">get_Last_Measure</a> (sensor_type)</td></tr>
+<tr class="memdesc:a0950c68430cd25a0de20bb9aa53dcfda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get's the most recent measure of some sensor type give.  <a href="#a0950c68430cd25a0de20bb9aa53dcfda">More...</a><br /></td></tr>
+<tr class="separator:a0950c68430cd25a0de20bb9aa53dcfda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -174,14 +178,41 @@ Static Public Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">def </span>get_Data(self, date_1, date_2, type):       </div><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">if</span> isinstance(date_1, datetime.datetime) <span class="keywordflow">and</span> isinstance(date_2, datetime.datetime):</div><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="keywordflow">return</span> Censado.all().filter(<span class="stringliteral">&#39;when &gt;&#39;</span>,date_1).filter(<span class="stringliteral">&#39;when &lt;&#39;</span>,date_2).filter(<span class="stringliteral">&#39;type =&#39;</span>,type).fetch(<span class="keywordtype">None</span>)</div><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">else</span>:</div><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordflow">return</span> <span class="keywordtype">None</span></div><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="comment">#return Censado.all().filter(&#39;when &gt;&#39;,datetime.datetime(date_1.year, date_1.month, date_1.day, date_1.hour, date_1.minutes)).filter(&#39;when &lt;&#39;,datetime.datetime(date_2.year, date_2.month, date_2.day, date_2.hour, date_2.minutes)).filter(&#39;type =&#39;,type).fetch(None)</span></div><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div></div><!-- fragment -->
 </div>
 </div>
-<a id="a5e0393d716ac8d1b3997a46b62f212f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e0393d716ac8d1b3997a46b62f212f7">&sect;&nbsp;</a></span>get_Sensor_Tyes()</h2>
+<a id="a0950c68430cd25a0de20bb9aa53dcfda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0950c68430cd25a0de20bb9aa53dcfda">&sect;&nbsp;</a></span>get_Last_Measure()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def Database.Censado.Censado.get_Sensor_Tyes </td>
+          <td class="memname">def Database.Censado.Censado.get_Last_Measure </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>sensor_type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get's the most recent measure of some sensor type give. </p>
+<p>Uses a gql query of all the data, ordered desc by date and get's the first element of that list </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sensor_type</td><td>is the measure's sensor type </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Last <a class="el" href="class_database_1_1_censado_1_1_censado.html" title="A entity that haves all the properties of a sensing value from the sensor. ">Censado</a> entity </dd></dl>
+<div class="fragment"><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">def </span>get_Last_Measure(sensor_type):</div><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        query = db.GqlQuery(<span class="stringliteral">&quot;SELECT * FROM Censado ORDER BY when DESC&quot;</span>)</div><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">return</span> query.get() <span class="comment">#first element of ordered list, which is the most recent</span></div><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div><!-- fragment -->
+</div>
+</div>
+<a id="ace9c08d1dac65d2a2d82092d44a3816e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace9c08d1dac65d2a2d82092d44a3816e">&sect;&nbsp;</a></span>get_Sensor_Types()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def Database.Censado.Censado.get_Sensor_Types </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em></td><td>)</td>
@@ -189,9 +220,10 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Return a list of the available sensor types on the database
-Ex. if currently exists "Temperatura" and "Humedad", the function will return a listing both
-</pre> <div class="fragment"><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">def </span>get_Sensor_Tyes(self):</div><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;</span></div><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="stringliteral">        Return a list of the available sensor types on the database</span></div><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="stringliteral">        Ex. if currently exists &quot;Temperatura&quot; and &quot;Humedad&quot;, the function will return a listing both</span></div><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        query_str = <span class="stringliteral">&quot;SELECT DISTINCT type from Censado&quot;</span></div><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">return</span> db.GqlQuery(query_str)</div><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        </div><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    </div><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div><!-- fragment -->
+
+<p>Return a list of the available sensor types on the database. </p>
+<p>Ex. if currently exists "Temperatura" and "Humedad", the function will return a listing both </p>
+<div class="fragment"><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">def </span>get_Sensor_Types(self):</div><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        query_str = <span class="stringliteral">&quot;SELECT DISTINCT type from Censado&quot;</span></div><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">return</span> db.GqlQuery(query_str)</div><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        </div><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div></div><!-- fragment -->
 </div>
 </div>
 <a id="a449c118c65397d9cb00f0549eeaa77ec"></a>
