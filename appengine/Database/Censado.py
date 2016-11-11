@@ -67,4 +67,10 @@ class Censado(db.Model):
 		return db.GqlQuery(query_str)
 		
 
-	def get_Last_Measure():
+	##@brief Get's the most recent measure of some sensor type give
+	#@details Uses a gql query of all the data, ordered desc by date and get's the first element of that list
+	#@param sensor_type is the measure's sensor type
+	#@return Last Censado entity
+	def get_Last_Measure(sensor_type):
+		query = db.GqlQuery("SELECT * FROM Censado ORDER BY when DESC")
+		return query.get() #first element of ordered list, which is the most recent

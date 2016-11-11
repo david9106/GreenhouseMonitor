@@ -67,13 +67,24 @@ class JSON_provider(webapp2.RequestHandler):
 					obj['Fecha'] = '%s'%(sensor_obj.when.strftime('%Y-%m-%d %H:%M:%S')) #Strip the microseconds part
 					obj_list.append(obj)
 				self.response.write(json.dumps(obj_list)) #Responds a json
-			elif "GetSensorDayMeasures" in jdata["Tipo"]:
-				
+			elif "GetSensorTodayMeasures" in jdata["Tipo"]:
+				today_measures = CensadoHandler.get_today_measures(jdata["SensorType"])
+				obj_list = []
+				for sensor_obj in today_measures:
+					obj_list
 			
 		except (KeyError):
 			'''KeyError goes in case that the json ID doesn't exists, mainly ["Tipo"] but can be others'''
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
 			self.response.write("Not a JSON object")
+			
+		##@brief Packs a dictionary with the sensor parameters as json excpets
+		#@details Uses the ID's "Tipo","Valor","Fecha" and "Ubicacion" to create an json object array
+		#@param entity_list is the sensor list from where the values will be extracted
+		#@return json_dictionary which is a json object formatted array
+		def pack_json_sensor_measures(entity_list):
+			obj_list = []
+			for sensor_obj in ent
 			
 class Config_provider(webapp2.RequestHandler):
 	def post(self):
