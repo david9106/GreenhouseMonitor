@@ -26,25 +26,24 @@ def alta_sensor(sensor_type,medicion,id_LiSANDRA):
 				sensor.save_In_DB()
 				return True
 	return False
+
+##@breif Interface to the get_Sensor_Types
+#@details Retrieves the available sensor types on DB
 def get_available_sensors():
-	"""Interface to the get_Sensor_Types function on database
-		Retrieves the available sensor types on DB
-	"""
 	return Censado.Censado().get_Sensor_Types()
 
-	
+##@brief Get all the measures of a certain sensor type from the specified year
+#@param a_year means the year where I want the measures
+#@param tipo_sensor means the kind of sensor that I need
 def get_year_measures(tipo_sensor, a_year):	
-	"""Get all the measures of a certain sensor type from the specified year
-		a_year -> means the year where I want the measures
-		tipo_sensor -> means the kind of sensor that I need
-	"""
 	low_date_str = '{:0>4}-01-01 00:00:00'.format(a_year) #Start of the year
 	high_date_str = '{:0>4}-12-31 23:59:59'.format(a_year) #End of the year
 	low_date = datetime.datetime.strptime(low_date_str, '%Y-%m-%d %H:%M:%S') #Converts string to datetime
 	high_date = datetime.datetime.strptime(high_date_str, '%Y-%m-%d %H:%M:%S') 
 	return Censado.Censado().get_Data(low_date, high_date, tipo_sensor)
 	
-	##@brief Get all the measures with that type of sensor, of this year
+	
+##@brief Get all the measures with that type of sensor, of this year
 #@details This function get's all the measures stored in a year, first get the todays date and then get the diference between that geted day and the past 12 months
 #@param sensor_type: A string that have's the name of the type of sensor		
 def get_this_year_measures(tipo_sensor):
@@ -91,6 +90,11 @@ def get_this_month_measures(sensor_type):
 	end_day = now - datetime.timedelta(days=28) #the day aprox a month ago
 	return Censado.Censado().get_Data(now, end_day, sensor_type) #Gets the week btw today and 28 days ago
 	
+##@breif Get's the most recent measure of certain sensor type
+#@details Just an interface to the DB
+#@param sensor_type is the kind of sensor that I want the measure from
+def get_last_value(sensor_type):
+	return Censado.Censado().get_Last_Measure(sensor_type)
 
 ##@brief Funcion para buscar censados entre fechas y tiempos
 #@details First the function filter the list of measure using the first date and apply another filter with the second date and finally applies a filter for a type of sensor
