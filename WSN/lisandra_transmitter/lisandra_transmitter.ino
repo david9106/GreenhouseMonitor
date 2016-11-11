@@ -1,6 +1,6 @@
 
 /**
-* @file lisandra_transmitter.c
+* @file lisandra_transmitter.ino
 * @author Gutierrez Martin,Blanco Erick V.,Gutierrez David F.,Islas Alejandro,G. Karosuo.
 * @date 11 Nov 2016
 * @brief Module used to sends frames with the sensors measures to gateway.

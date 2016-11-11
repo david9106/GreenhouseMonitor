@@ -1,7 +1,6 @@
-## @file sms.py
-# @brief This module is responsible sending phone alerts.
-# This module is used to send an alert to a phone number.
-# 
+##@file sms.py
+#@brief This module is responsible sending phone alerts this module is used to send an alert to a phone number.
+
 from twilio.rest import TwilioRestClient
 account_sid = "AC0b80488af39dcd381ac952934507ef69" # @var Your Account SID from www.twilio.com/console
 auth_token  = "617ce805fc5a06c6aabc9e3aaf3549bf"  # @var Your Auth Token from www.twilio.com/console
