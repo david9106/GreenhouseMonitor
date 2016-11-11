@@ -1,3 +1,5 @@
+##@file Censado.py
+#@brief This file contains the model of the sensed data of the greenhouse
 from google.appengine.ext import db
 import datetime
 

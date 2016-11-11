@@ -1,3 +1,5 @@
+##@file Limites.py
+#@brief This module haves the model of the limits stablished for the sms alerts
 from google.appengine.ext import db
 
 ##@class SensorLimits

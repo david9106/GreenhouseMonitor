@@ -1,11 +1,7 @@
-/**
-* @file lisandra_receiver.c
-* @author Gutierrez Martin,Blanco Erick V.,Gutierrez David F.,Islas Alejandro,G. Karosuo.
-* @date 11 Nov 2016
-* @brief Module used to receive frames from transmitter and transfer to gateway by serial port.
-*
-* @see https://github.com/david9106/IS-Repo-Equipo2/tree/master/WSN/lisandra_transmitter
-* @see https://github.com/david9106/IS-Repo-Equipo2/tree/master/WSN/rpi
+/**@file lisandra_receiver.c
+*@brief Module used to receive frames from transmitter and transfer to gateway by serial port.
+*@author Gutierrez Martin,Blanco Erick V.,Gutierrez David F.,Islas Alejandro,G. Karosuo.
+*@date 11 Nov 2016
 */
 
 #include "LiSANDRA.h"
@@ -23,12 +19,7 @@ uint8_t net[3]=NETKEY;   /**< Variable used to save a NETKEY */
 RadioLT_DataPkt_t mypkt;	/**< Struct used to save receive data packet*/
 
 /**@brief The setup() function is called when program starts. Is used to initialize functions.
-* The setup function will only run once, after each powerup or reset of the Lisandra board.
-* Initialize Serial,leds,sensors and radio.
-* @param None.
-*
-* @return None.
-*
+*@details The setup function will only run once, after each powerup or reset of the Lisandra board. Initialize Serial,leds,sensors and radio.
 */
 void setup() {  
 	Serial.begin(38400);
@@ -42,14 +33,9 @@ void setup() {
 
 /**@brief The loop() function does precisely what its name suggests, and loops consecutively, 
 * allowing your program to change and respond. 
-* The function checks if the packet received is a battery packet,if is ,checks content
+*@details The function checks if the packet received is a battery packet,if is ,checks content
 * if the content is battery low or battery good send a message to gateway(RPI) by serial port.
 * In case of measures packet, first decode the packet data and then sends to gateway(RPI)
-*
-* @param None.
-*
-* @return None.
-*
 */
 void loop() {
 
@@ -83,11 +69,7 @@ if( RadioLT_AvailablePkt() > 0 )
 
 /**@brief The decodeFrame() decodes the packet (array of bytes) and parses to 
 * temperature,humidity,light co2 variables (each one of 2 bytes).
-*
 * @param Frame (packet received).
-*
-* @return None.
-*
 */
 void decodeFrame(char * frame){
     uint8_t i=0; 
@@ -130,9 +112,6 @@ void decodeFrame(char * frame){
 * @param param3 RAW humidity measure from parsed packet.
 * @param param4 RAW light measure from parsed packet.
 * @param param5 RAW CO2 measure from parsed packet.
-*
-* @return None.
-*
 */
 void sendToRpi(uint16_t srcId,uint16_t temp,uint16_t hum,uint16_t light,uint16_t co2){
             
