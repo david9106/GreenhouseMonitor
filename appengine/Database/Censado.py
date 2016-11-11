@@ -55,7 +55,8 @@ class Censado(db.Model):
 	#@param date_2: Second date to compare
 	#@param type: The type of the sensed data stored in cloud datastore
 	#@return All the data between the consulted dates in cloud datastore 
-	def get_Data(self, date_1, date_2, type):		
+	def get_Data(self, date_1, date_2, type):	
+		print("Date1: {!s}, Date2: {!s}, type:{!s}".format(date_1, date_2, type))	
 		if isinstance(date_1, datetime.datetime) and isinstance(date_2, datetime.datetime):
 			return Censado.all().filter('when >',date_1).filter('when <',date_2).filter('type =',type).fetch(None)
 		else:
@@ -76,4 +77,5 @@ class Censado(db.Model):
 	def get_Last_Measure(self,sensor_type):
 		#return Censado.all().filter('type =',sensor_type).order('-when').get()
 		query = db.GqlQuery("SELECT * FROM Censado WHERE type='{!s}' ORDER BY when DESC".format(sensor_type))
+
 		return query.get() #first element of ordered list, which is the most recent
