@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.12"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>GreenHouse Monitoring System: MainPage.py File Reference</title>
+<title>GreenHouse Monitoring System: SensorParser.py File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,42 +66,28 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">MainPage.py File Reference</div>  </div>
+<div class="title">SensorParser.py File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This file handles all the main functions of the application.  
+<p>This file haves the function that handles the received data from the gateway and decodify it.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_handlers_1_1_main_page_1_1_c_s_v__provider.html">Handlers.MainPage.CSV_provider</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves current year measuress from DB of specified sensor type and gives it to client in a CSV file.  <a href="class_handlers_1_1_main_page_1_1_c_s_v__provider.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_handlers_1_1_main_page_1_1_j_s_o_n__provider.html">Handlers.MainPage.JSON_provider</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves data form DB and gives it to user in JSON format.  <a href="class_handlers_1_1_main_page_1_1_j_s_o_n__provider.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_handlers_1_1_main_page_1_1_config__provider.html">Handlers.MainPage.Config_provider</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_handlers_1_1_main_page_1_1_data___config.html">Handlers.MainPage.Data_Config</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_handlers_1_1_sensor_parser_1_1_j_s_o_n__sensor__parser.html">Handlers.SensorParser.JSON_sensor_parser</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive the sensor JSON objects from gateway, parses them, call the comparator module and DB module.  <a href="class_handlers_1_1_sensor_parser_1_1_j_s_o_n__sensor__parser.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:namespace_handlers_1_1_main_page"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_handlers_1_1_main_page.html">Handlers.MainPage</a></td></tr>
+<tr class="memitem:namespace_handlers_1_1_sensor_parser"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_handlers_1_1_sensor_parser.html">Handlers.SensorParser</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:ad837a2d8c18e37481b4a3eb12f1fda06"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_handlers_1_1_main_page.html#ad837a2d8c18e37481b4a3eb12f1fda06">Handlers.MainPage.last_db_access</a> = datetime.datetime(month=1, year=1, day=1)</td></tr>
-<tr class="memdesc:ad837a2d8c18e37481b4a3eb12f1fda06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temporal variable, it holds the last DB access, currently not in use.  <a href="namespace_handlers_1_1_main_page.html#ad837a2d8c18e37481b4a3eb12f1fda06">More...</a><br /></td></tr>
-<tr class="separator:ad837a2d8c18e37481b4a3eb12f1fda06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This file handles all the main functions of the application. </p>
+<div class="textblock"><p>This file haves the function that handles the received data from the gateway and decodify it. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

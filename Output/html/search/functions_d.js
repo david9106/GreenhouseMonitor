@@ -7,7 +7,7 @@ var searchData=
   ['send',['send',['../namespacesend_to_server.html#a45570ac0603c43c23c6ff42f87140f89',1,'sendToServer']]],
   ['send_5fjson_5frequest',['send_json_request',['../namespacesend_to_server.html#ad171a09fc1f273f98e43724eff7610e0',1,'sendToServer']]],
   ['sendjson',['sendJson',['../namespacesend_to_server.html#a0c88051e3d706cce8ee58f8ad89a730f',1,'sendToServer']]],
-  ['sendmsg',['sendMsg',['../namespace_handlers_1_1sms.html#aafb58e61254da93d0a5b4725eb962e9b',1,'Handlers.sms.sendMsg()'],['../namespacesms.html#a0fc5a987fabc708f92fb4aa68e964f80',1,'sms.sendMsg()']]],
+  ['sendmsg',['sendMsg',['../namespace_handlers_1_1sms.html#aafb58e61254da93d0a5b4725eb962e9b',1,'Handlers::sms']]],
   ['sendtorpi',['sendToRpi',['../lisandra__receiver_8ino.html#ad901b781f5ce6abbb7d4ba2a0060dba0',1,'lisandra_receiver.ino']]],
   ['set_5fbatt_5fstatus',['set_batt_status',['../class_database_1_1_lisandra_1_1_lisandra_state.html#ac07d02c20df2fc0e98ae7c4473ce1dd3',1,'Database::Lisandra::LisandraState']]],
   ['set_5fid',['set_id',['../class_database_1_1_lisandra_1_1_lisandra_state.html#a9608e288cdf9745db3f046a0f21bb6b1',1,'Database::Lisandra::LisandraState']]],

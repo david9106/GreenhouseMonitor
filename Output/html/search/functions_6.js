@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['get',['get',['../class_handlers_1_1_main_page_1_1_c_s_v__provider.html#a9313d5d43eeb21d5100833d364d02d7b',1,'Handlers.MainPage.CSV_provider.get()'],['../class_handlers_1_1_main_page_1_1_j_s_o_n__provider.html#a1640cd6c4e0749d68118d2e3d7a995b5',1,'Handlers.MainPage.JSON_provider.get()'],['../class_handlers_1_1_main_page_1_1_config__provider.html#a58241750eeff55d2e2e1939cdbebe30c',1,'Handlers.MainPage.Config_provider.get()'],['../class_handlers_1_1_parser_1_1_j_s_o_n__sensor__parser.html#a6fd6c3671f5694e5e7519920a6bd8457',1,'Handlers.Parser.JSON_sensor_parser.get()']]],
+  ['get',['get',['../class_handlers_1_1_main_page_1_1_c_s_v__provider.html#a9313d5d43eeb21d5100833d364d02d7b',1,'Handlers.MainPage.CSV_provider.get()'],['../class_handlers_1_1_main_page_1_1_config__provider.html#a58241750eeff55d2e2e1939cdbebe30c',1,'Handlers.MainPage.Config_provider.get()'],['../class_handlers_1_1_sensor_parser_1_1_j_s_o_n__sensor__parser.html#accb282df5dc3b4fbf74e487eac8d72db',1,'Handlers.SensorParser.JSON_sensor_parser.get()']]],
   ['get_5fall_5fphones',['get_all_Phones',['../namespace_handlers_1_1_phone_handler.html#a5812c2e209e8649f825e6c3865f2e015',1,'Handlers::PhoneHandler']]],
   ['get_5fallenable_5fphones',['get_allEnable_Phones',['../namespace_handlers_1_1_phone_handler.html#a05b390af279c7594e4ead34f9246552e',1,'Handlers::PhoneHandler']]],
   ['get_5favailable_5fsensors',['get_available_sensors',['../namespace_handlers_1_1_censado_handler.html#a49c7f4e986fd7b49651bc71dd0839a5a',1,'Handlers::CensadoHandler']]],
@@ -8,11 +8,13 @@ var searchData=
   ['get_5fdata',['get_Data',['../class_database_1_1_censado_1_1_censado.html#a8e5874312a2f15e44e627afbcf3ef2db',1,'Database::Censado::Censado']]],
   ['get_5fdata_5fbetween_5fdates',['get_data_between_dates',['../namespace_handlers_1_1_censado_handler.html#a6443762f836555800cc3ee319c2ab0fc',1,'Handlers::CensadoHandler']]],
   ['get_5fid',['get_id',['../class_database_1_1_lisandra_1_1_lisandra_state.html#a77b6b357a06658e147bdd5202550e600',1,'Database::Lisandra::LisandraState']]],
+  ['get_5flast_5fmeasure',['get_Last_Measure',['../class_database_1_1_censado_1_1_censado.html#a0950c68430cd25a0de20bb9aa53dcfda',1,'Database::Censado::Censado']]],
+  ['get_5flast_5fvalue',['get_last_value',['../namespace_handlers_1_1_censado_handler.html#a04da4afe800dd30f6a245435a01d5456',1,'Handlers::CensadoHandler']]],
   ['get_5fmax_5fvalue',['get_Max_Value',['../namespace_handlers_1_1_limit_handler.html#ad28fac7c8343a7f1e85a1a8751f2020d',1,'Handlers::LimitHandler']]],
   ['get_5fmin_5fvalue',['get_min_Value',['../namespace_handlers_1_1_limit_handler.html#a7315216ae1693440e7330913f2303681',1,'Handlers::LimitHandler']]],
   ['get_5fnumber_5fof_5flisandras',['get_number_of_lisandras',['../class_database_1_1_lisandra_1_1_lisandra_state.html#a9f38e1347bece4be65582feec9f21e7e',1,'Database.Lisandra.LisandraState.get_number_of_lisandras()'],['../namespace_handlers_1_1_lisandra_handler.html#a285887db5db25ae9456ab303564b7912',1,'Handlers.LisandraHandler.get_number_of_lisandras()']]],
   ['get_5fphonenumber',['get_phoneNumber',['../namespace_handlers_1_1_phone_handler.html#a02713c7e22f04e7c95a9cc4f0b6e1cd2',1,'Handlers::PhoneHandler']]],
-  ['get_5fsensor_5ftyes',['get_Sensor_Tyes',['../class_database_1_1_censado_1_1_censado.html#a5e0393d716ac8d1b3997a46b62f212f7',1,'Database::Censado::Censado']]],
+  ['get_5fsensor_5ftypes',['get_Sensor_Types',['../class_database_1_1_censado_1_1_censado.html#ace9c08d1dac65d2a2d82092d44a3816e',1,'Database::Censado::Censado']]],
   ['get_5fthis_5fmonth_5fmeasures',['get_this_month_measures',['../namespace_handlers_1_1_censado_handler.html#a31a757925d07704e1de8dff836977b86',1,'Handlers::CensadoHandler']]],
   ['get_5fthis_5fweek_5fmeasures',['get_this_week_measures',['../namespace_handlers_1_1_censado_handler.html#a0645fe0a84d4789f7246702563a20c57',1,'Handlers::CensadoHandler']]],
   ['get_5fthis_5fyear_5fmeasures',['get_this_year_measures',['../namespace_handlers_1_1_censado_handler.html#ade0e3b8fabc790d514cf487210a7c4fc',1,'Handlers::CensadoHandler']]],

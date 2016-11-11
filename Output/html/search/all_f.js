@@ -8,11 +8,12 @@ var searchData=
   ['send',['send',['../namespacesend_to_server.html#a45570ac0603c43c23c6ff42f87140f89',1,'sendToServer']]],
   ['send_5fjson_5frequest',['send_json_request',['../namespacesend_to_server.html#ad171a09fc1f273f98e43724eff7610e0',1,'sendToServer']]],
   ['sendjson',['sendJson',['../namespacesend_to_server.html#a0c88051e3d706cce8ee58f8ad89a730f',1,'sendToServer']]],
-  ['sendmsg',['sendMsg',['../namespace_handlers_1_1sms.html#aafb58e61254da93d0a5b4725eb962e9b',1,'Handlers.sms.sendMsg()'],['../namespacesms.html#a0fc5a987fabc708f92fb4aa68e964f80',1,'sms.sendMsg()']]],
+  ['sendmsg',['sendMsg',['../namespace_handlers_1_1sms.html#aafb58e61254da93d0a5b4725eb962e9b',1,'Handlers::sms']]],
   ['sendtorpi',['sendToRpi',['../lisandra__receiver_8ino.html#ad901b781f5ce6abbb7d4ba2a0060dba0',1,'lisandra_receiver.ino']]],
   ['sendtoserver',['sendToServer',['../namespacesend_to_server.html',1,'']]],
   ['sendtoserver_2epy',['sendToServer.py',['../send_to_server_8py.html',1,'']]],
   ['sensorlimits',['SensorLimits',['../class_database_1_1_limites_1_1_sensor_limits.html',1,'Database::Limites']]],
+  ['sensorparser_2epy',['SensorParser.py',['../_sensor_parser_8py.html',1,'']]],
   ['sensors_5famount',['SENSORS_AMOUNT',['../lisandra__receiver_8ino.html#a85003e492ee29db355d0e42fe1489f6e',1,'lisandra_receiver.ino']]],
   ['set_5fbatt_5fstatus',['set_batt_status',['../class_database_1_1_lisandra_1_1_lisandra_state.html#ac07d02c20df2fc0e98ae7c4473ce1dd3',1,'Database::Lisandra::LisandraState']]],
   ['set_5fid',['set_id',['../class_database_1_1_lisandra_1_1_lisandra_state.html#a9608e288cdf9745db3f046a0f21bb6b1',1,'Database::Lisandra::LisandraState']]],
@@ -30,6 +31,6 @@ var searchData=
   ['set_5fvalue',['set_Value',['../class_database_1_1_censado_1_1_censado.html#a6005af7fa8826c24b4d5629159a2c396',1,'Database::Censado::Censado']]],
   ['setup',['setup',['../lisandra__receiver_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;lisandra_receiver.ino'],['../lisandra__transmitter_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;lisandra_transmitter.ino']]],
   ['sleep',['sleep',['../lisandra__transmitter_8ino.html#a14a11029699a982ceb1e798082d611d6',1,'lisandra_transmitter.ino']]],
-  ['sms',['sms',['../namespacesms.html',1,'']]],
+  ['sms_2epy',['sms.py',['../sms_8py.html',1,'']]],
   ['src',['src',['../struct_radio_l_t___data_pkt__t.html#abc47984020abf0d45a233d91f86e4186',1,'RadioLT_DataPkt_t']]]
 ];
