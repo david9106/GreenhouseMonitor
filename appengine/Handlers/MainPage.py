@@ -116,7 +116,6 @@ class Config_provider(webapp2.RequestHandler):
 						sms.sendMsg(ite.user_phone,"BATERIA BAJA LiSANDRA:"+str(jdata["Ubicacion"]))			
 				else:
 					sms.sendMsg(phones.user_phone,"BATERIA BAJA LiSANDRA:"+str(jdata["Ubicacion"]))			
-				#self.response.write(json.dumps(jdata))
 			elif "BateriaOK" in jdata["Tipo"]:
 				#Guardar en DB el estado de la Lisandra
 				jdata["Tipo"] = "Bateria RECIBIDA"

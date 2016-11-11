@@ -9,13 +9,10 @@ function getJSON(url, successHandler, errorHandler) {
 	///\param[in] url The server URL, it must has the prefix "http://"
 	///\param[in] successHandler The function name that will be triggered in case that status 200 is responded by server
 	///\param[in] errorHandler The function name that will be triggered in case that an error status is responded by server
-	///\param[out] sensor_type The measure's sensor type required
-	///\param[out] date1 The start of the date range, must be string date format
-	///\param[out] date2 The end of the date range, must be string date format
 	///\author Mathias
 	///\see https://mathiasbynens.be/notes/xhr-responsetype-json
 	var xhr = new XMLHttpRequest();
-	xhr.open('get', url, true);
+	xhr.open('GET', url, true);
 	xhr.responseType = 'json';
 	xhr.onload = function() {
 		var status = xhr.status;
@@ -26,6 +23,31 @@ function getJSON(url, successHandler, errorHandler) {
 		}
 	};
 	xhr.send();
+}
+
+function getJSON_ByCmd(url, successHandler, errorHandler, json_command) {
+	///\brief get JSON object/list from url by sending a command in the same format
+	///\details Creates an AJAX asyncronous POST request to a given url sending a json message with the command of which
+	///server information needs, the message should be "Tipo":"<command>" and waits for a JSON object/list as response	
+	///\param[in] url The server URL, it must has the prefix "http://"
+	///\param[in] successHandler The function name that will be triggered in case that status 200 is responded by server
+	///\param[in] errorHandler The function name that will be triggered in case that an error status is responded by server
+	///\param[out] json_command the json to be sent with the command
+	///\author Mathias and Rafael Karosuo
+	///\see https://mathiasbynens.be/notes/xhr-responsetype-json
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', url, true);
+	xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	xhr.responseType = 'json';
+	xhr.onload = function() {
+		var status = xhr.status;
+		if (status == 200) {
+			successHandler && successHandler(xhr.response);
+		} else {
+			errorHandler && errorHandler(status);
+		}
+	};
+	xhr.send(JSON.stringify(json_command));
 }
 
 function get_year_measures(the_year){

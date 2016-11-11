@@ -11,8 +11,13 @@
 ///\author Rafael Karosuo
 
 json_url = 'http://localhost:8080/get_json'
-if(typeof(Storage) !== "undefined"){
-	getJSON(json_url, update_year_values, error_response); //Updates if it's necessary the year measures on LocalStorage
+config_url = 'http://localhost:8080/get_config'
+if(typeof(Storage) !== "undefined"){	
+	//update_year_values();//Updates if it's necessary the year measures on LocalStorage	
+	//update_last_measures();//Updates the last measures on all the available sensors	
+	//update_today_measures(); //Updates the measures from today, then it'll be able to get the max of them and print it in the header of main page	
+	update_phones();
+	//update_limits(); //Updates all the registered limits and teir states
 }
 else{	
 	var browser_version;
@@ -40,22 +45,41 @@ function error_response(status){
 	alert('Something went wrong, error: status'.replace("status",status));
 }
 
-function update_last_measures(json_list){
-	
+function update_last_measures(){
+	//getJSON_ByCmd(json_url, update_last_measures, error_response); 
 }
 
-function update_today_values(json_list){
-	
+function update_today_measures(){
+	//getJSON_ByCmd(json_url, update_today_measures, error_response); 
 }
 
-function update_limits(json_list){
-	
+function update_limits(){
+	//getJSON_ByCmd(json_url, update_limits, error_response);
 }
 
-function update_phones(json_list){
-	
+function update_phones(){
+	///\brief Updates all the registered phones and their states	
+	var json_cmd = {"Tipo":"Telefonos"}; //command
+	getJSON_ByCmd(config_url,function(json_list){		
+		var current_local_value;
+		for (json_id in json_list){
+			current_local_value = localStorage.getItem("string".replace("string",json_id));
+			
+			if (current_local_value == null) {//If no current data saved, acces DB and save it
+				if(json_id.localeCompare("Tipo") != 0){
+					(json_list["key".replace("key",json_id)]):
+					localStorage.setItem("Telefonos", phone_list);
+				}
+			}else{
+				//alert();
+				//json_list["key".replace("key",json_id)]
+			}
+			
+			//alert();
+		}
+	},error_response,json_cmd)
 }
 
-function update_year_values(json_list){
-	
+function update_year_values(){
+	//getJSON_ByCmd(json_url, update_year_values, error_response); 
 }
