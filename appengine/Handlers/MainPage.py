@@ -59,21 +59,14 @@ class JSON_provider(webapp2.RequestHandler):
 					sensor_list.append(str(sensor.type))				
 				self.response.write(json.dumps(sensor_list))
 			elif "GetSensorYearMeasures" in jdata["Tipo"]:			
-				year_measures = CensadoHandler.get_year_measures(jdata["SensorType"], jdata["Year"])
-				obj_list = []
-				for sensor_obj in year_measures:
-					obj = {}
-					obj['Tipo'] = '%s'%(sensor_obj.type)
-					obj['Valor'] = '%s'%(sensor_obj.value)
-					obj['Ubicacion'] = '%s'%(sensor_obj.id_LiSANDRA)
-					obj['Fecha'] = '%s'%(sensor_obj.when.strftime('%Y-%m-%d %H:%M:%S')) #Strip the microseconds part
-					obj_list.append(obj)
-				self.response.write(json.dumps(obj_list)) #Responds a json
+				year_measures = CensadoHandler.get_year_measures(jdata["SensorType"], jdata["Year"])				
+				self.response.write(json.dumps(self.pack_json_sensor_measures(year_measures))) #Responds a json
 			elif "GetSensorTodayMeasures" in jdata["Tipo"]:
 				today_measures = CensadoHandler.get_today_measures(jdata["SensorType"])
-				obj_list = []
-				for sensor_obj in today_measures:
-					obj_list
+				self.response.write(self.pack_json_sensor_measures(today_measures))
+			elif "GetLastMeasure" in jdata["Tipo"]:
+				last_measure = CensadoHandler.get_last_value(jdata["SensorType"])
+				self.response.write(self.pack_json_sensor_measures(last_measure))
 			
 		except (KeyError):
 			'''KeyError goes in case that the json ID doesn't exists, mainly ["Tipo"] but can be others'''
@@ -86,7 +79,14 @@ class JSON_provider(webapp2.RequestHandler):
 		#@return json_dictionary which is a json object formatted array
 		def pack_json_sensor_measures(entity_list):
 			obj_list = []
-			for sensor_obj in ent
+			for sensor_obj in entity_list:
+				obj = {}
+				obj['Tipo'] = '%s'%(sensor_obj.type)
+				obj['Valor'] = '%s'%(sensor_obj.value)
+				obj['Ubicacion'] = '%s'%(sensor_obj.id_LiSANDRA)
+				obj['Fecha'] = '%s'%(sensor_obj.when.strftime('%Y-%m-%d %H:%M:%S')) #Strip the microseconds part
+				obj_list.append(obj)
+			return obj_list
 			
 class Config_provider(webapp2.RequestHandler):
 	def post(self):
