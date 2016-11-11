@@ -1,3 +1,5 @@
+##@file Alertas.py
+#@brief This file describes how to detect when a sensed data is surpassing the limits stablished by the user
 import logging
 import LimitHandler
 from Handlers import PhoneHandler
@@ -5,7 +7,9 @@ import json
 import webapp2
 import sms
 
-#function receives a dictionary
+##@brief This function get new data and compares it to the limits located in datastore
+#@details The function receive data from the gateway and verify if it surpass the limit stablish in datastore, if surpass it the function send a sms alert to all the the user phone numbers enabled to receive the message
+#@param data This parameter have a dictionary with the data to compare with the limits in datastore
 def compararLimites(data):
 	#It represents the type of sensor unit
 	unit =""

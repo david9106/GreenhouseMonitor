@@ -1,8 +1,8 @@
 import webapp2
-from Handlers import Parser,MainPage
+from Handlers import SensorParser,MainPage
 							
 app = webapp2.WSGIApplication([
-    ('/set_sensors',Parser.JSON_parser),
+    ('/set_sensors',SensorParser.JSON_sensor_parser),
     ('/get_csv', MainPage.CSV_provider),
     ('/get_json', MainPage.JSON_provider),
     ('/get_config', MainPage.Config_provider),

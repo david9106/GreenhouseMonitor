@@ -1,24 +1,28 @@
+## @file receptor.py
+#This is the main module the raspberry receive all data from Lisradra_reciever via Serial
+
+
+
 #importar librerias para la comunicacion serial y operaciones para ajustes
 import serial
 import parser
 import conversor
 import sendToServer
 import sms
-#Variable que recibira la trama de datos
-data = ''
-#Bandera para saber si llego un paquete e imprimirlo
-recibido = False
-#contador par ael numero de paquete recibido
-cnt=0
 
-def compara(data):
-        if data[0] == '#':
-                #Ejecutar alerta
-                print("LLamar alerta !!!")
-                return data.replace('#','') 
-        return data.replace('+','')
-        
-#inicializamos puerto serial
+##This variable will receive and save the serial from lisandra
+data = ''
+##Bool to know if serial data is available
+recibido = False
+##This count the receive packages
+cnt=0
+##Dictionary take the Alerta type of the serial package from lisandra
+alertaID = {}
+##Dictionary that get the respose from the server 
+json_dict = {}
+##list of sernsor have the sensor type, value, location
+lista_sensores = []
+##This is init for Serial of Raspberry
 comm = serial.Serial("/dev/ttyAMA0",38400,timeout=1)
 print "Reading..."
 #Ciclo principal
@@ -28,8 +32,8 @@ while True:
 		#De haberlos se lee hasta que se encuentre un  fin de linea
                 data = comm.readline()
                 recibido=True
-        if recibido:
-                
+
+        if recibido: 
                 if  "BateriaBaja" in data:
                         print ("-----------------------ALERTA----------")
                         #mostramos la data recibida completa
@@ -41,8 +45,7 @@ while True:
                         json_dict = sendToServer.getconfig(alertaID)
                         
                         data = '' #Vaciar el dato
-                        #print(json_dict["Telefono"])
-                        #sms.sendMsg("6645380095")
+                        
                 elif "BateriaOK" in data:
                         print ("-----------------------OK----------")
                         #mostramos la data recibida completa
@@ -55,7 +58,7 @@ while True:
                         print(json_dict)
                         data = '' #Vaciar el dato
                 else:
-                        #data=compara(data)
+                        
                         #mostramos el numero de paquete
                         print ("-------------------------------------------")
                         print ("paquete: "+str(cnt))
@@ -63,7 +66,7 @@ while True:
                         print (data)
                         recibido=False
         		#Llamamos a la funcion encargada de parsear la data recibida
-                        lista_sensores=parser.obtenerMediciones(data)
+                        lista_sensores=parser.parserSensorData(data)
                         #Llamamos a la funcion encargada de convertir la data a las mediciones correctas
                         conversor.ajustarMediciones(lista_sensores)
                         #Llamamos a la funcion encargada de enviar la informacion al servidor

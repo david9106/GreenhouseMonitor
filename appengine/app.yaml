@@ -6,6 +6,9 @@ handlers:
 - url: /Templates
   static_dir: Templates
 
+- url: /Documentation
+  static_dir: Documentation
+
 - url: .*
   script: Main.app
 

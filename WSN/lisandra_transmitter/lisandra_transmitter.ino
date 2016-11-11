@@ -1,196 +1,206 @@
+
+/**
+* @file lisandra_transmitter.ino
+* @author Gutierrez Martin,Blanco Erick V.,Gutierrez David F.,Islas Alejandro,G. Karosuo.
+* @date 11 Nov 2016
+* @brief Module used to sends frames with the sensors measures to gateway.
+*
+* @see https://github.com/david9106/IS-Repo-Equipo2/tree/master/WSN/lisandra_receiver
+* @see https://github.com/david9106/IS-Repo-Equipo2/tree/master/WSN/rpi
+*/
+
 #include "LiSANDRA.h"
 
-#define T 6
+#define T 3
 #define LOCAL_ADDR  0x15
 #define DEST_ADDR   0x20
 #define NETKEY      {0xc0,0xd1,0xce}
 
-char tiempo[20];
-uint8_t trama[8];
-uint16_t temp;
-uint16_t hum;
-uint16_t luz;
-/*Valor de prueba para co2 (cambiara cuando se implemente el sensor)*/
-uint16_t co2=0xAA55;
-uint16_t SleepCnt=0;
-uint8_t i=0;
-RadioLT_DataPkt_t mypkt;
-bool setAlarm = false;
-bool batOK=true;
+static uint16_t SleepCnt=0; 	/**< Variable used to count how many times lisandra fall asleep */
+uint8_t battery_state[9];		/**< Variable used to represent a state of battery */			
+uint8_t  frame[8];				/**< Variable used to package sensors RAW measures */
+uint16_t temp;					/**< Variable used to save a sensor RAW measure temperature */
+uint16_t hum;					/**< Variable used to save a sensor RAW measure humidity */
+uint16_t light;					/**< Variable used to save a sensor RAW measure light */
+uint16_t co2=0xAA55;			/**< Variable used to save a sensor RAW measure carbon monoxide (CO2) */
+bool batOK=true;				/**< Flag used to know if battery was read and was in a good state */
+uint8_t net[3]=NETKEY;   		/**< Variable used to save a NETKEY */
+RadioLT_DataPkt_t mypkt;		/**< Struct used to send colected sensors data */
 
-void setup() {
- uint8_t net[3]=NETKEY;    
+/**@brief The setup() function is called when program starts. Use it to initialize functions.
+* The setup function will only run once, after each powerup or reset of the Lisandra board.
+* Initialize Serial,leds,sensors and radio.
+*
+* @param None.
+*
+* @return None.
+*
+*/
+void setup() { 
     delay(3000);
-	//Inicializamos la comunicacion serial
     Serial.begin(38400);
-	//Inicializamos los leds
     LEDs_Ini();    
-	//Inicializamos el sensor de luz
     LightSensor_Ini(); 
-	//Inicializamos de humedad y temperatura
     HTsensor_Ini();
-	//Inicializamos el modulo de RF
 	RTC_Ini(); 
     RadioLT_NetIni( net, LOCAL_ADDR, DEST_ADDR );   
     RadioLT_Ini(); 
 }
 
+/**@brief The loop() function does precisely what its name suggests, and loops consecutively, 
+* allowing your program to change and respond. 
+* First check the state of battery, then takes sensors measures, fetch the frame with the colected
+* measures, an finally sends to gateway.
+*
+* @param None.
+*
+* @return None.
+*
+*/
 void loop() { 
-  
-  if(readVcc() >= 500){
-  //if(cont24h==)
-    char msg[9]={"BATL"};//mensaje de Bateria baja   
-     Serial.print( msg );
-     Serial.println();
-     LEDs_Ylw_On();
-     delay(5);
-     LEDs_Ylw_Off();
-      /*enviar*/
-         RadioLT_Send( msg ); 
-      /*Obtener tiempo*/
-         RTC_GetTimeStr(tiempo);
-       /*Mostrar tiempo por serial*/
-         Serial.println(tiempo);
-       /*Vaciar el buffer Serial*/
-         Serial.flush();
-    
-       /*Ciclo para mantener dormido al micro durante 5min*/
-      do{
-    
-        
-           RTC_SleepCPU();
-           SleepCnt++;
-         /*blink solo para saber si esta trabajando no se usara y no es nesesario es de prueba solamente*/
-           LEDs_Red_On();
-         /*Importante el delay si es neseario, para que el micro tenga tiempo suficiente de despertar y volverse a dormir*/
-           delay(5);
-           LEDs_Red_Off();
-        }while( SleepCnt<1);
-        
-      batOK=true;
-  }
-  else if((readVcc() <= 410) && batOK){
-    char msg[9]={"BATOK"};//mensaje de Bateria baja 
-    //Serial.print(readVcc());  
-     Serial.print( msg );
-     Serial.println();
-     LEDs_Ylw_On();
-     delay(5);
-     LEDs_Ylw_Off();
-      /*enviar*/
-         RadioLT_Send( msg ); 
-      /*Obtener tiempo*/
-         RTC_GetTimeStr(tiempo);
-       /*Mostrar tiempo por serial*/
-         Serial.println(tiempo);
-       /*Vaciar el buffer Serial*/
-         Serial.flush();
-    
-       /*Ciclo para mantener dormido al micro durante 5min*/
-      do{
-    
-        
-           RTC_SleepCPU();
-           SleepCnt++;
-         /*blink solo para saber si esta trabajando no se usara y no es nesesario es de prueba solamente*/
-           LEDs_Red_On();
-         /*Importante el delay si es neseario, para que el micro tenga tiempo suficiente de despertar y volverse a dormir*/
-           delay(5);
-           LEDs_Red_Off();
-        }while( SleepCnt<1);
-   batOK=false;
-  }
-  
-    	SleepCnt=0;
-    
-        /*Obtener Mediciones RAW*/
-        temp=HTsensor_ReadTemperatureRAW();
-        hum=HTsensor_ReadHumidityRAW();
-        luz=LightSensor_Read();
-    
-         /* conformar paquete */
-         llenaTrama(trama,temp,hum,luz);
-    	/*Mostrar trama en hexadecimal*/
-         for(i=0;i<8;i++){
-         Serial.print(trama[i],HEX);
-         Serial.print(" ");}
-         Serial.println();
-    	/*blink*/
-         LEDs_Red_On();
-         delay(5);
-         LEDs_Red_Off();
-    	 /*enviar*/
-         RadioLT_Send( trama ); 
-    	 /*Obtener tiempo*/
-         RTC_GetTimeStr(tiempo);
-    	 /*Mostrar tiempo por serial*/
-         Serial.println(tiempo);
-    	 /*Vaciar el buffer Serial*/
-         Serial.flush();
-    
-    	 /*Ciclo para mantener dormido al micro durante 5min*/
-      do{
-    
-        
-           RTC_SleepCPU();
-           SleepCnt++;
-    	   /*blink solo para saber si esta trabajando no se usara y no es nesesario es de prueba solamente*/
-           LEDs_Red_On();
-    	   /*Importante el delay si es neseario, para que el micro tenga tiempo suficiente de despertar y volverse a dormir*/
-           delay(5);
-           LEDs_Red_Off();
-        }while( SleepCnt<T);
-        
-
-  
+    battery_check(battery_state);
+	temp=HTsensor_ReadTemperatureRAW();
+	hum=HTsensor_ReadHumidityRAW();
+	light=LightSensor_Read();
+	fetchFrame(frame,temp,hum,light,co2);
+	printFrame(frame);
+	RadioLT_Send( frame );
+	sleep();
 }
 
-/*Funcion encargada de empaquetar los bytes en la trama*/
-void llenaTrama(uint8_t *trama,uint16_t temp,uint16_t hum,uint16_t luz){
+/**@brief The fetchFrame() function puts the sensors measures splitted in bytes in array of bytes.
+* Each measure has 2 bytes length, to put in array is nessesary split in two bytes, high an low,
+* to do that, first shift right the bits of variable 8 positions (high byte) and saves, then only do a cast 
+* of variable and saves in array
+*
+* @param param1 Array of bytes.
+* @param param2 RAW temperature measure.
+* @param param2 RAW humidity measure.
+* @param param2 RAW light measure.
+* @param param2 RAW CO2 measure.
+* 
+* @return None.
+*
+*/
+void fetchFrame(uint8_t *frame,uint16_t temp,uint16_t hum,uint16_t light,uint16_t co2){
   uint8_t i=0;
   for(i=0;i<4;i++){
     switch(i){
       case 0:
-	  /*obtenemos el byte alto de la medicion se le hace cast y lo asignamos la pocision i de la trama*/
-      trama[i]=uint8_t(temp>>8);
-	  /*obtenemos el byte bajo de la medicion se le hace cast y lo asignamos la pocision i de la trama*/
-      trama[i+1]=uint8_t(temp);
+      frame[i]=uint8_t(temp>>8);
+      frame[i+1]=uint8_t(temp);
       break;
       case 1:
-      trama[i+1]=uint8_t(hum>>8);
-      trama[i+2]=uint8_t(hum);
+      frame[i+1]=uint8_t(hum>>8);
+      frame[i+2]=uint8_t(hum);
       break;
       case 2:
-      trama[i+2]=uint8_t(luz>>8);
-      trama[i+3]=uint8_t(luz);
+      frame[i+2]=uint8_t(light>>8);
+      frame[i+3]=uint8_t(light);
       break;
-      
-	  case 4:
-	  trama[i+3]=uint8_t(co2>>8);
-      trama[i+4]=uint8_t(co2);
+	  case 3:
+	  frame[i+3]=uint8_t(co2>>8);
+	  frame[i+4]=uint8_t(co2);
 	  break;
     }
   }
 }
 
-//funcion para medir la carga de la pila
+
+/**@brief The readVC() function measures the battery level.
+*
+* The battery level measure is taken by the adc (Analog Digital Converter).
+* Read 1.1V reference against a Vcc
+* @param None.
+*
+* @return ADC measure.
+*
+*/
 int readVcc() {
-  int result;
-  // Read 1.1V reference against AVcc
-  //leer 1.1V en referencian contra Vcc-real
-  ADMUX = _BV(REFS0) | _BV(MUX4) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1);
-  delay(2);//esperar que se inialize bien
-  ADCSRA |= _BV(ADSC); // Convertir
-  
-  while (bit_is_set(ADCSRA,ADSC));
-  result = ADCL;
-  result |= ADCH<<8;
-  Serial.println( result );
- // result = 1125 / result;
-   
-  
-  // regresar valor calculado
-  return result;
+	int result;	/**< Variable used to save result measure */
+	ADMUX = _BV(REFS0) | _BV(MUX4) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1);
+	delay(2);
+	ADCSRA |= _BV(ADSC); 
+	while (bit_is_set(ADCSRA,ADSC));
+	result = ADCL;
+	result |= ADCH<<8;
+	return result;
 }
 
+/**@brief The blink() function blinks a led.
+*
+* @param None.
+*
+* @return None.
+*
+*/
+void blink(){
+	LEDs_Ylw_On();
+	delay(5);
+	LEDs_Ylw_Off();	
+}
+
+/**@brief The sleep() function sleeps Lisandra by 5 minutes (using 5 seconds microsleeps).
+*
+* @param None.
+*
+* @return None.
+*
+*/  
+void sleep(){
+	do{
+		RTC_SleepCPU();
+		SleepCnt++;
+		LEDs_Red_On();
+		delay(5);
+		LEDs_Red_Off();
+	}while( SleepCnt<T);
+	SleepCnt=0;
+}
+
+/**@brief The printFrame() function prints the created frame using serial port.
+*
+* @param None.
+*
+* @return None.
+*
+*/ 
+void printFrame(uint8_t *frame){
+  uint8_t i=0;
+	for(i=0;i<8;i++){
+		Serial.print(frame[i],HEX);
+		Serial.print(" ");}
+		Serial.println();
+		Serial.flush();
+}
+
+/**@brief The battery_check() function checks if battery level is under 2.2v and sends battery alert message (low battery)
+* if not sends an alert battery message (good battery).
+*
+* @param None.
+*
+* @return None.
+*
+*/
+void battery_check(char *battery_state){
+  uint16_t adc=readVcc();
+  Serial.println();
+  Serial.print("adc battery: ");
+  Serial.println(adc);
   
+	if(adc >= 500)
+	{
+		battery_state[9]={"BATL"};
+		RadioLT_Send( battery_state ); 
+		blink();
+		batOK=true;
+		Serial.println(battery_state);
+	}
+	else if((adc <= 410) && batOK){
+		battery_state[9]={"BATOK"}; 
+		RadioLT_Send( battery_state ); 
+		blink();
+		batOK=false;
+		Serial.println(battery_state);
+	}
+}
