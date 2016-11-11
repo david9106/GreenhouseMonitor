@@ -14,3 +14,9 @@ indexes:
   properties:
   - name: type
   - name: when
+    direction: desc
+
+- kind: Censado
+  properties:
+  - name: type
+  - name: when

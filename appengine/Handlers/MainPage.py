@@ -45,10 +45,8 @@ class CSV_provider(webapp2.RequestHandler):
 #No parameters
 #It inherits from webapp2.RequestHandler
 class JSON_provider(webapp2.RequestHandler):
+	##@breif Responds to a POST request that is redirected by URL to this class
 	def post(self):
-		"""
-			Responds to a POST request that is redirected by URL to this class
-		"""
 		try:
 			#Receive the object and decodes it
 			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
@@ -66,6 +64,7 @@ class JSON_provider(webapp2.RequestHandler):
 				self.response.write(self.pack_json_sensor_measures(today_measures))
 			elif "GetLastMeasure" in jdata["Tipo"]:
 				last_measure = CensadoHandler.get_last_value(jdata["SensorType"])
+				
 				self.response.write(self.pack_json_sensor_measures(last_measure))
 			
 		except (KeyError):
@@ -73,12 +72,21 @@ class JSON_provider(webapp2.RequestHandler):
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
 			self.response.write("Not a JSON object")
 			
-		##@brief Packs a dictionary with the sensor parameters as json excpets
-		#@details Uses the ID's "Tipo","Valor","Fecha" and "Ubicacion" to create an json object array
-		#@param entity_list is the sensor list from where the values will be extracted
-		#@return json_dictionary which is a json object formatted array
-		def pack_json_sensor_measures(entity_list):
-			obj_list = []
+	##@brief Packs a dictionary with the sensor parameters as json excpets
+	#@details Uses the ID's "Tipo","Valor","Fecha" and "Ubicacion" to create an json object array
+	#In case that it needs to pack just one sensor measures, it doesn't iteates just adds one element to the list with those values
+	#@param entity_list is the sensor list from where the values will be extracted
+	#@return json_dictionary which is a json object formatted array
+	def pack_json_sensor_measures(self,entity_list):
+		obj_list = []
+		if not hasattr(entity_list, '__iter__'): #Means it's just one Censado entity and won't be iterable
+			obj = {}
+			obj['Tipo'] = '%s'%(entity_list.type)
+			obj['Valor'] = '%s'%(entity_list.value)
+			obj['Ubicacion'] = '%s'%(entity_list.id_LiSANDRA)
+			obj['Fecha'] = '%s'%(entity_list.when.strftime('%Y-%m-%d %H:%M:%S')) #Strip the microseconds part
+			obj_list.append(obj)
+		else:
 			for sensor_obj in entity_list:
 				obj = {}
 				obj['Tipo'] = '%s'%(sensor_obj.type)
@@ -86,7 +94,7 @@ class JSON_provider(webapp2.RequestHandler):
 				obj['Ubicacion'] = '%s'%(sensor_obj.id_LiSANDRA)
 				obj['Fecha'] = '%s'%(sensor_obj.when.strftime('%Y-%m-%d %H:%M:%S')) #Strip the microseconds part
 				obj_list.append(obj)
-			return obj_list
+		return obj_list
 			
 class Config_provider(webapp2.RequestHandler):
 	def post(self):
