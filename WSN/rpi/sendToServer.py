@@ -9,9 +9,9 @@ import ssl
 
 #url = "http://192.168.0.106/getjson/catchJson.php"
 #url2 = "https://sensado-invernadero.appspot.com/get_config"
-## Url from us server to send sensor data
+## Url from our server to send sensor data
 url1 = "http://redsensoreslisandra.appspot.com/set_sensors"
-## Url from us server to get specific configuration from the same
+## Url from our server to get specific configuration from the same
 url2 = "http://redsensoreslisandra.appspot.com/get_config"
 #headers = {'Content-type':'application/json'}
 ## @brief This function send all sensor list calling "sendjson" funtion
