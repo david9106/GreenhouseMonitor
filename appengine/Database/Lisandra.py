@@ -1,3 +1,5 @@
+##@file Lisandra.py
+#@brief This module haves the model used to register a LiSANDRA module in the datastore
 import webapp2
 from google.appengine.ext import db
 

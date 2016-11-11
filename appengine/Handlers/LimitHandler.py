@@ -1,3 +1,5 @@
+##@file LimitHandler.py
+#@brief This file makes a interface with cloud datastore to get or insert data of a sensor limit for a type of sensed data
 from Database import Limites
 
 ##@brief This function disable a alert stored on the database 

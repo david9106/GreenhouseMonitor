@@ -1,3 +1,5 @@
+##@file sms.py
+#@brief This module is used to send the messages to user 
 from twilio.rest import Client
 
 account_sid = "AC0b80488af39dcd381ac952934507ef69" # Your Account SID from www.twilio.com/console

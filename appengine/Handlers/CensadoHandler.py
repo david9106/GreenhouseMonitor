@@ -1,14 +1,10 @@
-﻿"""@file CensadoHandler.py
-@brief CensadoHandler is the interface to DB
+﻿##@file CensadoHandler.py
+#@brief CensadoHandler is the interface to DB this particular file only takes care of the sensor measure DB part interface
+#@details In order to be able to change of DB engine in the future if it's needed, this interface was implemented.
+#So all the system uses these functions to acces DB instead of direct interaction with entity, which let to change the DB engine
+#and all the changes will be need only within the functions of this module
 
-@details In order to be able to change of DB engine in the future if it's needed, this interface was implemented.
-So all the system uses these functions to acces DB instead of direct interaction with entity, which let to change the DB engine
-and all the changes will be need only within the functions of this module
-
-Above rules apply to all the modules in the Handlers directory.
-This particular file only takes care of the sensor measure DB part interface
-
-"""
+#Above rules apply to all the modules in the Handlers directory.
 import datetime
 from Database import Censado 
 

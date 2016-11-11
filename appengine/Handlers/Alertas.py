@@ -1,3 +1,5 @@
+##@file Alertas.py
+#@brief This file describes how to detect when a sensed data is surpassing the limits stablished by the user
 import logging
 import LimitHandler
 from Handlers import PhoneHandler

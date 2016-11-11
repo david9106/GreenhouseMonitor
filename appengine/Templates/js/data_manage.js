@@ -1,24 +1,19 @@
-/** @file data_manage.js
- *  @brief Local data manage functions
- * 	
- * 	Describes all the functions needed to fetch data from server to browser and save in LocalStorate.
- * 	@author Rafael Karosuo
- * */
- 
-/** @fn getJSON
- * 	@brief get JSON object/list from url
- * 	
- * 	Creates an AJAX asyncronous GET request to a given url asking for all the sensor measures in a given period of time and waits for a
- * 	JSON object/list as response
- * 	@param[in] url The server URL, it must has the prefix "http://"
- * 	@param[in] successHandler The function name that will be triggered in case that status 200 is responded by server
- * 	@param[in] errorHandler The function name that will be triggered in case that an error status is responded by server
- * 	@param[out] sensor_type The measure's sensor type required
- * 	@param[out] date1 The start of the date range, must be string date format
- * 	@param[out] date2 The end of the date range, must be string date format
- *	@author Mathias
- *	at https://mathiasbynens.be/notes/xhr-responsetype-json*/
+///@file data_manage.js
+ ///@brief Local data manage functions	
+ ///@details Describes all the functions needed to fetch data from server to browser and save in LocalStorate.
+ ///@author Rafael Karosuo
+
 function getJSON(url, successHandler, errorHandler) {
+	///\brief get JSON object/list from url
+	///\details Creates an AJAX asyncronous GET request to a given url asking for all the sensor measures in a given period of time and waits for a JSON object/list as response
+	///\param[in] url The server URL, it must has the prefix "http://"
+	///\param[in] successHandler The function name that will be triggered in case that status 200 is responded by server
+	///\param[in] errorHandler The function name that will be triggered in case that an error status is responded by server
+	///\param[out] sensor_type The measure's sensor type required
+	///\param[out] date1 The start of the date range, must be string date format
+	///\param[out] date2 The end of the date range, must be string date format
+	///\author Mathias
+	///\see https://mathiasbynens.be/notes/xhr-responsetype-json
 	var xhr = new XMLHttpRequest();
 	xhr.open('get', url, true);
 	xhr.responseType = 'json';

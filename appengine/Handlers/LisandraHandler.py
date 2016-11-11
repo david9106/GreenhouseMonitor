@@ -1,3 +1,5 @@
+##@file LisandraHandler
+#@brief This file is an interface to cloud datastore to get or register a LiSANDRA module
 from Database import Lisandra
 
 ##@brief Function that makes an interface with the cloud datastore
