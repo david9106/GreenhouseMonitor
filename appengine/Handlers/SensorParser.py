@@ -1,4 +1,4 @@
-##@file Parser.py
+##@file SensorParser.py
 #@brief This file haves the function that handles the received data from the gateway and decodify it
 import webapp2
 import json
