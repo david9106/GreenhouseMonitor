@@ -124,11 +124,12 @@ class Config_provider(webapp2.RequestHandler):
 				phones = PhoneHandler.get_all_Phones() #Fetches all the phones				
 				if not hasattr(phones,'__iter__'): #If it's more than one
 					jdata["phone_0"] = str(phones.get_userPhone())	
-					jdata["check_phone_0"] = "checked"
+					jdata["check_phone_0"] = str(phones.is_Disable())
 				else:
 					index = 0 #Phone index
 					for phone in phones:
 						jdata["phone_{!s}".format(index)] = phone.get_userPhone()
+						jdata["phone_{!s}".format(index)] = phone.is_Disable()
 						index = index +1
 			
 			elif "Limites" in jdata["Tipo"]:

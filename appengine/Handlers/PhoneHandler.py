@@ -44,7 +44,8 @@ def get_allEnable_Phones():
 def get_all_Phones():
 	phones = Telefonos.UserPhone.all()
 	return phones
-
-def isDisabled():
-	"""Funcion para simular si estan habilitadas o deshabilitadas las alertas"""
-	return False
+	
+##@brief Searches for a phone_id and get's it's alert status
+#@return the boolean status for this phone
+def get_phone_alert_status(phone_id):
+	return Telefonos.UserPhone().get_user_phone_by_id(phone_id).is_Disable()

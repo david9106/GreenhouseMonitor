@@ -5,7 +5,7 @@ from google.appengine.ext import db
 ##@class UserPhone
 #@brief An entity that haves all the properties needed to register user phone number
 class UserPhone(db.Model):
-	##@brief It have's the identification of the user phone number
+	##@brief It have's the identification of the user phone number, it's based on the HTML tag where the phone will go
 	user_id = db.Key()
 	##@brief It contains the phone number
 	user_phone = db.StringProperty()
@@ -59,3 +59,10 @@ class UserPhone(db.Model):
 	def DeleteAll(self):
 		query_str = "SELECT * FROM UserPhone"
 		db.delete(db.GqlQuery(query_str))
+		
+	##@brief Searches for a UserPhone entity with a given user phone id
+	#@return entity found, or None if no entity
+	def get_user_phone_by_id(self, phone_id):
+		query_str = "SELECT * FROM UserPhone WHERE user_id={!s}".format(phone_id)
+		db.GqlQuery(query_str)
+		
