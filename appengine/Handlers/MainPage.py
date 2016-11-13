@@ -123,7 +123,8 @@ class Config_provider(webapp2.RequestHandler):
 				#~ Telefonos.UserPhone().DeleteAll()
 				phones = PhoneHandler.get_all_Phones() #Fetches all the phones				
 				if not hasattr(phones,'__iter__'): #If it's more than one
-					jdata["phone_0"] = str(phones.get_userPhone())					
+					jdata["phone_0"] = str(phones.get_userPhone())	
+					jdata["check_phone_0"] = "checked"
 				else:
 					index = 0 #Phone index
 					for phone in phones:
@@ -134,12 +135,12 @@ class Config_provider(webapp2.RequestHandler):
 				#~ Limites.SensorLimits().DeleteAll()
 				jdata["MaxHumedad"] = LimitHandler.get_Max_Value("Humedad")
 				jdata["MinHumedad"] = LimitHandler.get_min_Value("Humedad")
-				
+								
 				jdata["MaxTemperatura"] = LimitHandler.get_Max_Value("Temperatura")
-				jdata["MinTemperatura"] = LimitHandler.get_min_Value("Temperatura")
+				jdata["MinTemperatura"] = LimitHandler.get_min_Value("Temperatura")				
 				
 				jdata["MaxIluminacion"] = LimitHandler.get_Max_Value("Iluminacion")
-				jdata["MinIluminacion"] = LimitHandler.get_min_Value("Iluminacion")
+				jdata["MinIluminacion"] = LimitHandler.get_min_Value("Iluminacion")				
 
 			self.response.write(json.dumps(jdata)) ##Just to check what was received	
 		except (ValueError, TypeError, KeyError) as e:

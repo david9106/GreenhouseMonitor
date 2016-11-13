@@ -9,8 +9,13 @@ class UserPhone(db.Model):
 	user_id = db.Key()
 	##@brief It contains the phone number
 	user_phone = db.StringProperty()
-	##@brief This attribute have's the phone number of the user
+	##@brief Indicates if the phone is receiving sms alerts
 	phone_enable = db.BooleanProperty()
+	
+	##@brief Constructor
+	__init__(self):
+		##@brief start with alerts disabled
+		phone_enable = false
 	
 	##@brief This function help us to set the user id on the UserPhone class model
 	#@param usr_id: Haves the id of the user phone number
@@ -46,8 +51,8 @@ class UserPhone(db.Model):
 		self.put()
 
 	##@brief Check if alerts are disable for this phone
-	def isDisable():
-		return False
+	def isDisable(self):
+		return self.phone_enable
 		
 	##@brief ALERT!! Deletes all the UserPhone database
 	#@details Must be used with extreme precausion since there's no roll back

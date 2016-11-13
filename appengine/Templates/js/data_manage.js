@@ -1,11 +1,14 @@
 ///\file data_manage.js
-///\brief Local data manage functions	
+///\brief Local data manage functions, and global variables	
 ///\details Describes all the functions needed to fetch data from server to browser and save in LocalStorate if necesary
 ///\All the global variables saves in json format to ease the relation between the sensor type and it's measures
 ///\The format for measures that are just one per sensor is a json object array
-///\ [{"Tipo":"<un_tipo>", "Ubicacion":"<id_lisandra>", "Valor":"<un_valor>"},{"Tipo":"<un_tipo2>", "Ubicacion":"<id_lisandra2>", "Valor":"<un_valor2>"}...]
+///\ [{"Tipo":"<sensor_type>", "Ubicacion":"<id_lisandra>", "Valor":"<a_value>"},{"Tipo":"<sensor_type2>", "Ubicacion":"<id_lisandra2>", "Valor":"<a_value2>"}...]
 ///\For the values that are many per sensor, is an array that holds arrays with the above format
 ///\ [[{...},{...},...],..]
+///\In the case of the config data, they'll be in a json object array as follows
+///\ [{"<phone_0>":"<phone_num>"},{"phone_1":"<phone_num>"},...] ;where phone_N has 0 < N < 9
+///\ [{"MaxTemperatura":"<max_value>"},{"Max<sensor_type>":"<max_value>"},...]
 ///\author Rafael Karosuo
 
 var last_measures;///< saves the most recent measures of each kind of sensor
@@ -13,7 +16,14 @@ var max_measures; ///< saves the MAX values measures obteined until now
 					///< these are taken from the today_measures
 var today_measures; ///< saves all measures got until now since 12am of today
 var phones_registered; ///< saves all the registered phones and their state (active/not)
-var limits_registered; ///< saves all the sms alert limits, there's always 2 limits per phone
+var limits_registered; ///< saves all the sms alert limits, there's always 2 limits per sensor type
+
+json_url = 'http://localhost:8080/get_json' ///< URL to fetch the sensor measures
+config_url = 'http://localhost:8080/get_config' ///< URL to fetch the config values
+
+function error_response(status){
+	alert('Something went wrong, error: status'.replace("status",status));
+}
 
 function getJSON(url, successHandler, errorHandler) {
 	///\brief get JSON object/list from url
@@ -110,3 +120,33 @@ function mergeJSON(source1,source2){
 
       return mergedJSON;
 }
+
+function update_config_globals(){
+	///\brief pull from DB the registered config data, phones and limits
+	///\In order to let them available to paint on html
+	var phones_registered; ///< saves all the registered phones and their state (active/not)
+	var limits_registered; ///< saves all the sms alert limits, there's always 2 limits per 
+	
+	var json_cmd_phones = {"Tipo":"Telefonos"}; //phones command
+	var json_cmd_limits = {"Tipo":"Limites"}; //limits command	
+	getJSON_ByCmd(config_url,function(json_list){		
+		
+		for(json_id in json_list){
+			if(json_id.localeCompare("Tipo") != 0){ //get just phones, not the cmd id
+				alert(json_id +": "+json_list["key".replace("key",json_id)]);
+				//alert(json_list["key".replace("key",json_id)]);				
+			}
+		}//end for each json id	
+	},error_response,json_cmd_phones)
+	
+	getJSON_ByCmd(config_url, function(json_list){
+		for(json_id in json_list){
+			if(json_id.localeCompare("Tipo") != 0){
+				alert(json_id +": "+json_list["key".replace("key",json_id)]);
+				//localStorage.setItem("Telefonos", phone_list);
+			}
+		}//end for each json id
+	},error_response,json_cmd_limits)
+}
+
+update_config_globals();
