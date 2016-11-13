@@ -1,6 +1,7 @@
 ///\file init_localstorage.js
 ///\brief Save all the important data into the LocalStorage
-///\details Saves the graphing data as follows:
+///\details This is an alternative solution to reduce DB access queries, but it's just an structure, is not fullfilled to function correctly
+///Saves the graphing data as follows:
 ///One entire year of each kind of sensor
 ///The last value measured of each kind of sensor
 ///All the measures of each sensor from today
@@ -68,7 +69,7 @@ function update_phones(){
 			if (current_local_value == null) {//If no current data saved, acces DB and save it
 				if(json_id.localeCompare("Tipo") != 0){
 					(json_list["key".replace("key",json_id)]):
-					localStorage.setItem("Telefonos", phone_list);
+					//localStorage.setItem("Telefonos", phone_list);
 				}
 			}else{
 				//alert();

@@ -1,7 +1,19 @@
 ///\file data_manage.js
 ///\brief Local data manage functions	
-///\details Describes all the functions needed to fetch data from server to browser and save in LocalStorate.
+///\details Describes all the functions needed to fetch data from server to browser and save in LocalStorate if necesary
+///\All the global variables saves in json format to ease the relation between the sensor type and it's measures
+///\The format for measures that are just one per sensor is a json object array
+///\ [{"Tipo":"<un_tipo>", "Ubicacion":"<id_lisandra>", "Valor":"<un_valor>"},{"Tipo":"<un_tipo2>", "Ubicacion":"<id_lisandra2>", "Valor":"<un_valor2>"}...]
+///\For the values that are many per sensor, is an array that holds arrays with the above format
+///\ [[{...},{...},...],..]
 ///\author Rafael Karosuo
+
+var last_measures;///< saves the most recent measures of each kind of sensor
+var max_measures; ///< saves the MAX values measures obteined until now
+					///< these are taken from the today_measures
+var today_measures; ///< saves all measures got until now since 12am of today
+var phones_registered; ///< saves all the registered phones and their state (active/not)
+var limits_registered; ///< saves all the sms alert limits, there's always 2 limits per phone
 
 function getJSON(url, successHandler, errorHandler) {
 	///\brief get JSON object/list from url
