@@ -105,6 +105,7 @@
                                 </ul>
                             </div>
                         </div>
+                        <br>
                     </div>
                     <div class="season-selection hide">
                         <div class="col-xs-12">
@@ -120,7 +121,7 @@
                     <div class="month-selection hide">
                         <div style="text-align:center;" class="col-xs-12">
                             <br>
-                        <!--<div class="btn-group">
+                        <div class="btn-group">
                                 <button type="button" id="drop-month" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Seleccione el mes <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
@@ -137,7 +138,7 @@
                                     <li class="month"><a>Noviembre</a></li>
                                     <li class="month"><a>Diciembre</a></li>
                                 </ul>
-                            </div>-->
+                            </div>
                             <div class="container">    
                                 <div class="row">
                                     <div class="col-sm-6 form-group">
@@ -175,6 +176,11 @@
                             </div>
                         </div>
                     </div>
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
                     <div id="chartdiv"></div>
                 </div>
             </div>
@@ -330,7 +336,7 @@
                 
                 $("#month").on('click',function(){
                     $(".month-selection").removeClass("hide").addClass("show");
-                    $(".year-selection").removeClass("show").addClass("hide");
+                    $(".year-selection").removeClass("hide").addClass("show");
                     $(".season-selection").removeClass("show").addClass("hide");
                     $(".day-selection").removeClass("show").addClass("hide");
                 });
