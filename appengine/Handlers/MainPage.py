@@ -144,7 +144,7 @@ class Config_provider(webapp2.RequestHandler):
 				
 				jdata["light_max"] = LimitHandler.get_Max_Value("Iluminacion")
 				jdata["light_min"] = LimitHandler.get_min_Value("Iluminacion")		
-				jdata["check_light"] = LimitHandler.isDisabled("Iluminacion");
+				jdata["check_light"] = LimitHandler.isDisabled("Iluminacion")
 
 			print(jdata)
 			self.response.write(json.dumps(jdata)) ##Just to check what was received	
