@@ -12,11 +12,6 @@ class UserPhone(db.Model):
 	##@brief Indicates if the phone is receiving sms alerts
 	phone_enable = db.BooleanProperty()
 	
-	##@brief Constructor
-	__init__(self):
-		##@brief start with alerts disabled
-		phone_enable = false
-	
 	##@brief This function help us to set the user id on the UserPhone class model
 	#@param usr_id: Haves the id of the user phone number
 	def set_userID(self, usr_id):
@@ -59,10 +54,4 @@ class UserPhone(db.Model):
 	def DeleteAll(self):
 		query_str = "SELECT * FROM UserPhone"
 		db.delete(db.GqlQuery(query_str))
-		
-	##@brief Searches for a UserPhone entity with a given user phone id
-	#@return entity found, or None if no entity
-	def get_user_phone_by_id(self, phone_id):
-		query_str = "SELECT * FROM UserPhone WHERE user_id={!s}".format(phone_id)
-		db.GqlQuery(query_str)
 		

@@ -11,12 +11,16 @@
 ///\ [{"MaxTemperatura":"<max_value>"},{"Max<sensor_type>":"<max_value>"},...]
 ///\author Rafael Karosuo
 
-var last_measures;///< saves the most recent measures of each kind of sensor
-var max_measures; ///< saves the MAX values measures obteined until now
+var last_measures = [];///< saves the most recent measures of each kind of sensor
+var max_measures = []; ///< saves the MAX values measures obteined until now
 					///< these are taken from the today_measures
-var today_measures; ///< saves all measures got until now since 12am of today
-var phones_registered; ///< saves all the registered phones and their state (active/not)
-var limits_registered; ///< saves all the sms alert limits, there's always 2 limits per sensor type
+var today_measures = []; ///< saves all measures got until now since 12am of today
+var phones_registered = []; ///< saves all the registered phones and their state (active/not)
+var limits_registered = []; ///< saves all the sms alert limits, there's always 2 limits per sensor type
+
+var set_lisandra_globals = function (obj, new_value){
+	obj.value = new_value;
+}
 
 json_url = 'http://localhost:8080/get_json' ///< URL to fetch the sensor measures
 config_url = 'http://localhost:8080/get_config' ///< URL to fetch the config values
@@ -121,32 +125,37 @@ function mergeJSON(source1,source2){
       return mergedJSON;
 }
 
-function update_config_globals(){
-	///\brief pull from DB the registered config data, phones and limits
-	///\In order to let them available to paint on html
-	var phones_registered; ///< saves all the registered phones and their state (active/not)
-	var limits_registered; ///< saves all the sms alert limits, there's always 2 limits per 
+function paint_config_in_html() {	
+///\brief pull from DB the registered config data, phones and limits
+	///\In order to let them available to paint on html	
 	
 	var json_cmd_phones = {"Tipo":"Telefonos"}; //phones command
 	var json_cmd_limits = {"Tipo":"Limites"}; //limits command	
+	
 	getJSON_ByCmd(config_url,function(json_list){		
+		phones_registered.length = 0 //Clear globals	
 		
 		for(json_id in json_list){
 			if(json_id.localeCompare("Tipo") != 0){ //get just phones, not the cmd id
-				alert(json_id +": "+json_list["key".replace("key",json_id)]);
-				//alert(json_list["key".replace("key",json_id)]);				
-			}
+				phones_registered.push([json_id, json_list["key".replace("key",json_id)]]);
+				
+				if(/^phone_\d/.test(json_id)){ //check if it's a phone
+					document.getElementById(json_id.toString()).value = json_list[json_id];
+				}else{//or a checkbox
+					$(".input-group .input-group-addon #"+json_id).attr('checked',json_list[json_id]);
+				}//end check regexs				
+			}			
 		}//end for each json id	
-	},error_response,json_cmd_phones)
-	
+	},error_response,json_cmd_phones)	
+
 	getJSON_ByCmd(config_url, function(json_list){
+		limits_registered.length = 0 //clear globals
 		for(json_id in json_list){
 			if(json_id.localeCompare("Tipo") != 0){
-				alert(json_id +": "+json_list["key".replace("key",json_id)]);
-				//localStorage.setItem("Telefonos", phone_list);
+				limits_registered.push([json_id, json_list["key".replace("key",json_id)]]);
 			}
 		}//end for each json id
 	},error_response,json_cmd_limits)
 }
 
-update_config_globals();
+

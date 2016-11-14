@@ -124,14 +124,14 @@ class Config_provider(webapp2.RequestHandler):
 				phones = PhoneHandler.get_all_Phones() #Fetches all the phones				
 				if not hasattr(phones,'__iter__'): #If it's more than one
 					jdata["phone_0"] = str(phones.get_userPhone())	
-					jdata["check_phone_0"] = str(phones.is_Disable())
+					jdata["check_phone_0"] = str(phones.isDisable())
 				else:
 					index = 0 #Phone index
 					for phone in phones:
-						jdata["phone_{!s}".format(index)] = phone.get_userPhone()
-						jdata["phone_{!s}".format(index)] = phone.is_Disable()
+						jdata["phone_{!s}".format(index)] = phone.get_userPhone()						
+						jdata["check_phone_{!s}".format(index)] = phone.isDisable()
 						index = index +1
-			
+						
 			elif "Limites" in jdata["Tipo"]:
 				#~ Limites.SensorLimits().DeleteAll()
 				jdata["MaxHumedad"] = LimitHandler.get_Max_Value("Humedad")
@@ -147,8 +147,8 @@ class Config_provider(webapp2.RequestHandler):
 		except (ValueError, TypeError, KeyError) as e:
 			'''KeyError goes in case that the json ID doesn't exists, mainly ["Tipo"] but can be others'''
 			print("Error: {!s}".format(e))
-			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
-			self.response.write("Not a JSON object")
+			#self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
+			#self.response.write("Not a JSON object")
 			
 	def get(self):
 		self.response.write("You shouldn't be here...")
