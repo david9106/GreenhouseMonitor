@@ -153,30 +153,6 @@ var chart = AmCharts.makeChart( "chartdiv", {
     "recalculateToPercents": "never"
   },
 
-  "periodSelector": {
-    "position": "left",
-    "periods": [ {
-      "period": "MM",
-      "count": 1,
-      "label": "1 month"
-    }, {
-      "period": "YYYY",
-      "count": 1,
-      "label": "1 year"
-    }, {
-      "period": "YTD",
-      "label": "YTD"
-    }, {
-      "period": "MAX",
-      "selected": true,
-      "label": "MAX"
-    } ]
-  },
-
-  "dataSetSelector": {
-    "position": "left"
-  },
-
   "export": {
     "enabled": true
   },
