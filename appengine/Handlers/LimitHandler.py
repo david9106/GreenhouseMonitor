@@ -21,6 +21,18 @@ def set_Max_Alert(sensor_type,valor_Max):
 		sensor_aux.set_type_sensor(sensor_type)
 	sensor_aux.set_max(valor_Max)
 	sensor_aux.save_alert()
+	
+	
+##@brief Enable/Disable sms alerts
+#@details A DB interface to set sms alert status
+#@param sensor_type Is a string that has the name of type of sensor like "Temperature", "Humidity", "Luxes", etc	
+#@param status Is the True/False value to set/unset the alerts of these limits
+def set_alerts_status(sensor_type,status):
+	sensor_aux = Limites.SensorLimits.get_or_insert(sensor_type)
+	if sensor_aux == None:
+		sensor_aux.set_type_sensor(sensor_type)
+	sensor_aux.enabling_limits(status)
+	sensor_aux.save_alert()
 
 ##@brief Function used to set the minimun limit in a sensor type
 #@details This function verify if there are a min alert limit of a sensor type on datastore, if it exist the function update the old one if not the function create's a new one, as arguments it receive's the
@@ -54,6 +66,6 @@ def get_min_Value(sensor_type):
 	else:
 		return False
 
-def isDisabled():
-	"""Funcion para simular si estan habilitadas o deshabilitadas las alertas"""
-	return False
+##@brief Returns if alerts are disabled on this type limits
+def isDisabled(sensor_type):
+	return Limites.SensorLimits.get_by_key_name(sensor_type).is_disabled();

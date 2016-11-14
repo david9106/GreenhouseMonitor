@@ -45,7 +45,7 @@
 			  <form action="/save_config" method="post" accept-charset="utf-8">
                 <div class="input-group">
                     <span class="input-group-addon">
-                    <input id="check_phone_0" id="check_phone_0" name="check_phone_0" type="checkbox" aria-label="...">
+                    <input id="check_phone_0" name="check_phone_0" type="checkbox" aria-label="...">
                     </span>
 					
                     <input id="phone_0" name="phone_0" type="text" class="form-control" aria-label="..." placeholder="Ejemplo: 6643387455">
@@ -123,7 +123,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-4">
                 <h4 style="text-align:center"><br>Iluminación: <br><small>Notificarme cuando sea:</small></h4>
-                <h5 style="text-align:center"><input id="check_light" type="checkbox" aria-label="...">Recibir notificaciones</h5>
+                <h5 style="text-align:center"><input id="check_light" name="check_light" type="checkbox" value="false" aria-label="...">Recibir notificaciones</h5>
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1">Mayor a: </span>
                     <input id="light_max" name="light_max" type="text" class="form-control" placeholder="Cantidad en Lux (lx)" aria-describedby="basic-addon1">
@@ -136,7 +136,7 @@
             </div>
             <div class="col-xs-12 col-sm-4">
                 <h4 style="text-align:center"><br>Temperatura: <br><small>Notificarme cuando sea:</small></h4>
-                <h5 style="text-align:center"><input id="check_temp" type="checkbox" aria-label="...">Recibir notificaciones</h5>
+                <h5 style="text-align:center"><input id="check_temp" name="check_temp" type="checkbox" value="false" aria-label="...">Recibir notificaciones</h5>
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1">Mayor a: </span>
                     <input id="temp_max" name="temp_max" type="text" class="form-control" placeholder="Cantidad en Celsius(°C)" aria-describedby="basic-addon1">
@@ -149,7 +149,7 @@
             </div>
             <div class="col-xs-12 col-sm-4">
                 <h4 style="text-align:center"><br>Humedad: <br><small>Notificarme cuando sea:</small></h4>
-                <h5 style="text-align:center"><input id="check_hum" type="checkbox" aria-label="...">Recibir notificaciones</h5>
+                <h5 style="text-align:center"><input id="check_hum" name="check_hum" type="checkbox" value="false" aria-label="...">Recibir notificaciones</h5>
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1">Mayor a: </span>
                     <input id="hum_max" name="hum_max" type="text" class="form-control" placeholder="Porcentaje de humedad (0%-100%)" aria-describedby="basic-addon1">
@@ -174,7 +174,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h4><small>*Nota: Si no deseas recibir alguna notificación dejar el campo en blanco.</small></h4>
+                <!--<h4><small>*Nota: Si no deseas recibir alguna notificación dejar el campo en blanco.</small></h4>-->
             </div>
         </div>
     </div>

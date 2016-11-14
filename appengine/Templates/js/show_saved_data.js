@@ -2,10 +2,5 @@
 ///\brief Get html elements and puts the values that are fetched from server, configd limits and phones
 ///\author Rafael Karosuo
 
-/*
-phones_registered.push = function() {
-	Array.prototype.push.apply(this, arguments);
-	paint_config_in_html(arguments);
-};*/
-
+///\brief Calls the http request to update data on the page
 paint_config_in_html();

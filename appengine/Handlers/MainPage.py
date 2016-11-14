@@ -136,16 +136,17 @@ class Config_provider(webapp2.RequestHandler):
 				#~ Limites.SensorLimits().DeleteAll()
 				jdata["hum_max"] = LimitHandler.get_Max_Value("Humedad")
 				jdata["hum_min"] = LimitHandler.get_min_Value("Humedad")
-				#check_hum
+				jdata["check_hum"] = LimitHandler.isDisabled("Humedad")
 								
 				jdata["temp_max"] = LimitHandler.get_Max_Value("Temperatura")
 				jdata["temp_min"] = LimitHandler.get_min_Value("Temperatura")				
-				#check_temp
+				jdata["check_temp"] = LimitHandler.isDisabled("Temperatura")
 				
 				jdata["light_max"] = LimitHandler.get_Max_Value("Iluminacion")
 				jdata["light_min"] = LimitHandler.get_min_Value("Iluminacion")		
-				#check_light		
+				jdata["check_light"] = LimitHandler.isDisabled("Iluminacion");
 
+			print(jdata)
 			self.response.write(json.dumps(jdata)) ##Just to check what was received	
 		except (ValueError, TypeError, KeyError) as e:
 			'''KeyError goes in case that the json ID doesn't exists, mainly ["Tipo"] but can be others'''
@@ -160,13 +161,20 @@ class Config_provider(webapp2.RequestHandler):
 #@details This class react's to a URL stablished in app engine, it saves or updates all the user phone numbers and saves or updates all the stablished limits in datastore
 class Data_Config(webapp2.RequestHandler):
 	def post(self):
+		##@brief saves phones and their state
 		for index in range(0,10):
 			current_phone = self.request.get('phone_{!s}'.format(index))
 			if re.match('^\d{10}$',current_phone,re.I) != None: #Check for 10 digit regex as a cell phone number, no case sensitive
 				PhoneHandler.set_new_userPhone(str(index),self.request.get('check_phone_'+str(index)),str(current_phone))
 
+		##@brief saves the enabled/disabled limits
+		LimitHandler.set_alerts_status("Iluminacion",self.request.get('check_light'))
+		LimitHandler.set_alerts_status("Temperatura",self.request.get('check_temp'))
+		LimitHandler.set_alerts_status("Humedad",self.request.get('check_hum'))
+
+		##@brief saves the limits
 		if re.match('^[0-9]+(\.([0-9]+))*$',self.request.get('light_min')) != None: #Compares with a floating point simple regex
-			LimitHandler.set_Max_Alert("Iluminacion",self.request.get('light_max'))
+			LimitHandler.set_Max_Alert("Iluminacion",self.request.get('light_max'))	
 		
 		if re.match('^[0-9]+(\.([0-9]+))*$',self.request.get('light_min')) != None: #Compares with a floating point simple regex
 			LimitHandler.set_Min_Alert('Iluminacion',self.request.get('light_min'))

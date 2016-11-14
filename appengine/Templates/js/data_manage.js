@@ -128,6 +128,9 @@ function mergeJSON(source1,source2){
 function paint_config_in_html() {	
 ///\brief pull from DB the registered config data, phones and limits
 	///\In order to let them available to paint on html	
+	///\details Uses json commands to retrieve the information
+	///Tipo:Telefonos retrieve all the phones and their state
+	///Tipo:Limites retrieve all the limits and their state
 	
 	var json_cmd_phones = {"Tipo":"Telefonos"}; //phones command
 	var json_cmd_limits = {"Tipo":"Limites"}; //limits command	
@@ -150,18 +153,13 @@ function paint_config_in_html() {
 
 	getJSON_ByCmd(config_url, function(json_list){
 		limits_registered.length = 0 //clear globals
+		alert(json_list);
 		for(json_id in json_list){
 			if(json_id.localeCompare("Tipo") != 0){
-				limits_registered.push([json_id, json_list["key".replace("key",json_id)]]);
-				alert([json_id, json_list["key".replace("key",json_id)]]);
-				document.getElementById(json_id.toString()).value = json_list[json_id];
-				/*
-				if(/^phone_\d/.test(json_id)){ //check if it's a phone
-					document.getElementById(json_id.toString()).value = json_list[json_id];
-				}else{//or a checkbox
-					$(".input-group .input-group-addon #"+json_id).attr('checked',json_list[json_id]);
-				}//end check regexs	
-				*/
+				//limits_registered.push([json_id, json_list["key".replace("key",json_id)]]);				
+				//document.getElementById(json_id.toString()).value = json_list[json_id];				
+				//alert([json_id, json_list["key".replace("key",json_id)]]);
+				
 			}
 		}//end for each json id
 	},error_response,json_cmd_limits)

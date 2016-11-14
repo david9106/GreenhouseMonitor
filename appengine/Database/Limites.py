@@ -17,11 +17,11 @@ class SensorLimits(db.Model):
 	
 	##@brief The funtion of this is to enable or diable the receive of alerts from the server
 	#@param new_status: Has a boolean that says if the alert is goin to be enable or disable 
-	def enabling_limits(self, new_status):
-		if isinstance(new_status, bool):
-			self.disable_alerts = new_status
-		else:
-			print("The new disable_alerts value isn't boolean")
+	def enabling_limits(self, new_status):		
+		try:
+			self.disable_alerts = bool(new_status)
+		except ValueError:
+			print("No boolean property received")
 	
 	##@brief This function is used to set the sensor type of the limit alert
 	#@param sensor_type: This parameter haves the type of sensed data that is going to have the limit alert
@@ -56,3 +56,9 @@ class SensorLimits(db.Model):
 	def DeleteAll(self):
 		query_str = "SELECT * FROM SensorLimits"
 		db.delete(db.GqlQuery(query_str))
+		
+	##@brief Return the sms alert subscription state
+	#@details If it's true, sms alert will be sent if this limit is crossed
+	def is_disabled(self):
+		return self.disable_alerts
+		
