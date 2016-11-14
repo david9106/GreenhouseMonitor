@@ -153,13 +153,16 @@ function paint_config_in_html() {
 
 	getJSON_ByCmd(config_url, function(json_list){
 		limits_registered.length = 0 //clear globals
-		alert(json_list);
 		for(json_id in json_list){
 			if(json_id.localeCompare("Tipo") != 0){
 				//limits_registered.push([json_id, json_list["key".replace("key",json_id)]]);				
 				//document.getElementById(json_id.toString()).value = json_list[json_id];				
-				//alert([json_id, json_list["key".replace("key",json_id)]]);
-				
+				//alert([json_id, json_list["key".replace("key",json_id)]]);				
+				if(/^check_\w/.test(json_id)){ //check if it's a checkbox
+					$("#"+json_id).attr('checked',json_list[json_id]);
+				}else{//or a limit value					
+					document.getElementById(json_id.toString()).value = json_list[json_id];
+				}//end check regexs	
 			}
 		}//end for each json id
 	},error_response,json_cmd_limits)
