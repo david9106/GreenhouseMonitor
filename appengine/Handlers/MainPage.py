@@ -134,14 +134,17 @@ class Config_provider(webapp2.RequestHandler):
 						
 			elif "Limites" in jdata["Tipo"]:
 				#~ Limites.SensorLimits().DeleteAll()
-				jdata["MaxHumedad"] = LimitHandler.get_Max_Value("Humedad")
-				jdata["MinHumedad"] = LimitHandler.get_min_Value("Humedad")
+				jdata["hum_max"] = LimitHandler.get_Max_Value("Humedad")
+				jdata["hum_min"] = LimitHandler.get_min_Value("Humedad")
+				#check_hum
 								
-				jdata["MaxTemperatura"] = LimitHandler.get_Max_Value("Temperatura")
-				jdata["MinTemperatura"] = LimitHandler.get_min_Value("Temperatura")				
+				jdata["temp_max"] = LimitHandler.get_Max_Value("Temperatura")
+				jdata["temp_min"] = LimitHandler.get_min_Value("Temperatura")				
+				#check_temp
 				
-				jdata["MaxIluminacion"] = LimitHandler.get_Max_Value("Iluminacion")
-				jdata["MinIluminacion"] = LimitHandler.get_min_Value("Iluminacion")				
+				jdata["light_max"] = LimitHandler.get_Max_Value("Iluminacion")
+				jdata["light_min"] = LimitHandler.get_min_Value("Iluminacion")		
+				#check_light		
 
 			self.response.write(json.dumps(jdata)) ##Just to check what was received	
 		except (ValueError, TypeError, KeyError) as e:
