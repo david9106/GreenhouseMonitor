@@ -1,4 +1,5 @@
 var property_symbol = "°C";
+var property_title = "Temperatura";
 
 var chartDataArray = [];
 
@@ -118,7 +119,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
 
   "panels": [ {
     "showCategoryAxis": true,
-    "title": "Value",
+    "title": property_title,
     "percentHeight": 70,
     "stockGraphs": [ {
       "id": "g1",
