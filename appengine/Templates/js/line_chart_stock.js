@@ -144,30 +144,32 @@ var greenhouse_chart = AmCharts.makeChart( "chartdiv", {
       "periodValueTextRegular": "[[value.close]]",
       "valueTextComparing": "[[value]]"
     }
-  } ],
+  } ]
+} );
 
-  "chartCursorSettings": {
-    "valueBalloonsEnabled": true,
-    "fullWidth": true,
-    "cursorAlpha": 0.1,
-    "valueLineBalloonEnabled": true,
-    "valueLineEnabled": true,
-    "valueLineAlpha": 0.5,
-    "categoryBalloonDateFormats": [{
+///\brief Defines the propertys of ChartCursorSettings class, configuring the mouse cursor
+///\details To see the description of each parameter, check the class components on the link bellow:
+///\see https://docs.amcharts.com/3/javascriptstockchart/ChartCursorSettings
+greenhouse_chart.chartCursorSettings.valueBalloonsEnabled = true;
+greenhouse_chart.chartCursorSettings.fullWidth = true;
+greenhouse_chart.chartCursorSettings.cursorAlpha = 0.1;
+greenhouse_chart.chartCursorSettings.valueLineBalloonEnabled = true;
+greenhouse_chart.chartCursorSettings.valueLineEnabled = true;
+greenhouse_chart.chartCursorSettings.valueLineAlpha = 0.5;
+///\brief Defines a different date ballon on vertical cursor for each group
+///\details Just remember that MM's are months, DD days and HH hours
+greenhouse_chart.chartCursorSettings.categoryBalloonDateFormats = [{
 			            "period": "DD",
 			            "format": "MMM DD"
 			        }, {
 			            "period": "hh",
 			            "format": "MMM DD (HH hrs)"
-			        }]
-  },
-  
-  "export": {
-    "enabled": true
-  }
-} );
+			        }];
 
-
+///\brief Enables the export options of the current graph
+///\details The export option depends on a separete export.js file and a export.css file
+///The export options work on the current shown graph segment only
+greenhouse_chart.export = {"enabled":"true"};
 
 ///\brief Avoid calculate difference porcentage between datasets
 ///\details Since the datasets are being compared in this kind of graph, where we can have more than one dataset at a time,
