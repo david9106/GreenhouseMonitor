@@ -124,28 +124,45 @@ var greenhouse_chart = AmCharts.makeChart( "chartdiv", {
       "dataProvider": chartData4,
       "categoryField": "date"
     }
-  ],
-
-  "panels": [ {
-    "showCategoryAxis": true,
-    "title": property_title,
-    "percentHeight": 70,
-    "stockGraphs": [ {
-      "id": "g1",
-      "valueField": "value",
-      "comparable": true,
-      "showBalloon": true,
-      "compareField": "value",
-      "balloonText": "[[title]]:<b>[[value]]</b>",
-      "compareGraphBalloonText": "[[title]]:<b>[[value]]</b>"
-    } ],
-    "stockLegend": {
-      "periodValueTextComparing": "[[value.close]]",
-      "periodValueTextRegular": "[[value.close]]",
-      "valueTextComparing": "[[value]]"
-    }
-  } ]
+  ]
 } );
+
+//Should create one object from type DataSet for each sensor type
+//Then when we create all the objects, append them to a list which will be the property DataSets of greenhouse_chart
+
+///\brief create the main panel to hold the graph
+///\details The graph is contained by a panel (StockPanel class)
+///It defains most of the visual behaviors of the graph, like the horizontal axis (Category Axis) height.
+///stockGraphs and stockLegend are independant classes with they're properties, but they're used as attributes of the panel
+///\see StockGraph class https://docs.amcharts.com/3/javascriptstockchart/StockGraph
+///\see StockLegend class https://docs.amcharts.com/3/javascriptstockchart/StockLegend
+var main_panel = new AmCharts.StockPanel();
+main_panel.showCategoryAxis = true;
+main_panel.title = property_title;
+main_panel.percentHeight = 70;
+///\brief Creates the main graph
+///\details This is the one that literally holds all the data points
+var main_graph = new AmCharts.StockGraph();
+main_graph.valueField = "value";
+main_graph.comparable = true;
+main_graph.showBalloon = true;
+main_graph.compareField = "value";
+///\brief How the exact data point balloon will display which text
+main_graph.balloonText = "[[title]]:<b>[[value]]</b>";
+main_graph.compareGraphBalloonText = "[[title]]:<b>[[value]]</b>";
+///\brief binds the graph with the panel
+main_panel.addStockGraph(main_graph);
+///\brief Creates the main Stock legend
+///\details This defines the sorounding text tags, like the ones changing on the top besides the color squares
+var main_stock_legend = new AmCharts.StockLegend();
+main_stock_legend.periodValueTextComparing = "[[value.close]]";
+main_stock_legend.periodValueTextRegular = "[[value.close]]";
+main_stock_legend.valueTextComparing = "[[value]]";
+///\brief binds Legend to panel
+main_panel.stockLegend = main_stock_legend;
+///\brief binds the whole panel with the chart
+greenhouse_chart.addPanelAt( main_panel, 0 );
+
 
 ///\brief Defines the propertys of ChartCursorSettings class, configuring the mouse cursor
 ///\details To see the description of each parameter, check the class components on the link bellow:
