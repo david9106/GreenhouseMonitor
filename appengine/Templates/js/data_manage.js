@@ -165,4 +165,6 @@ function paint_config_in_html() {
 	},error_response,json_cmd_limits)
 }
 
-
+function day_default_configuration(){
+	return true
+}

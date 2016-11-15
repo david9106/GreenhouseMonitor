@@ -1,3 +1,12 @@
+///\file line_chart_stock.js
+///\brief Configure and generate the amcharts stock graph of the sensor measures in different time groups
+///\details We're using Line graph type to show the sensor measures
+///The graphication library is AmCharts, the group of Stock Charts
+///All the access to the properties, most of times will be through json object id's and property values, few are based on classes from AmCharts
+///\see https://docs.amcharts.com/3/javascriptstockchart
+///\author Rafael Karosuo
+
+
 var property_symbol = "°C";
 var property_title = "Temperatura";
 
@@ -66,7 +75,7 @@ function generateChartData() {
   }
 }
 
-var chart = AmCharts.makeChart( "chartdiv", {
+var greenhouse_chart = AmCharts.makeChart( "chartdiv", {
   "type": "stock",
   "theme": "ligth",
   "dataSets": [ {
@@ -137,35 +146,58 @@ var chart = AmCharts.makeChart( "chartdiv", {
     }
   } ],
 
-  "chartScrollbarSettings": {
-    "graph": "g1"
-  },
-
   "chartCursorSettings": {
     "valueBalloonsEnabled": true,
     "fullWidth": true,
     "cursorAlpha": 0.1,
     "valueLineBalloonEnabled": true,
     "valueLineEnabled": true,
-    "valueLineAlpha": 0.5
+    "valueLineAlpha": 0.5,
+    "categoryBalloonDateFormats": [{
+			            "period": "DD",
+			            "format": "MMM DD"
+			        }, {
+			            "period": "hh",
+			            "format": "MMM DD (HH hrs)"
+			        }]
   },
-
-  "panelsSettings": {
-    "recalculateToPercents": "never"
-  },
-
+  
   "export": {
     "enabled": true
-  },
-    "valueAxesSettings": {
-    "unit": property_symbol,
-    "unitPosition": "right"
   }
 } );
 
-//var new_catAxis = new AmCharts.CategoryAxesSettings();
-//chart.categoryAxesSettings = new_catAxis;
-//chart.periodValue = "High"
-chart.categoryAxesSettings.parseDates = true;
-chart.categoryAxesSettings.groupToPeriods = ["2hh", "DD"];
-chart.categoryAxesSettings.minPeriod = "hh";
+
+
+///\brief Avoid calculate difference porcentage between datasets
+///\details Since the datasets are being compared in this kind of graph, where we can have more than one dataset at a time,
+///then typically shows the difference in porcentage, but in this case is disabled to let the user see the actual values of each dataset
+greenhouse_chart.panelsSettings.recalculateToPercents = "never";
+
+///\brief Define the measured property unit, like Celcius grades
+///\details The available string symbols are defined in the global variable (in this file and below) property_symbol
+///\Available symbols could be incremented pushing the strings to that global
+greenhouse_chart.valueAxesSettings.unit = property_symbol;
+
+///\brief Define the position where the symbol will go in respect to the measure value
+///\details Could be right or left, it doesn't include a space
+greenhouse_chart.valueAxesSettings.unitPosition = "righ";
+
+///\brief Disable the horizontal zoom scrollbar
+///\details Since the graph periods are clearly defined, the zoom scrollbar won't be needed, and could represent confusion for the user
+greenhouse_chart.chartScrollbarSettings.enabled = false;
+
+///\brief Enable the date grouping
+greenhouse_chart.categoryAxesSettings.parseDates = true;
+
+///\brief Defines the date groups
+///\details It will be 2 main groups, day groups and hour groups, both showing the max of each one
+///The hour grups are used by the day visualization and the day group by the rest of the graph periods, which are:
+///monthly
+///weekly
+///and year seasons
+greenhouse_chart.categoryAxesSettings.groupToPeriods = ["hh", "DD"];
+
+///\brief Defines the smaller group, which is hourly
+///\details The smaller useful grop is max per hour
+greenhouse_chart.categoryAxesSettings.minPeriod = "hh";
