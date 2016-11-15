@@ -90,22 +90,69 @@
                         </div>
                     </div>
                     <br>
-                    <div class="year-selection show">
-                        <div style="text-align:center;" class="col-xs-12">
-                            <div class="btn-group">
-                                <button type="button" id="drop-year" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Seleccione el año <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li class="year" value="2016"><a>2016</a></li>
-                                    <li class="year" value="2017"><a>2017</a></li>
-                                    <li class="year" value="2018"><a>2018</a></li>
-                                    <li class="year" value="2019"><a>2019</a></li>
-                                    <li class="year" value="2020"><a>2020</a></li>
-                                    <li class="year" value="2021"><a>2021</a></li>
-                                </ul>
+                    <div class="row">
+                        <div class="year-selection show">
+                            <div style="text-align:center;" class="col-xs-12 col-md-12">
+                                <div class="btn-group">
+                                    <button type="button" id="drop-year" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Seleccione el año <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li class="year" value="2016"><a>2016</a></li>
+                                        <li class="year" value="2017"><a>2017</a></li>
+                                        <li class="year" value="2018"><a>2018</a></li>
+                                        <li class="year" value="2019"><a>2019</a></li>
+                                        <li class="year" value="2020"><a>2020</a></li>
+                                        <li class="year" value="2021"><a>2021</a></li>
+                                    </ul>
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="month-selection hide">
+                            <div style="text-align:center;" class="col-xs-12 col-md-4">
+                                <div class="btn-group">
+                                        <button type="button" id="drop-month" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Seleccione el mes <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li class="month"><a>Enero</a></li>
+                                            <li class="month"><a>Febrero</a></li>
+                                            <li class="month"><a>Marzo</a></li>
+                                            <li class="month"><a>Abril</a></li>
+                                            <li class="month"><a>Mayo</a></li>
+                                            <li class="month"><a>Junio</a></li>
+                                            <li class="month"><a>Julio</a></li>
+                                            <li class="month"><a>Agosto</a></li>
+                                            <li class="month"><a>Septiembre</a></li>
+                                            <li class="month"><a>Octubre</a></li>
+                                            <li class="month"><a>Noviembre</a></li>
+                                            <li class="month"><a>Diciembre</a></li>
+                                        </ul>
+                                    </div>
+                                    <!--<div class="container">    
+                                        <div class="row">
+                                            <div class="col-sm-6 form-group">
+                                                <div class="input-group" id="DateDemo">
+                                                  <input type="text" id="weekpicker" required="required" name="newsdate"/>
+                                              </div>
+                                          </div>
+                                      </div>
+                                    </div>-->
                             </div>
                         </div>
-                        <br>
+                        <div class="week-selection hide">
+                            <div style="text-align:center;" class="col-xs-12 col-md-4">
+                                <div class="btn-group">
+                                    <button type="button" id="drop-week" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Seleccione opción <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li class="week"><a>Todo el mes</a></li>
+                                        <li class="week"><a>Semana 1</a></li>
+                                        <li class="week"><a>Semana 2</a></li>
+                                        <li class="week"><a>Semana 3</a></li>
+                                        <li class="week"><a>Semana 4</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="season-selection hide">
                         <div class="col-xs-12">
@@ -116,38 +163,6 @@
                                 <li class="otono-btn">Otoño <span class="icon-leaf"></span></li>
                                 <li class="invierno-btn">Invierno <span class="icon-snow"></span></li>
                             </ul>
-                        </div>
-                    </div>
-                    <div class="month-selection hide">
-                        <div style="text-align:center;" class="col-xs-12">
-                            <br>
-                        <div class="btn-group">
-                                <button type="button" id="drop-month" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Seleccione el mes <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li class="month"><a>Enero</a></li>
-                                    <li class="month"><a>Febrero</a></li>
-                                    <li class="month"><a>Marzo</a></li>
-                                    <li class="month"><a>Abril</a></li>
-                                    <li class="month"><a>Mayo</a></li>
-                                    <li class="month"><a>Junio</a></li>
-                                    <li class="month"><a>Julio</a></li>
-                                    <li class="month"><a>Agosto</a></li>
-                                    <li class="month"><a>Septiembre</a></li>
-                                    <li class="month"><a>Octubre</a></li>
-                                    <li class="month"><a>Noviembre</a></li>
-                                    <li class="month"><a>Diciembre</a></li>
-                                </ul>
-                            </div>
-                            <div class="container">    
-                                <div class="row">
-                                    <div class="col-sm-6 form-group">
-                                        <div class="input-group" id="DateDemo">
-                                          <input type="text" id="weekpicker" required="required" name="newsdate"/>
-                                      </div>
-                                  </div>
-                              </div>
-                            </div>
                         </div>
                     </div>
                     <div class="day-selection hide">
@@ -260,32 +275,32 @@
                 })
                 
                 $('#weekpicker').datepicker( {
-        showOtherMonths: false,
-        selectOtherMonths: false,
-        onSelect: function(dateText, inst) { 
-            var date = $(this).datepicker('getDate');
-            startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
-            endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
-            var dateFormat = inst.settings.dateFormat || $.datepicker._defaults.dateFormat;
-            $('#weekpicker').val($.datepicker.formatDate( dateFormat, startDate, inst.settings )
-                 + ' - ' + $.datepicker.formatDate( dateFormat, endDate, inst.settings ));
-            
-            selectCurrentWeek();
-        },
-        beforeShow: function() {
-            selectCurrentWeek();
-        },
-        beforeShowDay: function(date) {
-            var cssClass = '';
-            if(date >= startDate && date <= endDate)
-                cssClass = 'ui-datepicker-current-day';
-            return [true, cssClass];
-        },
-        onChangeMonthYear: function(year, month, inst) {
-            selectCurrentWeek();
-        }
-    }).datepicker('widget').addClass('ui-weekpicker');
-    
+                    showOtherMonths: false,
+                    selectOtherMonths: false,
+                    onSelect: function(dateText, inst) { 
+                        var date = $(this).datepicker('getDate');
+                        startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+                        endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
+                        var dateFormat = inst.settings.dateFormat || $.datepicker._defaults.dateFormat;
+                        $('#weekpicker').val($.datepicker.formatDate( dateFormat, startDate, inst.settings )
+                             + ' - ' + $.datepicker.formatDate( dateFormat, endDate, inst.settings ));
+
+                        selectCurrentWeek();
+                    },
+                    beforeShow: function() {
+                        selectCurrentWeek();
+                    },
+                    beforeShowDay: function(date) {
+                        var cssClass = '';
+                        if(date >= startDate && date <= endDate)
+                            cssClass = 'ui-datepicker-current-day';
+                        return [true, cssClass];
+                    },
+                    onChangeMonthYear: function(year, month, inst) {
+                        selectCurrentWeek();
+                    }
+                }).datepicker('widget').addClass('ui-weekpicker');
+
                 $('.ui-weekpicker .ui-datepicker-calendar tr').on('mousemove', function() { 
                     $(this).find('td a').addClass('ui-state-hover'); 
                 });
@@ -310,7 +325,7 @@
                     menuselection = this;
                 })
                 
-                /*Fucniones para la seleccion de los dropdown buttons en año y mes*/
+                /*Fucniones para la seleccion de los dropdown buttons en año, mes y semana*/
                 $(".year").on('click',function(){
                     $("#drop-year").text($(this).text()).append(" <span class=\"caret\"></span>");
                 });
@@ -319,25 +334,35 @@
                     $("#drop-month").text($(this).text()).append(" <span class=\"caret\"></span>");
                 });
                 
+                $(".week").on('click',function(){
+                    $("#drop-week").text($(this).text()).append(" <span class=\"caret\"></span>");
+                });
+                
                 /*Funcion para la seleccion en el menu principal(Año,Estacion,Mes,día)*/
                 $("#year").on('click',function(){
                     $(".year-selection").removeClass("hide").addClass("show");
+                    $(".year-selection:first-child").removeClass("col-md-4").addClass("col-md-12");
                     $(".season-selection").removeClass("show").addClass("hide");
                     $(".month-selection").removeClass("show").addClass("hide");
+                    $(".week-selection").removeClass("show").addClass("hide");
                     $(".day-selection").removeClass("show").addClass("hide");
                 });
                 
                 $("#season").on('click',function(){
                     $(".season-selection").removeClass("hide").addClass("show");
                     $(".year-selection").removeClass("hide").addClass("show");
+                    $(".year-selection:first-child").removeClass("col-md-4").addClass("col-md-12");
                     $(".month-selection").removeClass("show").addClass("hide");
+                    $(".week-selection").removeClass("show").addClass("hide");
                     $(".day-selection").removeClass("show").addClass("hide");
                 });
                 
                 $("#month").on('click',function(){
                     $(".month-selection").removeClass("hide").addClass("show");
                     $(".year-selection").removeClass("hide").addClass("show");
+                    $(".year-selection:first-child").removeClass("col-md-12").addClass("col-md-4");
                     $(".season-selection").removeClass("show").addClass("hide");
+                    $(".week-selection").removeClass("hide").addClass("show");
                     $(".day-selection").removeClass("show").addClass("hide");
                 });
                 
@@ -345,8 +370,11 @@
                     $(".day-selection").removeClass("hide").addClass("show");
                     $(".year-selection").removeClass("show").addClass("hide");
                     $(".month-selection").removeClass("show").addClass("hide");
+                    $(".week-selection").removeClass("show").addClass("hide");
                     $(".season-selection").removeClass("show").addClass("hide");
                 });
+                
+                $('#day').on('click',day_default_configuration());
             });
         </script>
 	</body>
