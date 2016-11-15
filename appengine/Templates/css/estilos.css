@@ -82,6 +82,10 @@
     cursor: pointer;
 }
 
+.week {
+    cursor: pointer;
+}
+
 .season-btn {
     text-align: center;
     display: flex;
