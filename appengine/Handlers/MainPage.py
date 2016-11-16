@@ -49,6 +49,7 @@ class JSON_provider(webapp2.RequestHandler):
 	def post(self):
 		try:
 			#Receive the object and decodes it
+			print(cgi.escape(self.request.body))
 			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
 			if "GetSensorTypes" in jdata["Tipo"]: #!Asks for the available sensor types on database
 				sensor_types = CensadoHandler.get_available_sensors()
@@ -64,11 +65,12 @@ class JSON_provider(webapp2.RequestHandler):
 				self.response.write(self.pack_json_sensor_measures(today_measures))
 			elif "GetLastMeasure" in jdata["Tipo"]:
 				last_measure = CensadoHandler.get_last_value(jdata["SensorType"])
-				
 				self.response.write(self.pack_json_sensor_measures(last_measure))
 			
-		except (KeyError):
-			'''KeyError goes in case that the json ID doesn't exists, mainly ["Tipo"] but can be others'''
+		except (ValueError, KeyError):
+			'''KeyError goes in case that the json ID doesn't exists, mainly ["Tipo"] but can be others
+				ValueError goes in case that the received package is not a correct formatted json
+			'''
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE
 			self.response.write("Not a JSON object")
 			

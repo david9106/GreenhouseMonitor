@@ -17,6 +17,9 @@ var chartData2 = [];
 var chartData3 = [];
 var chartData4 = [];
 
+var today = new Date();
+update_local_graph_data(today.getFullYear());///< Initialize local global variables from data sensors
+
 generateChartData();
 
 function generateChartData() {
