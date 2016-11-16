@@ -35,6 +35,9 @@ Contents:
 * [Handlers](https://github.com/david9106/IS-Repo-Equipo2/tree/master/appengine/Handlers): Module responsible for handling database tasks, alerts and decoding json data
 * [Templates](https://github.com/david9106/IS-Repo-Equipo2/tree/master/appengine/Templates): It contains files and controls that will be displayed in the web browser
 
+##General Diagram of the system
+
+![alt tag](https://github.com/david9106/GreenhouseMonitor/blob/graficar_maximos/appengine/Documentation/Diagrams/Estructura%20general.jpg)
 
 ##3rd party libs
 
