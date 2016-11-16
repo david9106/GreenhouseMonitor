@@ -12,7 +12,7 @@ from Handlers import PhoneHandler
 #@brief Receive the sensor JSON objects from gateway, parses them, call the comparator module and DB module
 #@details This Function receive a JSON object and parse ir, then verify if the sensed data type excist in datastore, if not creates a new one entity in datastore if not updates the excisting one, then compares the receive data with the excisting limits in datastore
 class JSON_sensor_parser(webapp2.RequestHandler):
-	def post(self):		
+	def post(self):
 		try:		
 			#Receive the object and decodes it
 			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
@@ -23,7 +23,6 @@ class JSON_sensor_parser(webapp2.RequestHandler):
 			
 			#Compares if new measure goes above/below the limits to send an sms message
 			Alertas.compararLimites(jdata)
-	
 		except (ValueError, TypeError,KeyError):
 			'''KeyError goes in case that the json ID doesn't exists, mainly ["Tipo"] but can be others'''			
 			self.error(415) #Using 415 UNSUPPORTED MEDIA TYPE

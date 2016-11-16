@@ -11,6 +11,8 @@ import sms
 #@details The function receive data from the gateway and verify if it surpass the limit stablish in datastore, if surpass it the function send a sms alert to all the the user phone numbers enabled to receive the message
 #@param data This parameter have a dictionary with the data to compare with the limits in datastore
 def compararLimites(data):
+	#It represents the state of the limit
+	isDisabled=False;
 	#It represents the type of sensor unit
 	unit =""
 	#adjust values from data
@@ -22,6 +24,10 @@ def compararLimites(data):
 	#get max and min values from a type of sensor from bd
 	limitMax=LimitHandler.get_Max_Value(data['Tipo'])
 	limitMin=LimitHandler.get_min_Value(data['Tipo'])
+	
+	
+
+	
 	
 	#adjust the unit based on the type of sensor
 	if data['Tipo'] == 'temperatura':
@@ -39,9 +45,13 @@ def compararLimites(data):
 	logging.info(data)
 	logging.info("Limites- Tipo:"+str(type(limitMax))+" "+str(limitMax)+" ,Tipo: "+str(type(limitMin))+" "+str(limitMin))
 
+	#get the state of disabled flag from limit
+	isDisabled=LimitHandler.isDisabled(data['Tipo']);
+	#logging.info("Temp: "+ data['Tipo']);
+	logging.info(isDisabled);
+	
 	#compare whether the values are not within the established limits
-
-	if data['Valor'] > limitMax and limitMax != None and limitMax != False:
+	if data['Valor'] > limitMax and limitMax != None and limitMax != False and isDisabled != False:
 		#build a message
 		info= "La "+data["Tipo"] +" sobrepaso del limite establecido de "+ str(limitMax)+" "+unit+" Valor actual: "+str(data['Valor'])
 		#send message to every phone on phone list
@@ -49,7 +59,7 @@ def compararLimites(data):
 			sms.sendMsg(str(phone.user_phone),info)
 
 
-	if data['Valor'] < limitMin and limitMin != None and limitMin != False:
+	if data['Valor'] < limitMin and limitMin != None and limitMin != False and isDisabled != False:
 		#build a message
 		info= "La "+data["Tipo"] +" esta por debajo del limite establecido de"+ str(limitMin)+" "+unit+" Valor actual: "+str(data['Valor'])
 		#send message to every phone on phone list
