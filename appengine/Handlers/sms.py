@@ -10,9 +10,6 @@ auth_token  = "bb95a87926c196f15a71f9af764c45a9"  # Your Auth Token from www.twi
 #@param phone_number: Has a string with the user phone numbers
 #@param info: This parameter have a string with the message to send to the user
 def sendMsg(telefono,info):
-	try:
 		client = Client(account_sid, auth_token)
 		# replace "to" and "from_" with real numbers
 		rv = client.messages.create(to="+52"+telefono,from_="+19106726675 ",body=info)
-	except TwilioRestException as e:
-		print(e)
