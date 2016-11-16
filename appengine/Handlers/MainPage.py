@@ -6,10 +6,8 @@ from Database import Telefonos,Limites
 import json
 import cgi
 import sms
-import datetime #To hold the first value of the last_db_access var
+import datetime #To calculate summer time, and convert UTC to local UTC+8/+7 TIME
 import re #Regular expressions
-##@brief Temporal variable, it holds the last DB access, currently not in use
-last_db_access = datetime.datetime(month=1, year=1, day=1) #0001-01-01 00:00:00
 
 
 ##@class CSV_provider
@@ -33,7 +31,7 @@ class CSV_provider(webapp2.RequestHandler):
 		csv_string = ','.join(['Tipo_sensor','Valor','Fecha','id-LiSANDRA_(Ubicacion)']) #Title headers
 		csv_string+='\n'
 		for sensor_entity in this_year_measures:
-			csv_string+= ','.join([sensor_entity.type, str(sensor_entity.value), str(sensor_entity.when), str(sensor_entity.id_LiSANDRA)])
+			csv_string+= ','.join([sensor_entity.type, str(sensor_entity.value), str(sensor_entity.when - datetime.timedelta(hours=8)), str(sensor_entity.id_LiSANDRA)])
 			csv_string+='\n'
 		return csv_string	
 		
@@ -81,23 +79,32 @@ class JSON_provider(webapp2.RequestHandler):
 	#@return json_dictionary which is a json object formatted array
 	def pack_json_sensor_measures(self,entity_list):
 		obj_list = []
-		if not hasattr(entity_list, '__iter__'): #Means it's just one Censado entity and won't be iterable
+		if not hasattr(entity_list, '__iter__'): #Means it's just one Censado entity and won't be iterable			
+			local_utc_p8 = self.utc_to_utc8(entity_list.when) #convert to utc+8
 			obj = {}
 			obj['Tipo'] = '%s'%(entity_list.type)
 			obj['Valor'] = '%s'%(entity_list.value)
 			obj['Ubicacion'] = '%s'%(entity_list.id_LiSANDRA)
-			obj['Fecha'] = '%s'%(entity_list.when.strftime('%Y-%m-%d %H:%M:%S')) #Strip the microseconds part
+			obj['Fecha'] = '%s'%(local_utc_p8.strftime('%Y-%m-%d %H:%M:%S')) #Strip the microseconds part
 			obj_list.append(obj)
 		else:
 			for sensor_obj in entity_list:
+				local_utc_p8 = self.utc_to_utc8(sensor_obj.when) #converts each entity date to utc+8
 				obj = {}
 				obj['Tipo'] = '%s'%(sensor_obj.type)
 				obj['Valor'] = '%s'%(sensor_obj.value)
 				obj['Ubicacion'] = '%s'%(sensor_obj.id_LiSANDRA)
-				obj['Fecha'] = '%s'%(sensor_obj.when.strftime('%Y-%m-%d %H:%M:%S')) #Strip the microseconds part
+				obj['Fecha'] = '%s'%(local_utc_p8.strftime('%Y-%m-%d %H:%M:%S')) #Strip the microseconds part
 				obj_list.append(obj)
 		return obj_list
-			
+		
+	##@brief converts utc greenwhich time to local time utc+8, no summer time considered
+	#@details Only substracts 8 hours from the date received as param.
+	#@param utc_date It's the utc date to be converted
+	#@return converted date in datetime format
+	def utc_to_utc8(self,utc_date):
+		return utc_date - datetime.timedelta(hours=8)
+		
 ##@class Config_provider
 #@brief Command interface to get configuration info from the server
 #@details It has the following commands:
