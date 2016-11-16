@@ -13,6 +13,10 @@ a web browser.
 All the code is documented via comments, so a doc page has been generated.
 Could be access [here](https://sensado-invernadero.appspot.com/Documentation/html/index.html)
 
+##System structure diagram
+
+![alt tag](https://github.com/david9106/GreenhouseMonitor/blob/graficar_maximos/appengine/Documentation/Diagrams/Estructura%20general.jpg)
+
 ##WSN (Wireless sensor network )
 The [WSN (Wireless Sensor Network)](https://github.com/david9106/IS-Repo-Equipo2/tree/master/WSN) library is responsible for the reception,
 transmission and adjustment of the information submitted by the senseores.
@@ -34,10 +38,6 @@ Contents:
 * [Database](https://github.com/david9106/IS-Repo-Equipo2/tree/master/appengine/Database): Module responsible for the structure of the Data Base
 * [Handlers](https://github.com/david9106/IS-Repo-Equipo2/tree/master/appengine/Handlers): Module responsible for handling database tasks, alerts and decoding json data
 * [Templates](https://github.com/david9106/IS-Repo-Equipo2/tree/master/appengine/Templates): It contains files and controls that will be displayed in the web browser
-
-##General Diagram of the system
-
-![alt tag](https://github.com/david9106/GreenhouseMonitor/blob/graficar_maximos/appengine/Documentation/Diagrams/Estructura%20general.jpg)
 
 ##3rd party libs
 
