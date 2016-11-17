@@ -68,4 +68,9 @@ def get_min_Value(sensor_type):
 
 ##@brief Returns if alerts are disabled on this type limits
 def isDisabled(sensor_type):
-	return Limites.SensorLimits.get_by_key_name(sensor_type).is_disabled()
+	my_entity = Limites.SensorLimits.get_by_key_name(sensor_type);
+	if my_entity is None:
+		print(my_entity)
+		return False
+	else:
+		return my_entity.is_disabled()

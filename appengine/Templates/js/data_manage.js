@@ -209,7 +209,7 @@ var max_measures = []; ///< saves the MAX values measures obteined until now
 		if(available_sensors.length > 0){//IF already set the sensors, go ahead
 			clearInterval(interval_id); ///<Stop interval call
 			json_cmd_today_measures["SensorType"] = available_sensors[0];
-
+			
 			getJSON_ByCmd(json_url,function(json_list){
 				today_measures.length = 0; //clear global
 				if(json_list.length == 0){

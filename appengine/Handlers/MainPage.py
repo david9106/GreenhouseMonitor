@@ -143,16 +143,43 @@ class Config_provider(webapp2.RequestHandler):
 						
 			elif "Limites" in jdata["Tipo"]:
 				#~ Limites.SensorLimits().DeleteAll()
-				jdata["hum_max"] = LimitHandler.get_Max_Value("Humedad")
-				jdata["hum_min"] = LimitHandler.get_min_Value("Humedad")
+				hum_max = LimitHandler.get_Max_Value("Humedad")
+				if hum_max: #Check if exists registered values					
+					jdata["hum_max"] = hum_max
+				else: #Or put the message
+					jdata["hum_max"] = "No value"
+					
+				hum_min = LimitHandler.get_min_Value("Humedad")
+				if hum_min:
+					jdata["hum_min"] = hum_min
+				else:
+					jdata["hum_min"] = "No value"								
 				jdata["check_hum"] = LimitHandler.isDisabled("Humedad")
-								
-				jdata["temp_max"] = LimitHandler.get_Max_Value("Temperatura")
-				jdata["temp_min"] = LimitHandler.get_min_Value("Temperatura")				
-				jdata["check_temp"] = LimitHandler.isDisabled("Temperatura")
+						
+				temp_max = LimitHandler.get_Max_Value("Temperatura")
+				if temp_max:
+					jdata["temp_max"] = temp_max
+				else:
+					jdata["temp_max"] = "No value"				
+					
+				temp_min = LimitHandler.get_min_Value("Temperatura")				
+				if temp_min:
+					jdata["temp_min"] = temp_min
+				else:
+					jdata["temp_min"] = "No value"
+				jdata["check_temp"] = LimitHandler.isDisabled("Temperatura")							
 				
-				jdata["light_max"] = LimitHandler.get_Max_Value("Iluminacion")
-				jdata["light_min"] = LimitHandler.get_min_Value("Iluminacion")		
+				light_max = LimitHandler.get_Max_Value("Iluminacion")
+				if light_max:
+					jdata["light_max"] = light_max
+				else:
+					jdata["light_max"] = "No value"					
+				
+				light_min = LimitHandler.get_min_Value("Iluminacion")					
+				if light_min:
+					jdata["light_min"] = light_min
+				else:
+					jdata["light_min"] = "No value"					
 				jdata["check_light"] = LimitHandler.isDisabled("Iluminacion")
 
 			print(jdata)
@@ -182,16 +209,16 @@ class Data_Config(webapp2.RequestHandler):
 		LimitHandler.set_alerts_status("Humedad",self.request.get('check_hum'))
 
 		##@brief saves the limits
-		if re.match('^[0-9]+(\.([0-9]+))*$',self.request.get('light_min')) != None: #Compares with a floating point simple regex
+		if re.match('^[0-9]+(\.([0-9]+))*$',self.request.get('light_max')) != None: #Compares with a floating point simple regex
 			LimitHandler.set_Max_Alert("Iluminacion",self.request.get('light_max'))	
 		
 		if re.match('^[0-9]+(\.([0-9]+))*$',self.request.get('light_min')) != None: #Compares with a floating point simple regex
 			LimitHandler.set_Min_Alert('Iluminacion',self.request.get('light_min'))
 
-		if re.match('^[0-9]+(\.([0-9]+))*$',self.request.get('light_min')) != None: #Compares with a floating point simple regex
+		if re.match('^[0-9]+(\.([0-9]+))*$',self.request.get('temp_max')) != None: #Compares with a floating point simple regex
 			LimitHandler.set_Max_Alert('Temperatura',self.request.get('temp_max'))
 		
-		if re.match('^[0-9]+(\.([0-9]+))*$',self.request.get('light_min')) != None: #Compares with a floating point simple regex
+		if re.match('^[0-9]+(\.([0-9]+))*$',self.request.get('temp_min')) != None: #Compares with a floating point simple regex
 			LimitHandler.set_Min_Alert('Temperatura',self.request.get('temp_min'))
 		
 		try:
@@ -211,3 +238,4 @@ class Data_Config(webapp2.RequestHandler):
 		
 		self.redirect('/Templates/configuracion.html')
 		
+	
