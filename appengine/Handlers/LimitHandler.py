@@ -70,7 +70,6 @@ def get_min_Value(sensor_type):
 def isDisabled(sensor_type):
 	my_entity = Limites.SensorLimits.get_by_key_name(sensor_type);
 	if my_entity is None:
-		print(my_entity)
 		return False
 	else:
 		return my_entity.is_disabled()

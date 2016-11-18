@@ -20,9 +20,8 @@ var available_sensors = []; ///<Holds the available sensor types in string forma
 var today_measures = []; ///< saves all measures got until now since 12am of today
 var phones_registered = []; ///< saves all the registered phones and their state (active/not)
 var limits_registered = []; ///< saves all the sms alert limits, there's always 2 limits per sensor type
-var globals_init_flag = false; ///< Polling variable to check if the graph data is already available on the global variables
+//var globals_init_flag = false; ///< Polling variable to check if the graph data is already available on the global variables
 var interval_id; ///< Holds the id to enable/disable interval callbacks
-var test_global;
 
 var set_lisandra_globals = function (obj, new_value){
 	obj.value = new_value;
@@ -73,7 +72,7 @@ function getJSON_ByCmd(url, successHandler, errorHandler, json_command) {
 	xhr.responseType = 'json';
 	xhr.onload = function() {
 		var status = xhr.status;
-		if (status == 200) {
+		if (status == 200) {		
 			successHandler && successHandler(xhr.response);
 		} else {
 			errorHandler && errorHandler(status);
@@ -185,16 +184,16 @@ function update_local_graph_data(year){
 var last_measures = [];///< saves the most recent measures of each kind of sensor
 var max_measures = []; ///< saves the MAX values measures obteined until now
 					///< these are taken from the today_measures
-//var today_measures = []; ///< saves all measures got until now since 12am of today
 
 	if(!/^\d{4}$/.test(year)){ ///< Check if year is a four digit element, if not return false
 		return false;
 	}
 
-	var json_cmd_available_sensors = {"Tipo":"GetSensorTypes"};
-	var json_cmd_year_measures = {"Tipo":"GetSensorYearMeasures","Year":year};
-	var json_cmd_today_measures = {"Tipo":"GetSensorTodayMeasures"};
-	var json_cmd_last_measur = {"Tipo":"GetLastMeasure"};	
+	////The json commands sent, started with SensorType:"Temperatura", but it will be changed if needed
+	var json_cmd_available_sensors = {"Tipo": "GetSensorTypes"};
+	var json_cmd_year_measures = {"Tipo": "GetSensorYearMeasures","SensorType": "Temperatura","Year": year};
+	var json_cmd_today_measures = {Tipo: "GetSensorTodayMeasures",SensorType: "Temperatura"};
+	var json_cmd_last_measur = {"Tipo": "GetLastMeasure","SensorType": "Temperatura"};	
 	
 	getJSON_ByCmd(json_url, function(sensor_list){
 		available_sensors.length = 0; //Clear global		
@@ -208,22 +207,30 @@ var max_measures = []; ///< saves the MAX values measures obteined until now
 		
 		if(available_sensors.length > 0){//IF already set the sensors, go ahead
 			clearInterval(interval_id); ///<Stop interval call
-			json_cmd_today_measures["SensorType"] = available_sensors[0];
+			for (sensor_index in available_sensors){
+				json_cmd_today_measures["SensorType"] = available_sensors[sensor_index];
+				
+				getJSON_ByCmd(json_url,function(json_list){
+					today_measures.length = 0; //clear global
+					var local_index = 0 //indicates which subindex of today_measures, each index is one sensor type
+					today_measures.push(new Array());
+					
+					if(json_list.length == 0){
+						alert("No measures for today in the DB");
+					}
+					for(json_id in json_list){					
+						if(json_id.localeCompare("Tipo") != 0){
+							///Push the current list as element of today_measures
+							today_measures[local_index].push(json_list[json_id]);						
+						}											
+					}///end for each json id					
+				},error_response,json_cmd_today_measures);
+				///wait for the last ajax fetch's the info
+				//setTimeout(function(){},150);
+			}///end for sensor_index in available_sensor		
 			
-			getJSON_ByCmd(json_url,function(json_list){
-				today_measures.length = 0; //clear global
-				if(json_list.length == 0){
-					alert("No measures for today in the DB");
-				}
-				for(json_id in json_list){
-					if(json_id.localeCompare("Tipo") != 0){
-						//today_measures.push();
-						alert(json_id);
-					}					
-				}//end for each json id
-			},error_response,json_cmd_today_measures);
-		}
-			
+		}///end if data available
+		
 	},100);
 	
 }
