@@ -22,6 +22,8 @@ var chartData3 = [];
 var chartData4 = [];
 
 request_available_sensors();///< Request the available sensor types
+populate_year_dropdown(2016, 5);///< Populate the year selector dropdown list
+setup_default_dropdowns(); ///> Select default values on year and sensor type dropdown lists
 
 generateChartData();
 

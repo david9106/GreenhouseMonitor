@@ -170,25 +170,46 @@ function paint_config_in_html() {
 	},error_response,json_cmd_limits)
 }
 
+function setup_default_dropdowns(){
+///\brief Select default year and sensor type
+///\details Select the current year as default year on the year--dropdown and "Temperatura" as default sensor
+///\author Rafael Karosuo, Alejandro Islas	
+	$("#drop-year").text($(".year").first().text()); ///Set the first year
+	$("#drop-sensor").text($(".sensor").first().text()); ///Set the first sensor type
+}
+
 function request_available_sensors(){
 ///\brief Request a list of the available sensors
 ///\details Updates the variable available_sensors and populates the corresponding combobox
-///\author Rafael Karosuo
+///\author Rafael Karosuo, Alejandro Islas
 
 	////The json commands sent, started with SensorType:"Temperatura", but it will be changed if needed
 	var json_cmd_available_sensors = {"Tipo": "GetSensorTypes"};	
 	
 	getJSON_ByCmd(json_url, function(sensor_list){
 		available_sensors.length = 0; //Clear global		
-		for(element in sensor_list){
-			/**
-			 * Llenar el componente de sensor types
-			 * 
-			 * */
+		$(".sensor").remove();///Clear previous options
+		for(element in sensor_list){						
+			$(".sensor-type ul").append("<li class=\"sensor\"><a>"+sensor_list[element]+"</a></li>");///Add current sensor type
 			available_sensors.push(sensor_list[element]);
 		}//end for each json id
 	}, error_response, json_cmd_available_sensors);	
 	
+}
+
+function populate_year_dropdown(start_year, sum_years){
+///\brief Fill the year dropdown list
+///\param start_year Is the year where the dropdown list starts
+///\param sum_years Is the amount of years that the dropdown will go
+///\details with the corresponding years, starting with the current and 5 years ahead
+///The years must be 4 digits and the sum_years must be 1 digit
+///\author Rafael Karosuo, Alejandro Islas
+	if (/\d{4}/.test(start_year) && /\d{1}/.test(sum_years)){
+		$(".year").remove();///Clear previous options
+		for(year_delta=0; year_delta<sum_years; year_delta++){
+			$(".year-selection ul").append('<li class="year" value=\"'+(start_year+year_delta)+'\"><a>'+(start_year+year_delta)+'</a></li>'); ///Add the years
+		}///end for
+	}	
 }
 
 function day_default_configuration(){
