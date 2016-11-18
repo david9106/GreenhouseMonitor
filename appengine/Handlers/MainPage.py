@@ -47,7 +47,7 @@ class JSON_provider(webapp2.RequestHandler):
 	def post(self):
 		try:
 			#Receive the object and decodes it
-			print(cgi.escape(self.request.body))
+			print("Input json string -> {!s}".format(cgi.escape(self.request.body)))
 			jdata = json.JSONDecoder().decode(cgi.escape(self.request.body))
 			if "GetSensorTypes" in jdata["Tipo"]: #!Asks for the available sensor types on database
 				sensor_types = CensadoHandler.get_available_sensors()
@@ -55,7 +55,7 @@ class JSON_provider(webapp2.RequestHandler):
 				for sensor in sensor_types:
 					sensor_list.append(str(sensor.type))				
 				self.response.write(json.dumps(sensor_list))
-			elif "GetSensorYearMeasures" in jdata["Tipo"]:			
+			elif "GetSensorYearMeasures" in jdata["Tipo"]:	
 				year_measures = CensadoHandler.get_year_measures(jdata["SensorType"], jdata["Year"])				
 				self.response.write(json.dumps(self.pack_json_sensor_measures(year_measures))) #Responds a json
 			elif "GetSensorTodayMeasures" in jdata["Tipo"]:
@@ -68,6 +68,12 @@ class JSON_provider(webapp2.RequestHandler):
 				sensor_count = CensadoHandler.get_sensor_count(jdata["SensorType"])
 				jdata["SensorCount"] = sensor_count
 				self.response.write(json.dumps(jdata))
+			elif "GetLocationList" in jdata["Tipo"]:
+				entity_location_list = CensadoHandler.get_location_list(jdata["SensorType"])
+				location_list = [] #Wrap only the values, in a list
+				for entity in entity_location_list:
+					location_list.append(entity.id_LiSANDRA)
+				self.response.write(json.dumps(location_list))
 			
 		except (ValueError, KeyError):
 			'''KeyError goes in case that the json ID doesn't exists, mainly ["Tipo"] but can be others

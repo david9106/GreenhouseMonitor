@@ -5,8 +5,8 @@
 ///All the access to the properties, most of times will be through json object id's and property values, few are based on classes from AmCharts
 ///\see https://docs.amcharts.com/3/javascriptstockchart
 ///\author Rafael Karosuo
-
-var json_cmd_year_measures = {"Tipo": "GetSensorYearMeasures","SensorType": "Temperatura","Year": "2016"};
+var fetch_year = 2016; ///< The year that will be fetched from DB
+var json_cmd_year_measures = {"Tipo": "GetSensorYearMeasures","SensorType": "Temperatura","Year": "2016"};///< Command to retrieve all the year measures
 var json_cmd_today_measures = {Tipo: "GetSensorTodayMeasures",SensorType: "Temperatura"};
 var json_cmd_last_measur = {"Tipo": "GetLastMeasure","SensorType": "Temperatura"};	
 
@@ -23,130 +23,34 @@ var chartData4 = [];
 populate_year_dropdown(2016, 5);///< Populate the year selector dropdown list
 request_available_sensors();///< Request the available sensor types, this is an async task
 setup_default_dropdowns(); ///< Select default values on year and sensor type dropdown lists
-
-generateChartData();///< Defines the first
-
-///\brief Generate
-function generateChartData() {	
-	
-	///\brief Polling if available_sensors is already fulfilled (each 100ms)
-	interval_id = setInterval(function(){		
-		if(available_sensors.length > 0){//IF already set the sensors, go ahead
-			clearInterval(interval_id); ///< Stop interval call
-			//~ alert($(".sensor").first().text());
-		}///end if data available
-		
-	},100);///end setInterval
-	
-  var firstDate = new Date();
-  //firstDate.setDate( firstDate.getDate() - 10000 );
-  firstDate.setHours( 0, 0, 0, 0 );
-
-  for ( var i = 0; i < 1000; i++ ) {
-    var newDate = new Date( firstDate );
-    //newDate.setDate( newDate.getDate() + i );
-    newDate.setHours( newDate.getHours() + i );
-    
-    /*var a1 = Math.round( Math.random() * ( 40 + i ) ) + 100 + i;
-    var b1 = Math.round( Math.random() * ( 1000 + i ) ) + 500 + i * 2;*/
-
-    var a2 = Math.round( Math.random() * ( 100 + i ) ) + 200 + i;
-    var b2 = Math.round( Math.random() * ( 1000 + i ) ) + 600 + i * 2;
-
-    var a3 = Math.round( Math.random() * ( 100 + i ) ) + 200;
-    var b3 = Math.round( Math.random() * ( 1000 + i ) ) + 600 + i * 2;
-
-    var a4 = Math.round( Math.random() * ( 100 + i ) ) + 200 + i;
-    var b4 = Math.round( Math.random() * ( 100 + i ) ) + 600 + i;
-    
-    var a1;
-    var b1;
-    
-    if (i%2 == 0){
-		a1 = i;
-	}else
-	{
-		a1 = i*2;
-	}
-
-
-    chartData1.push( {
-      "date": newDate,
-      "value": a1,
-      "volume": b1
-    } );
-    chartData2.push( {
-      "date": newDate,
-      "value": a2,
-      "volume": b2
-    } );
-    chartData3.push( {
-      "date": newDate,
-      "value": a3,
-      "volume": b3
-    } );
-    chartData4.push( {
-      "date": newDate,
-      "value": a4,
-      "volume": b4
-    } );
-  }
-}
+request_locatioon_list("Temperatura"); ///< Gets the location list of Temperatura, all the id_LiSANDRA of that kind of sensor
+//generateChartData();///< Defines the first values for the graph
 
 var greenhouse_chart = AmCharts.makeChart( "chartdiv", {
   "type": "stock",
   "theme": "ligth",
-  "dataSets": [ {
-      "title": "Sensor1",
-      "fieldMappings": [ {
-        "fromField": "value",
-        "toField": "value"
-      }, {
-        "fromField": "volume",
-        "toField": "volume"
-      } ],
-      "dataProvider": chartData1,
-      "categoryField": "date"
-    }, {
-      "title": "Sensor2",
-      "fieldMappings": [ {
-        "fromField": "value",
-        "toField": "value"
-      }, {
-        "fromField": "volume",
-        "toField": "volume"
-      } ],
-      "dataProvider": chartData2,
-      "categoryField": "date",
-		"compared": true
-    }, {
-      "title": "Sensor3",
-      "fieldMappings": [ {
-        "fromField": "value",
-        "toField": "value"
-      }, {
-        "fromField": "volume",
-        "toField": "volume"
-      } ],
-      "dataProvider": chartData3,
-      "categoryField": "date"
-    }, {
-      "title": "Sensor4",
-      "fieldMappings": [ {
-        "fromField": "value",
-        "toField": "value"
-      }, {
-        "fromField": "volume",
-        "toField": "volume"
-      } ],
-      "dataProvider": chartData4,
-      "categoryField": "date"
-    }
-  ]
+			  "dataSets": [ {			
+			    "dataProvider": [],
+			    "categoryField": "date",
+			  } ]
 } );
 
 //Should create one object from type DataSet for each sensor type
 //Then when we create all the objects, append them to a list which will be the property DataSets of greenhouse_chart
+
+///\brief Configure the chart type as stock
+///\details As direct parameter of class AmChart
+/// Possible types are: serial, pie, xy, radar, funnel, gauge, map, stock.
+greenhouse_chart.type = "stock";
+
+///\brief assign a visual css theme
+///\details currently it's used light, since light.js was loaded
+///Also the the files related will be found on amcharts/themes/ on Templates/js folder
+///example black.js, dark.js, patterns.js
+///In order to make them work, they need to be loaded in the index.html, insted of the light.js
+///For more information check the link below
+///\see http://www.amcharts.com/kbase/working-with-themes/
+greenhouse_chart.theme = "ligth";
 
 ///\brief create the main panel to hold the graph
 ///\details The graph is contained by a panel (StockPanel class)
@@ -168,6 +72,8 @@ main_graph.compareField = "value";
 ///\brief How the exact data point balloon will display which text
 main_graph.balloonText = "[[title]]:<b>[[value]]</b>";
 main_graph.compareGraphBalloonText = "[[title]]:<b>[[value]]</b>";
+///\brief Define grouping with the SUM criteria
+main_graph.periodValue = "High";
 ///\brief binds the graph with the panel
 main_panel.addStockGraph(main_graph);
 ///\brief Creates the main Stock legend
@@ -227,6 +133,11 @@ greenhouse_chart.chartScrollbarSettings.enabled = false;
 ///\brief Enable the date grouping
 greenhouse_chart.categoryAxesSettings.parseDates = true;
 
+///\brief Always try to group datasets
+///\details It need groupToPeriods and minPeriod available
+///to work properly
+greenhouse_chart.categoryAxesSettings.alwaysGroup = true;
+
 ///\brief Defines the date groups
 ///\details It will be 2 main groups, day groups and hour groups, both showing the max of each one
 ///The hour grups are used by the day visualization and the day group by the rest of the graph periods, which are:
@@ -235,6 +146,77 @@ greenhouse_chart.categoryAxesSettings.parseDates = true;
 ///and year seasons
 greenhouse_chart.categoryAxesSettings.groupToPeriods = ["hh", "DD"];
 
-///\brief Defines the smaller group, which is hourly
-///\details The smaller useful grop is max per hour
-greenhouse_chart.categoryAxesSettings.minPeriod = "hh";
+///\brief Defines seconds as the smaller group available on datasets
+///\details The datasets has data that contains difference in seconds
+///Neverthless the smaller useful grop is max per hour, this option refers to the raw data min period
+///How will it be shown is other story
+greenhouse_chart.categoryAxesSettings.minPeriod = "ss";
+
+generateChartData();///< Constructs the DataSet objects and fetch the data from server
+
+///\brief Fetches the data and put it onto the datasets to graphicate
+///\details Send requests to server to get all the data from one kind of sensor
+///Also puts that data into the specified DataSet objects and in the global array
+///It instructs to the graph to update, only when the http requests are done
+///\author Rafael Karosuo
+function generateChartData() {	
+	
+	///\brief Polling if available_sensors is already fulfilled (each 100ms)
+	interval_id = setInterval(function(){		
+		if(available_sensors.length > 0 && location_list.length > 0){//IF already set the sensors and the location list, go ahead
+			clearInterval(interval_id); ///< Stop interval call						
+			json_cmd_year_measures.SensorType = $(".sensor").first().text();///< Asign sensor type to the command			
+			json_cmd_year_measures.Year = fetch_year; ///< Assing year to command					
+			
+			getJSON_ByCmd(json_url, function(sensor_list){
+				sensor_count = sensor_list[sensor_list.length-1].SensorCount;///< Get the sensor count
+				for (dataset=0; dataset<sensor_count; dataset++){///< Create all the data sets
+					chartDataArray.push(new AmCharts.DataSet());///< Create a DataSet class
+					chartDataArray[dataset].dataProvider = new Array(); ///< Prepare dataProvider of each DataSet, to be able to "push" the sensor measures
+					chartDataArray[dataset].title = "Sensor " + location_list[dataset];///< Add the title to the current DataSet, it's "Sensor " + current id_LiSANDRA					
+					chartDataArray[dataset].fieldMappings = new Array(); ///< Assign empty array, to be able to "push" the json objects into it
+					chartDataArray[dataset].fieldMappings.push({///< Push the FieldMappings inner values
+							"fromField": "Valor",
+							"toField": "Valor"
+					});					
+					chartDataArray[dataset].categoryField = "date";///< Tell the DataSet that the property "date" of the values will be the category field
+				}///End for datasets				
+				alert(sensor_count);
+				for(id_LiSANDRA in location_list){
+					alert(id_LiSANDRA);
+				}	
+				
+				///\brief go over all the measures of this sensor
+				for (element in sensor_list){					
+					//~ chartData1.push({
+						//~ "date":new Date(sensor_list[element].Fecha),
+						//~ "value":parseFloat(sensor_list[element].Valor)
+						//~ });
+						
+					if(!sensor_list[element].hasOwnProperty("SensorCount")){ ///< Avoid the SensorCount component
+						chartData1.push({
+						"date":new Date(sensor_list[element].Fecha),
+						"value":parseFloat(sensor_list[element].Valor)
+						});
+						chartDataArray[0].dataProvider.push({
+							"date":new Date(sensor_list[element].Fecha),
+							"value":parseFloat(sensor_list[element].Valor)
+							});																
+					}///end if not SensorCount					
+				}///end for element in sensor_list
+				
+				greenhouse_chart.categoryField = "date";
+				greenhouse_chart.dataProvider = chartData1;
+				
+				///\brief Configure all the datasets array, attach it to chart
+				//greenhouse_chart["dataSets"] = chartDataArray;				
+				///\brief Update graph
+				greenhouse_chart.validateData();///< Re-read the data sets
+				greenhouse_chart.validateNow();///< Re-paint the graph
+			
+			}, error_response, json_cmd_year_measures);	
+			
+		}///end if data available			
+		
+	},100);///end setInterval
+  }///end generate_chart_data function

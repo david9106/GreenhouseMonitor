@@ -1,7 +1,8 @@
 ///\file data_manage.js
 ///\brief Local data manage functions, and global variables	
-///\details Describes all the functions needed to fetch data from server to browser and save in LocalStorate if necesary
-///All the global variables saves in json format to ease the relation between the sensor type and it's measures
+///\details Describes all the functions needed to fetch data from server to browser, so the needed operations between datasets on the graph locally
+///ATENTION!: The idea of having today_measures, last_measures, max_measures doesn't seems a good idea, but they're there in case that we decide
+///to implement those, mainly using LocalStorage
 ///The format for measures that are just one per sensor is a json object array
 /// [{"Tipo":"<sensor_type>", "Ubicacion":"<id_lisandra>", "Valor":"<a_value>"},{"Tipo":"<sensor_type2>", "Ubicacion":"<id_lisandra2>", "Valor":"<a_value2>"}...]
 ///For the values that are many per sensor, is an array that holds arrays with the above format, except that each inner array hast only one sensor type
@@ -22,6 +23,7 @@ var phones_registered = []; ///< saves all the registered phones and their state
 var limits_registered = []; ///< saves all the sms alert limits, there's always 2 limits per sensor type
 //var globals_init_flag = false; ///< Polling variable to check if the graph data is already available on the global variables
 var interval_id; ///< Holds the id to enable/disable interval callbacks
+var location_list = [] ///< Holds the id_LiSANDRA's list related with the current selected sensor
 
 var set_lisandra_globals = function (obj, new_value){
 	obj.value = new_value;
@@ -31,7 +33,7 @@ json_url = 'http://localhost:8080/get_json' ///< URL to fetch the sensor measure
 config_url = 'http://localhost:8080/get_config' ///< URL to fetch the config values
 
 function error_response(status){
-	alert('Something went wrong, error: status'.replace("status",status));
+	alert('Something went wrong, HTTP response error: status'.replace("status",status));
 }
 
 function getJSON(url, successHandler, errorHandler) {
@@ -211,6 +213,28 @@ function populate_year_dropdown(start_year, sum_years){
 			$(".year-selection ul").append('<li class="year" value=\"'+(start_year+year_delta)+'\"><a>'+(start_year+year_delta)+'</a></li>'); ///Add the years
 		}///end for
 	}	
+}
+
+
+function request_locatioon_list(sensor_type){
+///\brief Retrieve the id_LiSANDRA's list related with one kind of sensor
+///\details The LiSANDRA's list is the location list of the sensors, since other sensor could not be part of LiSANDRA's module
+///but they're gonna have an id_LiSANDRA to be able to link that id to a geographic location
+///\param sensor_type Is the kind of sensor from we want to get the location list
+///\author Rafael Karosuo
+
+	///\brief The json command sent, it will retrieve the location list of sensor_type
+	var json_cmd_location_list = {"Tipo": "GetLocationList"};
+	json_cmd_location_list["SensorType"] = sensor_type;	
+	//alert(JSON.stringify(json_cmd_location_list));
+	location_list.length = 0; ///< Clear global, before send request, this makes code depending on this, waits correctly for a fullfilled array
+	getJSON_ByCmd(json_url, function(sensor_list){			
+		for(element in sensor_list){						
+			location_list.push(sensor_list[element]);///< Save the sensor types on global
+			//alert(sensor_list[element]);
+		}///end for each element
+	}, error_response, json_cmd_location_list);	
+	
 }
 
 function day_default_configuration(){

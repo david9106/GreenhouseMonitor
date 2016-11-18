@@ -38,6 +38,11 @@ def get_year_measures(tipo_sensor, a_year):
 	high_date = datetime.datetime.strptime(high_date_str, '%Y-%m-%d %H:%M:%S') 
 	return Censado.Censado().get_Data(low_date, high_date, tipo_sensor)
 	
+##@brief Retrieve the id_LiSANDRA's list related with given sensor_type
+#@param sensor_type is the kind of sensor
+def get_location_list(sensor_type):
+	return Censado.Censado().get_location_list(sensor_type)
+	
 ##@brief Retrieves the count of all sensor of given type
 #@param sensor_type Is the sensor type to be counted
 #@details Interface for the entity's method of the same name
