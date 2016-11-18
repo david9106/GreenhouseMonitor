@@ -44,23 +44,6 @@ function growl( type, msg ) {
 // CREATE CHART
 var chart = AmCharts.makeChart( "chartdiv", {
   "type": "stock",
-  "dataSets": [ {
-    "title": "Dataset 1",
-    "fieldMappings": [ {
-      "fromField": "value",
-      "toField": "value"
-    } ],
-    "dataProvider": generateChartData(),
-    "categoryField": "date"
-  }, {
-    "title": "Dataset 2",
-    "fieldMappings": [ {
-      "fromField": "value",
-      "toField": "value"
-    } ],
-    "dataProvider": generateChartData(),
-    "categoryField": "date"
-  } ],
   "panels": [ {
     "title": "Panel 1",
     "stockGraphs": [ {
@@ -138,7 +121,6 @@ jQuery( document ).ready( function() {
         var valueField = chart.panels[ i1 ].stockGraphs[ i2 ].valueField;
         // GENERATE NEW GRAPH DATA
         dataset.dataProvider = generateChartData( dataset.dataProvider, valueField );
-
         // ADD FIELDMAPPING
         dataset.fieldMappings.push( {
           "fromField": valueField,

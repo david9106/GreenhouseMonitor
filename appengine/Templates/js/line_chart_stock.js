@@ -10,16 +10,6 @@ var json_cmd_year_measures = {"Tipo": "GetSensorYearMeasures","SensorType": "Tem
 var json_cmd_today_measures = {Tipo: "GetSensorTodayMeasures",SensorType: "Temperatura"};
 var json_cmd_last_measur = {"Tipo": "GetLastMeasure","SensorType": "Temperatura"};	
 
-var property_symbol = "°C"; ///< Cyrrent property symbol
-var property_title = "Temperatura"; ///< Current property title
-
-var chartDataArray = []; ///< Array of DataSet type object, which will be the multiple datasets graphicated
-
-var chartData1 = [];
-var chartData2 = [];
-var chartData3 = [];
-var chartData4 = [];
-
 populate_year_dropdown(2016, 5);///< Populate the year selector dropdown list
 request_available_sensors();///< Request the available sensor types, this is an async task
 setup_default_dropdowns(); ///< Select default values on year and sensor type dropdown lists
@@ -28,11 +18,7 @@ request_locatioon_list("Temperatura"); ///< Gets the location list of Temperatur
 
 var greenhouse_chart = AmCharts.makeChart( "chartdiv", {
   "type": "stock",
-  "theme": "ligth",
-			  "dataSets": [ {			
-			    "dataProvider": [],
-			    "categoryField": "date",
-			  } ]
+  "theme": "ligth"
 } );
 
 //Should create one object from type DataSet for each sensor type
@@ -60,7 +46,7 @@ greenhouse_chart.theme = "ligth";
 ///\see StockLegend class https://docs.amcharts.com/3/javascriptstockchart/StockLegend
 var main_panel = new AmCharts.StockPanel();
 main_panel.showCategoryAxis = true;
-main_panel.title = property_title;
+main_panel.title = "Temperatura";
 main_panel.percentHeight = 70;
 ///\brief Creates the main graph
 ///\details This is the one that literally holds all the data points
@@ -120,7 +106,7 @@ greenhouse_chart.panelsSettings.recalculateToPercents = "never";
 ///\brief Define the measured property unit, like Celcius grades
 ///\details The available string symbols are defined in the global variable (in this file and below) property_symbol
 ///\Available symbols could be incremented pushing the strings to that global
-greenhouse_chart.valueAxesSettings.unit = property_symbol;
+greenhouse_chart.valueAxesSettings.unit = "°C";
 
 ///\brief Define the position where the symbol will go in respect to the measure value
 ///\details Could be right or left, it doesn't include a space
@@ -166,53 +152,23 @@ function generateChartData() {
 		if(available_sensors.length > 0 && location_list.length > 0){//IF already set the sensors and the location list, go ahead
 			clearInterval(interval_id); ///< Stop interval call						
 			json_cmd_year_measures.SensorType = $(".sensor").first().text();///< Asign sensor type to the command			
-			json_cmd_year_measures.Year = fetch_year; ///< Assing year to command					
+			json_cmd_year_measures.Year = fetch_year; ///< Assing year to command	
+					
 			
-			getJSON_ByCmd(json_url, function(sensor_list){
-				sensor_count = sensor_list[sensor_list.length-1].SensorCount;///< Get the sensor count
-				for (dataset=0; dataset<sensor_count; dataset++){///< Create all the data sets
-					chartDataArray.push(new AmCharts.DataSet());///< Create a DataSet class
-					chartDataArray[dataset].dataProvider = new Array(); ///< Prepare dataProvider of each DataSet, to be able to "push" the sensor measures
-					chartDataArray[dataset].title = "Sensor " + location_list[dataset];///< Add the title to the current DataSet, it's "Sensor " + current id_LiSANDRA					
-					chartDataArray[dataset].fieldMappings = new Array(); ///< Assign empty array, to be able to "push" the json objects into it
-					chartDataArray[dataset].fieldMappings.push({///< Push the FieldMappings inner values
-							"fromField": "Valor",
-							"toField": "Valor"
-					});					
-					chartDataArray[dataset].categoryField = "date";///< Tell the DataSet that the property "date" of the values will be the category field
-				}///End for datasets				
-				alert(sensor_count);
-				for(id_LiSANDRA in location_list){
-					alert(id_LiSANDRA);
-				}	
-				
-				///\brief go over all the measures of this sensor
-				for (element in sensor_list){					
-					//~ chartData1.push({
-						//~ "date":new Date(sensor_list[element].Fecha),
-						//~ "value":parseFloat(sensor_list[element].Valor)
-						//~ });
-						
-					if(!sensor_list[element].hasOwnProperty("SensorCount")){ ///< Avoid the SensorCount component
-						chartData1.push({
-						"date":new Date(sensor_list[element].Fecha),
-						"value":parseFloat(sensor_list[element].Valor)
-						});
-						chartDataArray[0].dataProvider.push({
-							"date":new Date(sensor_list[element].Fecha),
-							"value":parseFloat(sensor_list[element].Valor)
-							});																
-					}///end if not SensorCount					
-				}///end for element in sensor_list
-				
-				greenhouse_chart.categoryField = "date";
-				greenhouse_chart.dataProvider = chartData1;
-				
-				///\brief Configure all the datasets array, attach it to chart
-				//greenhouse_chart["dataSets"] = chartDataArray;				
-				///\brief Update graph
-				greenhouse_chart.validateData();///< Re-read the data sets
-				greenhouse_chart.validateNow();///< Re-paint the graph
+			getJSON_ByCmd(json_url, function(sensor_list){ 
+				for(id_LiSANDRA in location_list){///< Go for all the id groups, how many sensors of this kind needs to be created
+					var dataset = new AmCharts.DataSet(); ///<Create the new DataSet
+					dataset.title = "Sensor " + location_list[id_LiSANDRA]; ///< Asign the id_lisandra as sensor title
+					dataset.dataProvider = get_filled_array(sensor_list, id_LiSANDRA); ///< Push all the data related with that id, onto one dataProvider array
+					dataset.categoryField = "date";///< Asign the field that will be the category axis value, from the json objects in dataProviders
+					dataset.fieldMappings.push( {///< Add field mappings, using the properties of the json objects, "value" holds the "Valor" from sensor measures
+					  "fromField": "value",
+					  "toField": "value"
+					} );;
+					greenhouse_chart.dataSets.push(dataset); ///< Bind the dataset with the current chart
+					greenhouse_chart.validateNow(); ///< Repaint graph, no need to validateDate() since it's a new DataSet object
+					alert(dataset.dataParsed);
+				}			
 			
 			}, error_response, json_cmd_year_measures);	
 			
@@ -220,3 +176,26 @@ function generateChartData() {
 		
 	},100);///end setInterval
   }///end generate_chart_data function
+  
+  
+function get_filled_array(sensor_list, id_LiSANDRA){
+///\brief  return an array as DataProvider, that correspond with some id_LiSANDRA
+///\details It goes over all the list and check which of those measures go for the param id_Lisandra and push them
+///into an array
+///\param sensor_list All the measures of one kind of sensor, with all the sub gorups lisandra
+///\param id_LiSANDRA The id lisandra that will be used to group the array that will be returned
+///\return an array with the data of the specified id_LiSANDRA
+	var chartData = [];
+	for (element in sensor_list){										
+		if(!sensor_list[element].hasOwnProperty("SensorCount")){ ///< Avoid the SensorCount component
+			if(sensor_list[element].Ubicacion.localeCompare(id_LiSANDRA)){///< If it has the same ID, push it
+				chartData.push({
+				"date": new Date(sensor_list[element].Fecha),
+				"value":parseFloat(sensor_list[element].Valor)
+				});	
+			}///end if same id					
+		}///end if not SensorCount					
+	}///end for element in sensor_list
+	
+	return chartData;
+}

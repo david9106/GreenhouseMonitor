@@ -1,0 +1,250 @@
+<script>
+            var chartData = dayGuides = nightGuides = [];
+            var chartData2 = {{frames|safe}};
+            var count = {{ gen_count }};
+            var aux = null;
+            var newDate;
+
+            generateChartData();
+
+            function generateChartData() {
+
+                for (var i = 0; i<count; i++) { 
+                    console.log(chartData2[i].Date);
+
+                    newDate = new Date( chartData2[i].Date);
+                    console.log(newDate.getHours());
+
+                    var a1 = chartData2[i].SystolicPressure;
+                    var a2 = chartData2[i].DiastolicPressure;
+                    var a3 = chartData2[i].HeartRate;
+                    
+                    chartData.push( {
+                      date: newDate,
+                        value1: a1,
+                        value2: a2,
+                        value3: a3,
+                    } );
+
+                    var h = newDate;
+                    console.log(h.getHours() >17);
+
+                    if ( h.getHours() > 17  ) {
+                        if(aux == null || dia == 1){
+                            aux = new Date(newDate);
+                            aux.setHours(aux.getHours()-1);
+                        }
+                        dia = 0;
+
+                        nightGuides.push({
+                        date: aux,
+                        toDate: newDate,
+                        lineAlpha: 0.1,
+                        fillAlpha: 0.25,
+                        fillColor: "#191970",
+                        expand: true
+                      });
+                      aux = new Date(newDate);
+                    }
+
+                    if ( h.getHours() < 6 ) {
+                        if(aux == null || dia == 1){
+                            aux = new Date(newDate);
+                            aux.setHours(aux.getHours()-1);
+                        }
+                        dia = 0;
+
+                        nightGuides.push({
+                        date: aux,
+                        toDate: newDate,
+                        lineAlpha: 0.1,
+                        fillAlpha: 0.25,
+                        fillColor: "#191970",
+                        expand: true
+                      });
+                      aux = new Date(newDate);
+                    }
+
+
+                    if ( (newDate.getHours() >= 6) && (newDate.getHours() < 18)) {
+                        if(aux == null || dia == 0){
+                            aux = new Date(newDate);
+                            aux.setHours(aux.getHours()-1);
+                        }
+                        dia = 1;
+
+
+                      dayGuides.push({
+                        date: aux,
+                        toDate: newDate,
+                        lineAlpha: 0.1,
+                        fillAlpha: 0.25,
+                        fillColor: "#fff",
+                        expand: true
+                      });
+                      aux = new Date(newDate);
+                    }
+                    
+                    chartData.push( {
+                      date: newDate,
+                        value1: a1,
+                        value2: a2,
+                        value3: a3,
+                    } );
+                }
+            }
+
+
+            var chart = AmCharts.makeChart( "chartdiv", {
+              "type": "stock",
+              "language": "es",
+              "categoryAxesSettings": {
+              "minPeriod": "mm", // periodo minimo de grafica
+                "groupToPeriods": ['mm'] // periodos en grupo
+                },
+             "responsive": {
+                "enabled": true
+                },
+              "dataDateFormat": "YYYY-MM-DD JJ:NN:",
+              "dataSets": [ {
+                "fieldMappings": [ {
+                  "fromField": "value1",
+                  "toField": "value1"
+                }, {
+                  "fromField": "value2",
+                  "toField": "value2"
+                }, {
+                  "fromField": "value3",
+                  "toField": "value3"
+                }, {
+                  "fromField": "value4",
+                  "toField": "value4"
+                } ],
+                "dataProvider": chartData,
+                "categoryField": "date",
+              } ],
+
+              "panels": [ {
+                "stockGraphs": [ {
+                  "id": "g1",
+                  "balloonColor": "#FC7242",
+                  "bullet": "triangleUp",
+                  "bulletColor": "#FC7242",
+                  "markerType": "square",
+                  "fontSize": 8,
+                  "title": "Presion Sistólica",
+                  "balloonText": "[[title]]:<b>[[value]]</b>",
+                  "lineThickness": 2,
+                  "valueField": "value1",
+                  "useDataSetColors": false,
+                }, {
+                  "id": "g2",
+                  "balloonColor": "#20CACD",
+                  "bullet": "square",
+                  "bulletBorderColor": "#20CACD",
+                  "bulletColor": "#20CACD",
+                  "bulletOffset": 1,
+                  "color": "#000000",
+                  "cursorBulletAlpha": 0.04,
+                  "fontSize": 8,
+                  "legendColor": "#FFFF00",
+                  "lineColor": "#20CACD",
+                  "lineColorField": "lineColor",
+                  "markerType": "square",
+                  "title": "Presión Diastólica",
+                  "balloonText": "[[title]]:<b>[[value]]</b>",
+                  "lineThickness": 2,
+                  "valueField": "value2",
+                  "useDataSetColors": false
+                }, {
+                  "id": "g3",
+                  "balloonColor": "#42CC71",
+                  "bullet": "round",
+                  "bulletBorderColor": "#42CC71",
+                  "bulletColor": "#42CC71",
+                  "fontSize": 8,
+                  "lineColor": "#42CC71",
+                  "title": "Ritmo Cardíaco",    
+                  "balloonText": "[[title]]:<b>[[value]]</b>",
+                  "lineThickness": 2,
+                  "valueField": "value3",
+                  "useDataSetColors": false
+                }],
+
+                categoryAxis: {
+                      guides: nightGuides
+                    },
+                    valueAxes: [{
+                      guides: [{
+                        lineAlpha: 1,
+                        lineColor: "#000",
+                      }]
+                    }],
+                 
+                  "stockLegend": {
+                        "useGraphSettings": true,
+                        "valueAlign": "left",
+                        "maxColumns": 5,
+                        "rollOverGraphAlpha": 0,
+                    },
+                   "titles": [
+                        {
+                            "alpha": 0.83,
+                            "bold": true,
+                            "color": "#004788",
+                            "id": "Title-1",
+                            "size": 15,
+                            "text": "Gráfica de Comportamiento Presión Arterial"
+                        }
+                    ]
+
+              }],
+
+              "chartScrollbarSettings": {
+                "graph": "g1",
+                "usePeriod": "mm",
+                "resize": true
+              },
+        
+              "chartCursorSettings": {
+                "valueBalloonsEnabled": true,
+                "fullWidth": true,
+                "cursorAlpha": 0.5,
+                "valueLineBalloonEnabled": true,
+                "valueLineEnabled": true,
+                "valueLineAlpha": 0.5,
+                "graphBulletSize": 2.5,
+                "categoryBalloonDateFormats": [{
+                        "period": "mm",
+                        "format": "MMM DD JJ:NN"
+                    }, {
+                        "period": "hh",
+                        "format": "MMM DD JJ:NN"
+                    }]
+
+              },
+
+              "periodSelector": {
+                "position": "top",
+                "periods": [{
+                "period": "DD",
+                "count": 1,
+                "label": "1 día",
+                "selected": true
+                }]
+              },
+
+            } );
+
+            chart.addListener('rendered', function (event) {
+                var dataProvider = chart.dataSets[0].dataProvider;
+                  $( ".amChartsPeriodSelector .amChartsInputField" ).datepicker({
+                      dateFormat: "dd-mm-yy",
+                      minDate: dataProvider[0].date,
+                      maxDate: dataProvider[dataProvider.length-1].date,
+                      onClose: function() {
+                          $( ".amChartsPeriodSelector .amChartsInputField" ).trigger('blur');
+                      }
+                  });
+            });
+    </script>
