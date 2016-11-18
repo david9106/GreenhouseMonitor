@@ -82,8 +82,9 @@ class JSON_provider(webapp2.RequestHandler):
 	#@param entity_list is the sensor list from where the values will be extracted
 	#@return json_dictionary which is a json object formatted array
 	def pack_json_sensor_measures(self,entity_list):
-		obj_list = []
+		obj_list = []		
 		if not hasattr(entity_list, '__iter__'): #Means it's just one Censado entity and won't be iterable			
+			sensor_count = CensadoHandler.get_sensor_count(entity_list.type) #Count how many sensors of this type are in the DB
 			local_utc_p8 = self.utc_to_utc8(entity_list.when) #convert to utc+8
 			obj = {}
 			obj['Tipo'] = '%s'%(entity_list.type)
@@ -92,6 +93,7 @@ class JSON_provider(webapp2.RequestHandler):
 			obj['Fecha'] = '%s'%(local_utc_p8.strftime('%Y-%m-%d %H:%M:%S')) #Strip the microseconds part
 			obj_list.append(obj)
 		else:
+			sensor_count = CensadoHandler.get_sensor_count(entity_list[0].type)#Count how many sensors of this type are in the DB
 			for sensor_obj in entity_list:
 				local_utc_p8 = self.utc_to_utc8(sensor_obj.when) #converts each entity date to utc+8
 				obj = {}
@@ -100,6 +102,9 @@ class JSON_provider(webapp2.RequestHandler):
 				obj['Ubicacion'] = '%s'%(sensor_obj.id_LiSANDRA)
 				obj['Fecha'] = '%s'%(local_utc_p8.strftime('%Y-%m-%d %H:%M:%S')) #Strip the microseconds part
 				obj_list.append(obj)
+		obj = {}
+		obj["SensorCount"] = sensor_count
+		obj_list.append(obj)
 		return obj_list
 		
 	##@brief converts utc greenwhich time to local time utc+8, no summer time considered
