@@ -12,6 +12,10 @@ indexes:
 
 - kind: Censado
   properties:
+  - name: id_LiSANDRA
+
+- kind: Censado
+  properties:
   - name: type
   - name: when
 

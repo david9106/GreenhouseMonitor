@@ -6,33 +6,34 @@
 ///\see https://docs.amcharts.com/3/javascriptstockchart
 ///\author Rafael Karosuo
 
-
-var json_cmd_year_measures = {"Tipo": "GetSensorYearMeasures","SensorType": "Temperatura","Year": year};
+var json_cmd_year_measures = {"Tipo": "GetSensorYearMeasures","SensorType": "Temperatura","Year": "2016"};
 var json_cmd_today_measures = {Tipo: "GetSensorTodayMeasures",SensorType: "Temperatura"};
 var json_cmd_last_measur = {"Tipo": "GetLastMeasure","SensorType": "Temperatura"};	
 
-var property_symbol = "°C";
-var property_title = "Temperatura";
+var property_symbol = "°C"; ///< Cyrrent property symbol
+var property_title = "Temperatura"; ///< Current property title
 
-var chartDataArray = [];
+var chartDataArray = []; ///< Array of DataSet type object, which will be the multiple datasets graphicated
 
 var chartData1 = [];
 var chartData2 = [];
 var chartData3 = [];
 var chartData4 = [];
 
-request_available_sensors();///< Request the available sensor types
 populate_year_dropdown(2016, 5);///< Populate the year selector dropdown list
-setup_default_dropdowns(); ///> Select default values on year and sensor type dropdown lists
+request_available_sensors();///< Request the available sensor types, this is an async task
+setup_default_dropdowns(); ///< Select default values on year and sensor type dropdown lists
 
-generateChartData();
+generateChartData();///< Defines the first
 
+///\brief Generate
 function generateChartData() {	
-	////brief Polling if available_sensors is already fulfilled (each 100ms)
+	
+	///\brief Polling if available_sensors is already fulfilled (each 100ms)
 	interval_id = setInterval(function(){		
 		if(available_sensors.length > 0){//IF already set the sensors, go ahead
-			clearInterval(interval_id); ///<Stop interval call
-			
+			clearInterval(interval_id); ///< Stop interval call
+			//~ alert($(".sensor").first().text());
 		}///end if data available
 		
 	},100);///end setInterval

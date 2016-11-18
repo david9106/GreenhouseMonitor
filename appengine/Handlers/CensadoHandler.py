@@ -38,6 +38,11 @@ def get_year_measures(tipo_sensor, a_year):
 	high_date = datetime.datetime.strptime(high_date_str, '%Y-%m-%d %H:%M:%S') 
 	return Censado.Censado().get_Data(low_date, high_date, tipo_sensor)
 	
+##@brief Retrieves the count of all sensor of given type
+#@param sensor_type Is the sensor type to be counted
+#@details Interface for the entity's method of the same name
+def get_sensor_count(sensor_type):
+	return Censado.Censado().get_sensor_count(sensor_type)
 	
 ##@brief Get all the measures with that type of sensor, of this year
 #@details This function get's all the measures stored in a year, first get the todays date and then get the diference between that geted day and the past 12 months

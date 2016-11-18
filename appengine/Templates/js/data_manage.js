@@ -172,27 +172,28 @@ function paint_config_in_html() {
 
 function setup_default_dropdowns(){
 ///\brief Select default year and sensor type
-///\details Select the current year as default year on the year--dropdown and "Temperatura" as default sensor
+///\details Select the current year as default year on the year-dropdown
 ///\author Rafael Karosuo, Alejandro Islas	
-	$("#drop-year").text($(".year").first().text()); ///Set the first year
-	$("#drop-sensor").text($(".sensor").first().text()); ///Set the first sensor type
+	$("#drop-year").text($(".year").first().text()); ///<Set the first year
 }
 
 function request_available_sensors(){
 ///\brief Request a list of the available sensors
 ///\details Updates the variable available_sensors and populates the corresponding combobox
+///Also selects as default the first sensor on dropdown list
 ///\author Rafael Karosuo, Alejandro Islas
 
 	////The json commands sent, started with SensorType:"Temperatura", but it will be changed if needed
 	var json_cmd_available_sensors = {"Tipo": "GetSensorTypes"};	
 	
 	getJSON_ByCmd(json_url, function(sensor_list){
-		available_sensors.length = 0; //Clear global		
-		$(".sensor").remove();///Clear previous options
+		available_sensors.length = 0; ///< Clear global		
+		$(".sensor").remove();///< Clear previous options
 		for(element in sensor_list){						
-			$(".sensor-type ul").append("<li class=\"sensor\"><a>"+sensor_list[element]+"</a></li>");///Add current sensor type
-			available_sensors.push(sensor_list[element]);
+			$(".sensor-type ul").append("<li class=\"sensor\"><a>"+sensor_list[(sensor_list.length-1) - element]+"</a></li>");///< Add current sensor type
+			available_sensors.push(sensor_list[element]);///< Save the sensor types on global
 		}//end for each json id
+		$("#drop-sensor").text($(".sensor").first().text())///< Selects first sensor as default
 	}, error_response, json_cmd_available_sensors);	
 	
 }

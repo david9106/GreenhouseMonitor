@@ -64,6 +64,10 @@ class JSON_provider(webapp2.RequestHandler):
 			elif "GetLastMeasure" in jdata["Tipo"]:
 				last_measure = CensadoHandler.get_last_value(jdata["SensorType"])
 				self.response.write(json.dumps(self.pack_json_sensor_measures(last_measure)))
+			elif "GetSensorCount" in jdata["Tipo"]:
+				sensor_count = CensadoHandler.get_sensor_count(jdata["SensorType"])
+				jdata["SensorCount"] = sensor_count
+				self.response.write(json.dumps(jdata))
 			
 		except (ValueError, KeyError):
 			'''KeyError goes in case that the json ID doesn't exists, mainly ["Tipo"] but can be others

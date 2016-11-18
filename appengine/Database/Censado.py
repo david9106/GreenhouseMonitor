@@ -69,6 +69,13 @@ class Censado(db.Model):
 		query_str = "SELECT DISTINCT type from Censado"
 		return db.GqlQuery(query_str)
 		
+	##@brief Gets the total of given sensor type sensors
+	#@param sensor_type Is the sensor type that will be counted
+	#@return the count of the sensors of the same type
+	def get_sensor_count(self, sensor_type):
+		#~ query = db.GqlQuery("SELECT DISTINCT id_LiSANDRA FROM Censado WHERE type = {!s}".format(sensor_type))
+		query = db.Query(Censado, distinct=True, projection=['id_LiSANDRA'])
+		return query.count()
 
 	##@brief Get's the most recent measure of some sensor type give
 	#@details Uses a gql query of all the data, ordered desc by date and get's the first element of that list
