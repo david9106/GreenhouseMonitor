@@ -182,6 +182,7 @@
                                                             </div>
                                                             <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
                                                         </div>
+                                                        <br>
                                                     </div>
                                                 </div>
                                             </form>
@@ -192,6 +193,19 @@
                         </div>
                     </div>
                     <br>
+                </div>
+                <div class="sensor-type">
+                    <div style="text-align:center" class="col-xs-12">
+                        <div class="btn-group" style="background:blue">
+                            <button type="button" id="drop-sensor" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Seleccione el sensor <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li class="sensor"><a>Iluminación</a></li>
+                                <li class="sensor"><a>Temperatura</a></li>
+                                <li class="sensor"><a>Humedad</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -336,6 +350,10 @@
                 
                 $(".week").on('click',function(){
                     $("#drop-week").text($(this).text()).append(" <span class=\"caret\"></span>");
+                });
+                
+                $(".sensor").on('click',function(){
+                    $("#drop-sensor").text($(this).text()).append(" <span class=\"caret\"></span>");
                 });
                 
                 /*Funcion para la seleccion en el menu principal(Año,Estacion,Mes,día)*/
