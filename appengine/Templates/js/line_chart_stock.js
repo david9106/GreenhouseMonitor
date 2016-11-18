@@ -7,6 +7,10 @@
 ///\author Rafael Karosuo
 
 
+var json_cmd_year_measures = {"Tipo": "GetSensorYearMeasures","SensorType": "Temperatura","Year": year};
+var json_cmd_today_measures = {Tipo: "GetSensorTodayMeasures",SensorType: "Temperatura"};
+var json_cmd_last_measur = {"Tipo": "GetLastMeasure","SensorType": "Temperatura"};	
+
 var property_symbol = "°C";
 var property_title = "Temperatura";
 
@@ -17,37 +21,15 @@ var chartData2 = [];
 var chartData3 = [];
 var chartData4 = [];
 
-var today = new Date();
 request_available_sensors();///< Request the available sensor types
 
 generateChartData();
 
 function generateChartData() {	
 	////brief Polling if available_sensors is already fulfilled (each 100ms)
-	interval_id = setInterval(function(){
-		
+	interval_id = setInterval(function(){		
 		if(available_sensors.length > 0){//IF already set the sensors, go ahead
 			clearInterval(interval_id); ///<Stop interval call
-			//~ for (sensor_index in available_sensors){
-				//~ json_cmd_today_measures["SensorType"] = available_sensors[sensor_index];
-				//~ today_measures.push(new Array()); //creates the inner list, for current sensor type group
-				//~ 
-				//~ getJSON_ByCmd(json_url,function(json_list){
-						//~ today_measures.length = 0; //clear global					
-						//~ if(json_list.length == 0){
-							//~ alert("No measures for today in the DB");
-						//~ }
-						//~ for(json_id in json_list){										
-							//~ if(json_id.localeCompare("Tipo") != 0){
-								//~ ///Push the current list as element of today_measures
-								//~ today_measures[today_measures_index].push(json_list[json_id]);						
-								//~ alert(today_measures_index);
-							//~ }											
-						//~ }///end for each json id					
-					//~ },error_response,json_cmd_today_measures);
-			//~ 
-				//~ today_measures_index++; //Goes for the next sensor_type
-			//~ }///end for sensor_index in available_sensor		
 			
 		}///end if data available
 		

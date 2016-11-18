@@ -172,18 +172,19 @@ function paint_config_in_html() {
 
 function request_available_sensors(){
 ///\brief Request a list of the available sensors
-///\details Updates the variable available_sensors
+///\details Updates the variable available_sensors and populates the corresponding combobox
 ///\author Rafael Karosuo
 
 	////The json commands sent, started with SensorType:"Temperatura", but it will be changed if needed
-	var json_cmd_available_sensors = {"Tipo": "GetSensorTypes"};
-	var json_cmd_year_measures = {"Tipo": "GetSensorYearMeasures","SensorType": "Temperatura","Year": year};
-	var json_cmd_today_measures = {Tipo: "GetSensorTodayMeasures",SensorType: "Temperatura"};
-	var json_cmd_last_measur = {"Tipo": "GetLastMeasure","SensorType": "Temperatura"};	
+	var json_cmd_available_sensors = {"Tipo": "GetSensorTypes"};	
 	
 	getJSON_ByCmd(json_url, function(sensor_list){
 		available_sensors.length = 0; //Clear global		
 		for(element in sensor_list){
+			/**
+			 * Llenar el componente de sensor types
+			 * 
+			 * */
 			available_sensors.push(sensor_list[element]);
 		}//end for each json id
 	}, error_response, json_cmd_available_sensors);	
