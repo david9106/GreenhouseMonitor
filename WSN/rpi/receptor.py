@@ -65,12 +65,15 @@ while True:
                         #mostramos la data recibida completa
                         print (data)
                         recibido=False
-        		#Llamamos a la funcion encargada de parsear la data recibida
-                        lista_sensores=parser.parserSensorData(data)
-                        #Llamamos a la funcion encargada de convertir la data a las mediciones correctas
-                        conversor.ajustarMediciones(lista_sensores)
-                        #Llamamos a la funcion encargada de enviar la informacion al servidor
-                        sendToServer.send(lista_sensores)
-                        cnt +=1
-                        #vaciamos la variable
-                        data = ''
+	        			try:
+	        				#Llamamos a la funcion encargada de parsear la data recibida
+	                        lista_sensores=parser.parserSensorData(data)
+	                        #Llamamos a la funcion encargada de convertir la data a las mediciones correctas
+	                        conversor.ajustarMediciones(lista_sensores)
+	                        #Llamamos a la funcion encargada de enviar la informacion al servidor
+	                        sendToServer.send(lista_sensores)
+	                        cnt +=1
+	                        #vaciamos la variable
+	                        data = ''
+	                	except Exception as e:
+	                    	print("DATO ERRONEO")
