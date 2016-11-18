@@ -170,24 +170,10 @@ function paint_config_in_html() {
 	},error_response,json_cmd_limits)
 }
 
-function update_local_graph_data(year){
-///\brief Update the global variables related with graph
-///\param year The measure's year
-///\details Update the variables
-///max_measures
-///last_measures
-///today_measures
-///available_sensors
-///\return true/false If the most important data have been updated within 10 seconds, returns true
-///If more than 10 seconds, the timeout returns false, or if the year is not a valid format
+function request_available_sensors(){
+///\brief Request a list of the available sensors
+///\details Updates the variable available_sensors
 ///\author Rafael Karosuo
-var last_measures = [];///< saves the most recent measures of each kind of sensor
-var max_measures = []; ///< saves the MAX values measures obteined until now
-					///< these are taken from the today_measures
-
-	if(!/^\d{4}$/.test(year)){ ///< Check if year is a four digit element, if not return false
-		return false;
-	}
 
 	////The json commands sent, started with SensorType:"Temperatura", but it will be changed if needed
 	var json_cmd_available_sensors = {"Tipo": "GetSensorTypes"};
@@ -200,38 +186,7 @@ var max_measures = []; ///< saves the MAX values measures obteined until now
 		for(element in sensor_list){
 			available_sensors.push(sensor_list[element]);
 		}//end for each json id
-	}, error_response, json_cmd_available_sensors);
-	
-	////brief Polling if available_sensors is already fulfilled (each 100ms)
-	interval_id = setInterval(function(){
-		
-		if(available_sensors.length > 0){//IF already set the sensors, go ahead
-			clearInterval(interval_id); ///<Stop interval call
-			for (sensor_index in available_sensors){
-				json_cmd_today_measures["SensorType"] = available_sensors[sensor_index];
-				
-				getJSON_ByCmd(json_url,function(json_list){
-					today_measures.length = 0; //clear global
-					var local_index = 0 //indicates which subindex of today_measures, each index is one sensor type
-					today_measures.push(new Array());
-					
-					if(json_list.length == 0){
-						alert("No measures for today in the DB");
-					}
-					for(json_id in json_list){					
-						if(json_id.localeCompare("Tipo") != 0){
-							///Push the current list as element of today_measures
-							today_measures[local_index].push(json_list[json_id]);						
-						}											
-					}///end for each json id					
-				},error_response,json_cmd_today_measures);
-				///wait for the last ajax fetch's the info
-				//setTimeout(function(){},150);
-			}///end for sensor_index in available_sensor		
-			
-		}///end if data available
-		
-	},100);
+	}, error_response, json_cmd_available_sensors);	
 	
 }
 
