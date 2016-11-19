@@ -18,7 +18,7 @@ if len(sys.argv) == 3: #Checks if at least 2 params
 			try:				
 				json_dict = {} #Initialize dictionary					
 				sensor_types = ["CO2","Temperatura","Humedad","Iluminacion"] #Available sensor_types
-				id_lisandras = [10,15,20] #Lisandras available
+				id_lisandras = [10,15,20,25,30,35,40] #Lisandras available
 				json_dict["Tipo"] = str(random.choice(sensor_types)) #Selects a sensor_type randomly
 				
 				#Depending on sensor type, put limits and generate random measure

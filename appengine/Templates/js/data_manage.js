@@ -14,20 +14,11 @@
 /// ["Temperatura","Humedad",...]
 ///\author Rafael Karosuo
 
-var last_measures = [];///< saves the most recent measures of each kind of sensor
-var max_measures = []; ///< saves the MAX values measures obteined until now
-					///< these are taken from the today_measures
 var available_sensors = []; ///<Holds the available sensor types in string format
-var today_measures = []; ///< saves all measures got until now since 12am of today
 var phones_registered = []; ///< saves all the registered phones and their state (active/not)
 var limits_registered = []; ///< saves all the sms alert limits, there's always 2 limits per sensor type
-//var globals_init_flag = false; ///< Polling variable to check if the graph data is already available on the global variables
 var interval_id; ///< Holds the id to enable/disable interval callbacks
 var location_list = [] ///< Holds the id_LiSANDRA's list related with the current selected sensor
-
-var set_lisandra_globals = function (obj, new_value){
-	obj.value = new_value;
-}
 
 json_url = 'http://localhost:8080/get_json' ///< URL to fetch the sensor measures
 config_url = 'http://localhost:8080/get_config' ///< URL to fetch the config values

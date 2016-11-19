@@ -27,7 +27,7 @@ var greenhouse_chart = AmCharts.makeChart( "chartdiv", {
 ///\brief Configure the chart type as stock
 ///\details As direct parameter of class AmChart
 /// Possible types are: serial, pie, xy, radar, funnel, gauge, map, stock.
-greenhouse_chart.type = "stock";
+//greenhouse_chart.type = "stock";
 
 ///\brief assign a visual css theme
 ///\details currently it's used light, since light.js was loaded
@@ -36,7 +36,7 @@ greenhouse_chart.type = "stock";
 ///In order to make them work, they need to be loaded in the index.html, insted of the light.js
 ///For more information check the link below
 ///\see http://www.amcharts.com/kbase/working-with-themes/
-greenhouse_chart.theme = "ligth";
+//greenhouse_chart.theme = "ligth";
 
 ///\brief create the main panel to hold the graph
 ///\details The graph is contained by a panel (StockPanel class)
@@ -138,6 +138,10 @@ greenhouse_chart.categoryAxesSettings.groupToPeriods = ["hh", "DD"];
 ///How will it be shown is other story
 greenhouse_chart.categoryAxesSettings.minPeriod = "ss";
 
+///\brief Enable show of data selector box, and defines it to left side
+///\details Here shows all the available datasets to pick and show on the graph
+greenhouse_chart["dataSetSelector"] = {"position":"left"};
+
 generateChartData();///< Constructs the DataSet objects and fetch the data from server
 
 ///\brief Fetches the data and put it onto the datasets to graphicate
@@ -159,7 +163,7 @@ function generateChartData() {
 				for(id_LiSANDRA in location_list){///< Go for all the id groups, how many sensors of this kind needs to be created
 					var dataset = new AmCharts.DataSet(); ///<Create the new DataSet
 					dataset.title = "Sensor " + location_list[id_LiSANDRA]; ///< Asign the id_lisandra as sensor title
-					dataset.dataProvider = get_filled_array(sensor_list, id_LiSANDRA); ///< Push all the data related with that id, onto one dataProvider array
+					dataset.dataProvider = get_filled_array(sensor_list, location_list[id_LiSANDRA]); ///< Push all the data related with that id, onto one dataProvider array
 					dataset.categoryField = "date";///< Asign the field that will be the category axis value, from the json objects in dataProviders
 					dataset.fieldMappings.push( {///< Add field mappings, using the properties of the json objects, "value" holds the "Valor" from sensor measures
 					  "fromField": "value",
@@ -167,7 +171,6 @@ function generateChartData() {
 					} );;
 					greenhouse_chart.dataSets.push(dataset); ///< Bind the dataset with the current chart
 					greenhouse_chart.validateNow(); ///< Repaint graph, no need to validateDate() since it's a new DataSet object
-					alert(dataset.dataParsed);
 				}			
 			
 			}, error_response, json_cmd_year_measures);	
@@ -188,11 +191,11 @@ function get_filled_array(sensor_list, id_LiSANDRA){
 	var chartData = [];
 	for (element in sensor_list){										
 		if(!sensor_list[element].hasOwnProperty("SensorCount")){ ///< Avoid the SensorCount component
-			if(sensor_list[element].Ubicacion.localeCompare(id_LiSANDRA)){///< If it has the same ID, push it
+			if(sensor_list[element].Ubicacion.localeCompare(id_LiSANDRA) == 0){///< If it has the same ID, push it
 				chartData.push({
 				"date": new Date(sensor_list[element].Fecha),
 				"value":parseFloat(sensor_list[element].Valor)
-				});	
+				});					
 			}///end if same id					
 		}///end if not SensorCount					
 	}///end for element in sensor_list
