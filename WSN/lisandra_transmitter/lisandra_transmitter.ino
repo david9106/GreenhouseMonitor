@@ -11,7 +11,7 @@
 
 #include "LiSANDRA.h"
 
-#define T 3
+#define T 60
 #define LOCAL_ADDR  0x15
 #define DEST_ADDR   0x20
 #define NETKEY      {0xc0,0xd1,0xce}
