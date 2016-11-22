@@ -29,7 +29,7 @@ def ajustar(sensor):
                 sensor['Valor'] = c1 + c2 * sensor['Valor'] + c3 * math.pow(sensor['Valor'],2)
                 sensor['Valor'] =format(sensor['Valor'],'.2f')
                 
-        if sensor['Tipo']=='Luz':
+        if sensor['Tipo']=='Iluminacion':
                 sensor['Valor'] = math.exp(3.3/(1024 * 0.56))*sensor['Valor']
                 sensor['Valor'] =format(sensor['Valor'],'.2f')
               

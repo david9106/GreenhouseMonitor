@@ -125,7 +125,7 @@ void sendToRpi(uint16_t srcId,uint16_t temp,uint16_t hum,uint16_t light,uint16_t
             Serial.print(',');
             Serial.print(srcId);
             Serial.print('/');
-            Serial.print("Luz");
+            Serial.print("Iluminacion");
             Serial.print(',');
             Serial.print(light);
             Serial.print(',');

@@ -2,8 +2,8 @@
 #@brief This module is used to send the messages to user 
 from twilio.rest import Client
 
-account_sid = "AC1118e1183377c9bb4e1481ab130f2c9e" # Your Account SID from www.twilio.com/console
-auth_token  = "bb95a87926c196f15a71f9af764c45a9"  # Your Auth Token from www.twilio.com/console
+account_sid = "AC60d43ab9482bb26027ae83cb8b356705" # Your Account SID from www.twilio.com/console
+auth_token  = "0bc50ddd92fde73507b42ca6de2375e9"  # Your Auth Token from www.twilio.com/console
 
 ##@brief Used to send a message to user
 #@details The function send a sms message using the twilio library functions
@@ -13,6 +13,6 @@ def sendMsg(telefono,info):
 	try:
 		client = Client(account_sid, auth_token)
 		# replace "to" and "from_" with real numbers
-		rv = client.messages.create(to="+52"+telefono,from_="+19106726675 ",body=info)
+		rv = client.messages.create(to="+52"+telefono,from_="+1 402-718-8732  ",body=info)
 	except Exception as e:
 		print("General EXCEPTION thrown: {!s}".format(e))	

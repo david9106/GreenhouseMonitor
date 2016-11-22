@@ -18,7 +18,7 @@
 
 static uint16_t SleepCnt=0; 	/**< Variable used to count how many times lisandra fall asleep */
 uint8_t battery_state[9];		/**< Variable used to represent a state of battery */			
-uint8_t  frame[8];				/**< Variable used to package sensors RAW measures */
+uint8_t  f[8];				/**< Variable used to package sensors RAW measures */
 uint16_t temp;					/**< Variable used to save a sensor RAW measure temperature */
 uint16_t hum;					/**< Variable used to save a sensor RAW measure humidity */
 uint16_t light;					/**< Variable used to save a sensor RAW measure light */
@@ -58,13 +58,13 @@ void setup() {
 *
 */
 void loop() { 
-    battery_check(battery_state);
+   battery_check(battery_state);
 	temp=HTsensor_ReadTemperatureRAW();
 	hum=HTsensor_ReadHumidityRAW();
 	light=LightSensor_Read();
-	fetchFrame(frame,temp,hum,light,co2);
-	printFrame(frame);
-	RadioLT_Send( frame );
+	fetchFrame(f,temp,hum,light,co2);
+	printFrame(f);
+	RadioLT_Send( f );
 	sleep();
 }
 
@@ -82,25 +82,25 @@ void loop() {
 * @return None.
 *
 */
-void fetchFrame(uint8_t *frame,uint16_t temp,uint16_t hum,uint16_t light,uint16_t co2){
+void fetchFrame(uint8_t *fram,uint16_t temp,uint16_t hum,uint16_t light,uint16_t co2){
   uint8_t i=0;
   for(i=0;i<4;i++){
     switch(i){
       case 0:
-      frame[i]=uint8_t(temp>>8);
-      frame[i+1]=uint8_t(temp);
+      fram[i]=uint8_t(temp>>8);
+      fram[i+1]=uint8_t(temp);
       break;
       case 1:
-      frame[i+1]=uint8_t(hum>>8);
-      frame[i+2]=uint8_t(hum);
+      fram[i+1]=uint8_t(hum>>8);
+      fram[i+2]=uint8_t(hum);
       break;
       case 2:
-      frame[i+2]=uint8_t(light>>8);
-      frame[i+3]=uint8_t(light);
+      fram[i+2]=uint8_t(light>>8);
+      fram[i+3]=uint8_t(light);
       break;
 	  case 3:
-	  frame[i+3]=uint8_t(co2>>8);
-	  frame[i+4]=uint8_t(co2);
+	  fram[i+3]=uint8_t(co2>>8);
+	  fram[i+4]=uint8_t(co2);
 	  break;
     }
   }
@@ -165,10 +165,10 @@ void sleep(){
 * @return None.
 *
 */ 
-void printFrame(uint8_t *frame){
+void printFrame(uint8_t *fra){
   uint8_t i=0;
 	for(i=0;i<8;i++){
-		Serial.print(frame[i],HEX);
+		Serial.print(fra[i],HEX);
 		Serial.print(" ");}
 		Serial.println();
 		Serial.flush();

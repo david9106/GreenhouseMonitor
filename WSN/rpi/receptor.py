@@ -8,7 +8,7 @@ import serial
 import parser
 import conversor
 import sendToServer
-import sms
+
 
 ##This variable will receive and save the serial from lisandra
 data = ''
