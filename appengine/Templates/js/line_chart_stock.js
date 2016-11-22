@@ -12,9 +12,62 @@ var json_cmd_last_measur = {"Tipo": "GetLastMeasure","SensorType": "Temperatura"
 
 populate_year_dropdown(2016, 5);///< Populate the year selector dropdown list
 setup_default_dropdowns(); ///< Select default values on year and sensor type dropdown lists
+
+//~ Start of the loading GIF
+alert("This is the start");
+//~ -------------------------
 request_available_sensors();///< Request the available sensor types, this is an async task
 
 var property_symbol_hash = {"Temperatura":" °C", "Humedad":" %", "CO2":" ppm", "Iluminacion":" lx"};///< Hash list to retrieve the property symbol depending on type
+
+
+var spring_guides = summer_guides = fall_guides = winter_guides = [];///< Spring color block define and date ranges for it
+//~ var summer_guides = [];///< Summer color block define and date ranges for it
+//~ var fall_guides = [];///< Autumn color block define and date ranges for it
+//~ var winter_guides = [];///< Winter color block define and date ranges for it
+
+
+///\brief Defines the color, alpha and dates for season color blocks
+spring_guides.push({
+	date: new Date("March 21, year 00:00:00".replace("year",fetch_year)),
+	toDate: new Date("June 20, year 23:59:59".replace("year",fetch_year)),
+	lineAlpha: 0.1,
+	fillAlpha: 0.25,
+	//~ fillColor: "#2dc86f",
+	fillColor: "#1b7e07",
+	expand: true
+});
+
+summer_guides.push({
+	date: new Date("June 21, year 00:00:00".replace("year",fetch_year)),
+	toDate: new Date("September 22, year 23:59:59".replace("year",fetch_year)),
+	lineAlpha: 0.1,
+	fillAlpha: 0.25,
+	//~ fillColor: "#f1c40f",
+	fillColor: "#ffb400",
+	expand: true
+});
+
+fall_guides.push({
+	date: new Date("September 23, year 00:00:00".replace("year",fetch_year)),
+	toDate: new Date("December 20, year 23:59:59".replace("year",fetch_year)),
+	lineAlpha: 0.1,
+	fillAlpha: 0.25,
+	//~ fillColor: "#e67e22",	
+	fillColor: "#ff4400",
+	expand: true
+});
+
+winter_guides.push({
+	date: new Date("December 21, year 00:00:00".replace("year",fetch_year)),
+	toDate: new Date("March 20, year 23:59:59".replace("year",fetch_year)),
+	lineAlpha: 0.1,
+	fillAlpha: 0.25,
+	//~ fillColor: "#bdc3c7",
+	fillColor: "#9bfff0",
+	expand: true
+});
+
 
 
 ///\brief Initialize an AmCharts, select stock type and light theme
@@ -27,11 +80,10 @@ var property_symbol_hash = {"Temperatura":" °C", "Humedad":" %", "CO2":" ppm", 
 ///\see https://docs.amcharts.com/3/javascriptstockchart/AmStockChart
 var greenhouse_chart = AmCharts.makeChart( "chartdiv", {
   "type": "stock",
-  "theme": "ligth",
-	 "responsive": {
-		"enabled": true
-		}
-} );
+  "theme": "ligth"
+  } );
+
+
 
 
 ///\brief Configure the chart type as stock
@@ -58,6 +110,18 @@ var main_panel = new AmCharts.StockPanel();
 main_panel.showCategoryAxis = true;
 main_panel.title = "Temperatura";
 main_panel.percentHeight = 70;
+
+///\brief binds the spring color block arrays to the panel
+main_panel.categoryAxis.guides = spring_guides,summer_guides,fall_guides,winter_guides;
+main_panel.valueAxes.push(
+	{
+	  guides: [{
+		lineAlpha: 1,
+		lineColor: "#000",
+		}]
+	}
+);
+
 ///\brief Creates the main graph
 ///\details This is the one that literally holds all the data points
 var main_graph = new AmCharts.StockGraph();
@@ -134,6 +198,12 @@ greenhouse_chart.categoryAxesSettings.parseDates = true;
 ///to work properly
 greenhouse_chart.categoryAxesSettings.alwaysGroup = true;
 
+///\brief Maximum series shown at a time.
+///\details In case there are more data points in the selection than maxSeries, the chart will group data to longer periods
+///Means more than 288 series, it's a bigger view than a day, so max per day groups will be used
+///Each day has 288 series, since they're each 5 minutes
+greenhouse_chart.categoryAxesSettings.maxSeries = 288;
+
 ///\brief Defines the date groups
 ///\details It will be 2 main groups, day groups and hour groups, both showing the max of each one
 ///The hour grups are used by the day visualization and the day group by the rest of the graph periods, which are:
@@ -173,9 +243,8 @@ function generateChartData(sensor_type) {
 			json_cmd_year_measures.Year = fetch_year; ///< Assing year to command
 			greenhouse_chart.panels[0].title = sensor_type;	///< Assign the new sensor_type tittle to the property axis
 			greenhouse_chart.valueAxesSettings.unit = property_symbol_hash[sensor_type]; ///< Assign the text symbol to the propertiy values on the vertical axis
-			greenhouse_chart.dataSets.length = 0///< Clear previous location list
-				
-			getJSON_ByCmd(json_url, function(sensor_list){ 
+			greenhouse_chart.dataSets.length = 0///< Clear previous location list			
+			getJSON_ByCmd(json_url, function(sensor_list){				
 				for(id_LiSANDRA in location_list){///< Go for all the id groups, how many sensors of this kind needs to be created
 					var dataset = new AmCharts.DataSet(); ///<Create the new DataSet
 					dataset.title = "Sensor " + location_list[id_LiSANDRA]; ///< Asign the id_lisandra as sensor title
@@ -187,7 +256,11 @@ function generateChartData(sensor_type) {
 					} );;				
 					greenhouse_chart.dataSets.push(dataset); ///< Bind the dataset with the current chart
 					greenhouse_chart.validateNow(); ///< Repaint graph, no need to validateDate() since it's a new DataSet object
-				}			
+				}
+				
+				//~ Start of the loading GIF
+				alert("This is the end");
+				//~ ------------------------- 			
 			
 			}, error_response, json_cmd_year_measures);	
 			

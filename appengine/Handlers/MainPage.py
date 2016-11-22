@@ -227,7 +227,7 @@ class Data_Config(webapp2.RequestHandler):
 		if re.match('^[0-9]+(\.([0-9]+))*$',self.request.get('light_max')) != None: #Compares with a floating point simple regex
 			LimitHandler.set_Max_Alert("Iluminacion",self.request.get('light_max'))	
 		
-		if re.match('^[0-9]+(\.([0-9]+))*$',self.request.get('light_min')) != None: #Compares with a floating point simple regex
+		if re.match('^[0-9]+(\.([0-9]+))*$',self.request.get('light_min')) != None: #Compares with a floating point simple regex			
 			LimitHandler.set_Min_Alert('Iluminacion',self.request.get('light_min'))
 
 		if re.match('^[0-9]+(\.([0-9]+))*$',self.request.get('temp_max')) != None: #Compares with a floating point simple regex

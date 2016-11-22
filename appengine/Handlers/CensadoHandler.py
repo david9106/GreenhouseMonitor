@@ -69,6 +69,7 @@ def get_year_measures(tipo_sensor, a_year):
 		obj.id_LiSANDRA = '{!s}'.format(random.choice(id_lisandras))
 		obj.when = current_date + datetime.timedelta(hours=8) #New date each 5 minutes, plus UTC 8 hours
 		current_date = (current_date + datetime.timedelta(minutes=5))
+		#~ current_date = (current_date + datetime.timedelta(days=1))
 		print current_date
 		return_list.append(obj)
 	return return_list
