@@ -8,6 +8,9 @@
 import datetime
 from Database import Censado 
 
+#TEMPORAL, SOLO PARA GENERAR DATOS ALEATORIOS
+import random
+
 
 ##@brief Save entire sensor data on DB
 #@details The Function instance's a new sensing obteined and pass all the properties of it, passes the measure and the id od the LiSANDRA module
@@ -36,7 +39,42 @@ def get_year_measures(tipo_sensor, a_year):
 	high_date_str = '{:0>4}-12-31 23:59:59'.format(a_year) #End of the year
 	low_date = datetime.datetime.strptime(low_date_str, '%Y-%m-%d %H:%M:%S') #Converts string to datetime
 	high_date = datetime.datetime.strptime(high_date_str, '%Y-%m-%d %H:%M:%S') 
-	return Censado.Censado().get_Data(low_date, high_date, tipo_sensor)
+	#~ ---------------------------------------------------------------
+	#~ ---------------------JUST FOR PRESENTATION, MAKE FULL YEAR
+	id_lisandras = [] #Lisandras available
+	return_list = [] #The list containing all measures
+	sensor_count = get_sensor_count(tipo_sensor) #Just retrieve how many lisandras really exists, to simulate measures for the same number
+	start_id = 10; #All lisandras start with 10
+	current_date = low_date #The incremental dates start here
+	for _ in range(1,sensor_count):
+		id_lisandras.append(start_id)
+		start_id = start_id + 5
+	for dots in range(1,105120): #Simulate full year of measures, each 5mins 105120
+		obj = Censado.Censado()
+		obj.type = '{!s}'.format(tipo_sensor)
+		if obj.type == "C02":
+			obj.value = round(random.randint(350,450) + random.random(),2) #Randomly generates a measure, bt 350-450 ppm with 2 decimals
+			
+		elif obj.type == "Temperatura":
+			obj.value = round(random.randint(25,38) + random.random(),2) #Randomly generates a measure, bt 25-35 C with 2 decimals
+			
+		elif obj.type == "Humedad":
+			obj.value = round(random.randint(50,100) + random.random(),1) #Randomly generates a measure, bt 50-100 %RH with 1 decimal
+			
+		else: #sensor_types == "Iluminacion":
+			#1k luxes near windows at clear day
+			#10k luxes outside on that same day
+			obj.value = round(random.randint(1000,10000) + random.random(),2) #Randomly generates a measure, bt 1000-10000 luxes with 2 decimals				if obj["type"] == "C02":			
+					
+		obj.id_LiSANDRA = '{!s}'.format(random.choice(id_lisandras))
+		obj.when = current_date + datetime.timedelta(hours=8) #New date each 5 minutes, plus UTC 8 hours
+		current_date = (current_date + datetime.timedelta(minutes=5))
+		print current_date
+		return_list.append(obj)
+	return return_list
+	#~ -------------------------END TEMPORAL BLOCK
+	#~ ----------------------------------------------
+	#~ return Censado.Censado().get_Data(low_date, high_date, tipo_sensor)
 	
 ##@brief Retrieve the id_LiSANDRA's list related with given sensor_type
 #@param sensor_type is the kind of sensor

@@ -27,7 +27,10 @@ var property_symbol_hash = {"Temperatura":" °C", "Humedad":" %", "CO2":" ppm", 
 ///\see https://docs.amcharts.com/3/javascriptstockchart/AmStockChart
 var greenhouse_chart = AmCharts.makeChart( "chartdiv", {
   "type": "stock",
-  "theme": "ligth"
+  "theme": "ligth",
+	 "responsive": {
+		"enabled": true
+		}
 } );
 
 
