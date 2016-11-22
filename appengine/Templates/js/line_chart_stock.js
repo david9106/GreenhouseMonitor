@@ -14,7 +14,7 @@ populate_year_dropdown(2016, 5);///< Populate the year selector dropdown list
 setup_default_dropdowns(); ///< Select default values on year and sensor type dropdown lists
 request_available_sensors();///< Request the available sensor types, this is an async task
 
-var property_symbol_hash = {"Temperatura":" °C", "Humedad":" %", "CO2":" ppm", "Iluminacion":" lx"};
+var property_symbol_hash = {"Temperatura":" °C", "Humedad":" %", "CO2":" ppm", "Iluminacion":" lx"};///< Hash list to retrieve the property symbol depending on type
 
 
 ///\brief Initialize an AmCharts, select stock type and light theme
@@ -173,6 +173,7 @@ function generateChartData(sensor_type) {
 			json_cmd_year_measures.Year = fetch_year; ///< Assing year to command
 			greenhouse_chart.panels[0].title = sensor_type;	///< Assign the new sensor_type tittle to the property axis
 			greenhouse_chart.valueAxesSettings.unit = property_symbol_hash[sensor_type]; ///< Assign the text symbol to the propertiy values on the vertical axis
+			greenhouse_chart.dataSets.length = 0///< Clear previous location list
 				
 			getJSON_ByCmd(json_url, function(sensor_list){ 
 				for(id_LiSANDRA in location_list){///< Go for all the id groups, how many sensors of this kind needs to be created
