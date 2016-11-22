@@ -58,7 +58,7 @@ void setup() {
 *
 */
 void loop() { 
-    battery_check(battery_state);
+   battery_check(battery_state);
 	temp=HTsensor_ReadTemperatureRAW();
 	hum=HTsensor_ReadHumidityRAW();
 	light=LightSensor_Read();
