@@ -187,6 +187,12 @@ function request_available_sensors(){
 			available_sensors.push(sensor_list[element]);///< Save the sensor types on global
 		}//end for each json id
 		$("#drop-sensor").text($(".sensor").first().text())///< Selects first sensor as default
+		
+		///\brief Reassign the listeners to the new instances
+		$(".sensor").on('click',function(){
+			$("#drop-sensor").text($(this).text()).append(" <span class=\"caret\"></span>");                    
+			generateChartData($(this).text());///< Refresh datasets, since it will be change sensor, we just have info of the current sensor
+		});
 	}, error_response, json_cmd_available_sensors);	
 	
 }

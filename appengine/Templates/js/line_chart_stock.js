@@ -11,18 +11,25 @@ var json_cmd_today_measures = {Tipo: "GetSensorTodayMeasures",SensorType: "Tempe
 var json_cmd_last_measur = {"Tipo": "GetLastMeasure","SensorType": "Temperatura"};	
 
 populate_year_dropdown(2016, 5);///< Populate the year selector dropdown list
-request_available_sensors();///< Request the available sensor types, this is an async task
 setup_default_dropdowns(); ///< Select default values on year and sensor type dropdown lists
-request_locatioon_list("Temperatura"); ///< Gets the location list of Temperatura, all the id_LiSANDRA of that kind of sensor
-//generateChartData();///< Defines the first values for the graph
+request_available_sensors();///< Request the available sensor types, this is an async task
 
+var property_symbol_hash = {"Temperatura":" °C", "Humedad":" %", "CO2":" ppm", "Iluminacion":" lx"};
+
+
+///\brief Initialize an AmCharts, select stock type and light theme
+///\details Generates an instance of AmStockChart and put basic config, since we're going to need dynamic config
+///it's not a good idea to use json config object
+///\param "chartdiv" is the id of the container html div
+///\param {...} is a json object, that could hold the entire config of the graph
+///\see https://docs.amcharts.com/3/javascriptstockchart/AmChart
+///\see https://docs.amcharts.com/3/javascriptstockchart/AmCharts
+///\see https://docs.amcharts.com/3/javascriptstockchart/AmStockChart
 var greenhouse_chart = AmCharts.makeChart( "chartdiv", {
   "type": "stock",
   "theme": "ligth"
 } );
 
-//Should create one object from type DataSet for each sensor type
-//Then when we create all the objects, append them to a list which will be the property DataSets of greenhouse_chart
 
 ///\brief Configure the chart type as stock
 ///\details As direct parameter of class AmChart
@@ -142,23 +149,28 @@ greenhouse_chart.categoryAxesSettings.minPeriod = "ss";
 ///\details Here shows all the available datasets to pick and show on the graph
 greenhouse_chart["dataSetSelector"] = {"position":"left"};
 
-generateChartData();///< Constructs the DataSet objects and fetch the data from server
+generateChartData("Temperatura");///< Constructs the DataSet objects and fetch the data from server, initially  the Temperature
 
 ///\brief Fetches the data and put it onto the datasets to graphicate
+///\param sensor_type Is the kind of sensor that will be showed up, used to get the id's related, the measures and print the graph title
 ///\details Send requests to server to get all the data from one kind of sensor
 ///Also puts that data into the specified DataSet objects and in the global array
 ///It instructs to the graph to update, only when the http requests are done
 ///\author Rafael Karosuo
-function generateChartData() {	
+function generateChartData(sensor_type) {	
+		
+	request_locatioon_list(sensor_type); ///< Gets the location list of sensor_type, all the id_LiSANDRA of that kind of sensor
 	
 	///\brief Polling if available_sensors is already fulfilled (each 100ms)
 	interval_id = setInterval(function(){		
+			
 		if(available_sensors.length > 0 && location_list.length > 0){//IF already set the sensors and the location list, go ahead
 			clearInterval(interval_id); ///< Stop interval call						
-			json_cmd_year_measures.SensorType = $(".sensor").first().text();///< Asign sensor type to the command			
-			json_cmd_year_measures.Year = fetch_year; ///< Assing year to command	
-					
-			
+			json_cmd_year_measures.SensorType = sensor_type;///< Asign sensor type to the command			
+			json_cmd_year_measures.Year = fetch_year; ///< Assing year to command
+			greenhouse_chart.panels[0].title = sensor_type;	///< Assign the new sensor_type tittle to the property axis
+			greenhouse_chart.valueAxesSettings.unit = property_symbol_hash[sensor_type]; ///< Assign the text symbol to the propertiy values on the vertical axis
+				
 			getJSON_ByCmd(json_url, function(sensor_list){ 
 				for(id_LiSANDRA in location_list){///< Go for all the id groups, how many sensors of this kind needs to be created
 					var dataset = new AmCharts.DataSet(); ///<Create the new DataSet
@@ -168,7 +180,7 @@ function generateChartData() {
 					dataset.fieldMappings.push( {///< Add field mappings, using the properties of the json objects, "value" holds the "Valor" from sensor measures
 					  "fromField": "value",
 					  "toField": "value"
-					} );;
+					} );;				
 					greenhouse_chart.dataSets.push(dataset); ///< Bind the dataset with the current chart
 					greenhouse_chart.validateNow(); ///< Repaint graph, no need to validateDate() since it's a new DataSet object
 				}			
