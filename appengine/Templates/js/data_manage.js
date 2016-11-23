@@ -20,8 +20,8 @@ var limits_registered = []; ///< saves all the sms alert limits, there's always 
 var interval_id; ///< Holds the id to enable/disable interval callbacks
 var location_list = [] ///< Holds the id_LiSANDRA's list related with the current selected sensor
 
-json_url = 'http://localhost:8080/get_json' ///< URL to fetch the sensor measures
-config_url = 'http://localhost:8080/get_config' ///< URL to fetch the config values
+json_url = 'http://green-house-monitor.appspot.com/get_json' ///< URL to fetch the sensor measures
+config_url = 'http://green-house-monitor.appspot.com/get_config' ///< URL to fetch the config values
 
 function error_response(status){
 	alert('Something went wrong, HTTP response error: status'.replace("status",status));
