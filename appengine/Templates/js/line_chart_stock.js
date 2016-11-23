@@ -14,7 +14,7 @@ populate_year_dropdown(2016, 5);///< Populate the year selector dropdown list
 setup_default_dropdowns(); ///< Select default values on year and sensor type dropdown lists
 
 //~ Start of the loading GIF
-alert("This is the start");
+$('#loading').removeClass("hide").addClass("show");
 //~ -------------------------
 request_available_sensors();///< Request the available sensor types, this is an async task
 
@@ -258,8 +258,9 @@ function generateChartData(sensor_type) {
 					greenhouse_chart.validateNow(); ///< Repaint graph, no need to validateDate() since it's a new DataSet object
 				}
 				
-				//~ Start of the loading GIF
-				alert("This is the end");
+				//~ END of the loading GIF								
+				$('#loading').removeClass("show").addClass("hide");
+				$('#chartdiv').removeClass("hide").addClass("show");
 				//~ ------------------------- 			
 			
 			}, error_response, json_cmd_year_measures);	
