@@ -1,3 +1,5 @@
+
+# THE EXPLANATION IS IN THE DOCUMENTATION MODULE, ALL THE MODULES AND FUNCTIONS ARE THERE.
 # Green House Monitoring System - Server Module
 This module uses Google app engine and webapp2 framework, it's necessary to deploy this app to the cloud to use the application.
 
